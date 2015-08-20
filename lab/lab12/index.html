@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="description" content ="CS61A: Structure and Interpretation of Computer Programs" />
+    <meta name="keywords" content ="CS61A, Computer Science, CS, 61A, Programming, John DeNero, Berkeley, EECS" />
+    <meta name="author" content ="Albert Wu, Robert Huang, Alfonso Martinez, Cale Horeff, Chris Le, Colin Schoen, Derrick Lin, Jeffrey Lu, Jessica Gu, Rohit Lalchandani, Tammy Nguyen, Will Jiang, Yulin Zheng" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width">
+
+    <script src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
+    <link rel="icon" href="/assets/images/favicon.ico">
+
+    <link rel="stylesheet" href="/assets/css/mono-blue.css">
+    <script src="/assets/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    <link rel="stylesheet" type="text/css" href="/assets/css/resource.css" />
+<link rel="stylesheet" type="text/css" href="/assets/css/lab.css" />
+
+
+    <title>Lab 12: Interpreters | CS 61A Summer 2015</title>
+
+  </head>
+
+  <body id="index" class="home">
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-section">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">CS 61A</a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="navbar-collapse-section">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/">Calendar</a></li>
+            <li><a href="/office-hours.html">Office Hours</a></li>
+            <li><a href="/tutoring.html">Tutoring</a></li>
+
+            <li><a href="/articles/using-ok.html">Using OK</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Course Info <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="/articles/about.html">Syllabus</a></li>
+                <li><a href="/staff.html">Staff</a></li>
+                <li><a href="/weekly.html">Weekly Schedule</a></li>
+              </ul>
+            </li>
+
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div id="content" class="container">
+      <div class='row'>
+  <div class='col-md-9'>
+    <div class='page-header'>
+      <h1><span class="content-title-brand">Lab 12</span>: Interpreters</h1>
+    </div>
+
+    <p><i>Due at 11:59pm on 08/01/2015.</i></p>
+
+<h2 id='starter-files'>Starter Files</h2>
+
+<p>Download <a href="lab12.zip">lab12.zip</a>.
+Inside the archive, you will find starter files for the questions in this lab,
+  along with a copy of the <a href="ok">OK</a> autograder.</p>
+
+<h2 id='submission'>Submission</h2>
+
+<p>By the end of this lab, you should have submitted the lab with
+<code>python3 ok --submit</code>. You may submit more than once before the
+deadline; only the final submission will be graded.</p>
+
+
+
+<p>To receive credit for this lab, you must complete questions 1, 2, 3, and 4 in <code>interpreter.py</code></p>
+
+
+
+    
+
+
+<h2 id="introduction">Introduction</h2>
+
+
+<p>Today, we will build an interpreter for tic-tac-toe. This involves
+writing a program that accepts text commands, interprets those
+commands, and places pieces based on those commands.</p>
+
+<p>For example, the game might look like:</p>
+
+<pre><code>$ python3 interpreter.py
+
+Welcome to TicTacToe. Player0 is &#x27;X&#x27;, Player1 is &#x27;O&#x27;. Please use Capitals.
+Player0&gt; X 1
+   | X |  
+&#x2d;&#x2d;&#x2d;&#x2d;&#x2d;&#x2d;&#x2d;&#x2d;&#x2d;&#x2d;&#x2d;
+   |   |  
+&#x2d;&#x2d;&#x2d;&#x2d;&#x2d;&#x2d;&#x2d;&#x2d;&#x2d;&#x2d;&#x2d;
+   |   |  
+O must place a piece.
+Player1&gt; O 3
+   | X |  
+&#x2d;&#x2d;&#x2d;&#x2d;&#x2d;&#x2d;&#x2d;&#x2d;&#x2d;&#x2d;&#x2d;
+ O |   |  
+&#x2d;&#x2d;&#x2d;&#x2d;&#x2d;&#x2d;&#x2d;&#x2d;&#x2d;&#x2d;&#x2d;
+   |   |  
+X must place a piece.
+Player0&gt; X 7
+   | X |  
+&#x2d;&#x2d;&#x2d;&#x2d;&#x2d;&#x2d;&#x2d;&#x2d;&#x2d;&#x2d;&#x2d;
+ O |   |  
+&#x2d;&#x2d;&#x2d;&#x2d;&#x2d;&#x2d;&#x2d;&#x2d;&#x2d;&#x2d;&#x2d;
+   | X |  
+O must place a piece.</code></pre>
+
+<blockquote><p><strong>Note</strong>: Our implementation of tic-tac-toe enumerates the spaces from 0 to 8, starting in the top left corner and moving right until we hit the end of the row, at which point we repeat the same process at the next row.</p></blockquote>
+
+<p>At a high level, this is exactly what an interpeter does.</p>
+
+
+<h2 id="interpreters">Interpreters</h2>
+
+
+<p>An interpreter is a program that allows you to interact
+with the computer in a certain language. It understands the
+expressions that you type in through that language, and perform
+the corresponding actions in some way, usually using an underlying
+language.</p>
+
+<p>For example, you saw a simple calculator language in lecture that is
+written in Python.  In Project 4, you will write a Scheme interpreter
+in Python as well. Python itself is written in the C programming
+language.</p>
+
+<p>When you talk about an interpreter, there are two languages that
+are at work:</p>
+
+<ol>
+  <li>The language being interpreted, or the language being implemented.</li>
+  <li>The underlying implementation language, or the language used to implement the language being interpreted.</li>
+</ol>
+
+<p>For example, the language being interpreted in our Scheme interpreter is Scheme, while the underlying implementation language is Python.</p>
+
+<p>Note that the underlying language need not be different from the implemented
+language. In the previous incarnation of 61A, students were introduced to a
+Scheme interpreter written in Scheme. CS61A in Summer 2012 covered a Python
+interpreter written in Python!  This idea is called Metacircular Evaluation.</p>
+
+<p>Each interpreter has five parts:</p>
+
+<ul>
+  <li><strong>Read-Eval-Print-Loop</strong> (REPL for short) - the loop that waits for user
+  input, passes it to the parser and then the evaluator, and then
+  prints out the result.</li>
+  <li><strong>Lexer</strong> - first operation called by REPL. The lexer turns the user input string
+  into atomic pieces (tokens) that are like "words" of the implemented language. 
+  In tic-tac-toe, this part is combined with the parser in <code>in_game_parse</code> and <code>end_game_parse</code> in the line
+  <code>tokens = line.split()</code>.</li>
+  <li><strong>Parser</strong> - takes the tokens and organizes them in a data structure that
+  the underlying language understands. For our adventure game, holding the
+  tokens in a list is enough. For Scheme, we use deep linked lists (linked
+  lists whose elements can also be linked lists) to represent hierarchy and
+  recursion.</li>
+  <li><strong>Evaluator</strong> - takes in the aforementioned sequence and interprets it
+  accordingly to the rules of the language. The evaluator may call
+  apply to apply an evaluated operator to its evaluated operands.</li>
+  <li><strong>Apply</strong> - applies the operator to the argument values. Apply may call
+  the evaluator to do more work... this is possibly the most important
+  example of Mutual Recursion. Ever.</li>
+</ul>
+
+<p>Here's how all the pieces fit together:</p>
+
+<pre><code>              ____________________________________________
+              |                                            |
+              |_____     _________     __________    ______|
+User Input &#x2d;&#x2d;&gt;|Lexer|&#x2d;&#x2d;&gt; | Parser |&#x2d;&#x2d;&gt; |Evaluator|&#x2d;&#x2d;&gt;|Print|&#x2d;&#x2d;&gt; Output
+              |_____|    |________|    |_________|   |_____|
+              |                        __^_v____           |
+              ^                       |Apply    |          v
+              ^ REPL                  |_________|          v
+              |____________________________________________|</code></pre>
+
+<p>Now let's explore how these parts work together in our tic-tac-toe game!</p>
+
+
+<h2 id="tic-tac-toe">Tic-Tac-Toe</h2>
+
+
+<p>We can implement our game interpreter in Python3 by completing
+the interpreter(/game engine) in <code>interpreter.py</code>.</p>
+
+<p>First, here's an explanation of the the two files we were given:</p>
+
+<ul>
+  <li><code>interpreter.py</code>: This file includes the skeleton code of the interpreter that we are going to build.</li>
+  <li><code>tictactoe.py</code>: All of the implementation of the tic-tac-toe game itself is in this file.  It has already been completely implemented so you don't need to worry about that!  However, it is important for you to understand how the game runs.</li>
+</ul>
+
+<p>Now, let's look at the base code in <code>interpreter.py</code>.  We'll walk through and
+implement everything, function by function.</p>
+
+<ul>
+  <li><code>new_game</code>: our REPL. This function reads player input, calls
+  our two parse functions (<code>in_game_parse</code> and <code>end_game_parse</code>) to get an expression out (represented as a tuple), and then calls <code>ttc_eval</code> to perform the actions. It prints the results accordingly. Then it loops and waits for a new command.  This has already been implemented for you.</li>
+</ul>
+
+<p>You can try to run it by doing</p>
+
+<pre><code>$ python3 interpreter.py</code></pre>
+
+<p>However it's missing functionality, so nothing will really work.</p>
+
+<p>Let's fix that, shall we?</p>
+
+<h3 class="question" id="q1">Question 1: Placing pieces</h3>
+
+<blockquote><p><strong>Note</strong>: When you want to test manually, make sure you're in Python.
+Here's how:</p>
+
+<pre><code>$ python3 &#x2d;i interpreter.py
+Player0&gt;                 # Press ctrl&#x2d;D
+&gt;&gt;&gt; in_game_parse(&#x27;X 7&#x27;)      # Now you can call in_game_parse</code></pre>
+
+<p>Remember that when you run <code>interpreter.py</code>, you are talking to
+the tic-tac-toe program, which will evaluate your input in terms
+of the tic-tac-toe code. In order to talk to Python again, you
+kill the game by doing Ctrl-d.</p>
+
+<p>If the above didn't work (Ctrl-d takes you out of the entire
+interpreter), try</p>
+
+<pre><code>$ python3
+&gt;&gt;&gt; from interpreter import *
+&gt;&gt;&gt; in_game_parse(&#x27;X 7&#x27;)</code></pre>
+
+<p>OK tests can still be run the same way</p>
+
+<pre><code>$ python3 ok &#x2d;q in_game_parse</code></pre></blockquote>
+
+<p>Let's start things off by implementing parsing. We do this using two functions, the first of which is:</p>
+
+<ul>
+  <li><code>in_game_parse</code>: We call this function on input we received while the game is ongoing. The commands received in the game can correspond to either placing a new piece or resetting the current game.</li>
+</ul>
+
+<p>Since our game language is simple, we're going to do the lexical (turn line into tokens by using <code>line.split</code>) and syntactic analyses (turn tokens into an expression) all in one function. Our expression representation is a list (No ADT here). All expressions in our interpreter take the form of</p>
+
+<pre><code>[[operator], [operand]]</code></pre>
+
+<p>or</p>
+
+<pre><code>[[operator]]</code></pre>
+
+<p>Both of our parsers take in a line of text and return a expression of one of the above forms.  There are two possible expressions that <code>in_game_parse</code> could return:</p>
+
+<pre><code>[&#x27;Place&#x27;, [piece, space]]</code></pre>
+
+<p>and</p>
+
+<pre><code>[&#x27;Reset&#x27;]</code></pre>
+
+<p>In these expressions, <code>&#x27;Place&#x27;</code> and <code>&#x27;Reset&#x27;</code> are the operators and the list <code>[piece,space]</code> is the operand for <code>&#x27;Place&#x27;</code>.</p>
+
+<p>Implement <code>in_game_parse</code> according to the rules given in the doctest.</p>
+
+
+
+<pre><code>def in_game_parse(line):
+    &quot;&quot;&quot; Parse takes in a command from the user and returns an expression.
+    If the first word of the command is &#x27;Reset&#x27;, the returned expression
+    should be the &#x27;Reset&#x27; command. Otherwise, the line corresponds to a
+    &#x27;Place&#x27; expression.  In &#x27;Place&#x27; expressions, the first symbol (X or O)
+    encountered is the piece placed.  The first number 0 to 8 after finding
+    the piece is the space where it is to be placed.
+
+    Be sure to change the space number from a string to an integer.
+
+    &gt;&gt;&gt; in_game_parse(&#x27;Reset the board, please&#x27;)
+    [&#x27;Reset&#x27;]
+    &gt;&gt;&gt; in_game_parse(&#x27;Reset the board X 1&#x27;)
+    [&#x27;Reset&#x27;]
+    &gt;&gt;&gt; in_game_parse(&#x27;Place X on 1&#x27;)
+    [&#x27;Place&#x27;, [&#x27;X&#x27;, 1]]
+    &gt;&gt;&gt; in_game_parse(&#x27;I want O to be placed on 6&#x27;)
+    [&#x27;Place&#x27;, [&#x27;O&#x27;, 6]]
+    &gt;&gt;&gt; in_game_parse(&#x27;Please put X on 8&#x27;)
+    [&#x27;Place&#x27;, [&#x27;X&#x27;, 8]]
+    &gt;&gt;&gt; in_game_parse(&#x27;Would you put O on 2&#x27;)
+    [&#x27;Place&#x27;, [&#x27;O&#x27;, 2]]
+    &gt;&gt;&gt; in_game_parse(&#x27;7 X 5&#x27;)
+    [&#x27;Place&#x27;, [&#x27;X&#x27;, 5]]
+    &gt;&gt;&gt; in_game_parse(&#x27;X O 3&#x27;)
+    [&#x27;Place&#x27;, [&#x27;X&#x27;, 3]]
+    &gt;&gt;&gt; in_game_parse(&#x27;O 4 3&#x27;)
+    [&#x27;Place&#x27;, [&#x27;O&#x27;, 4]]
+    &gt;&gt;&gt; in_game_parse(&#x27;This is random gibberish&#x27;)
+    Traceback (most recent call last):
+    SyntaxError: Symbol or Place is missing
+    &quot;&quot;&quot;
+    tokens = line.split()
+    if not tokens:
+        raise SyntaxError(&#x27;No Command Given&#x27;)
+<div class="alt 0">    "*** YOUR CODE HERE ***"
+</div><div class="solution 0">&#x20;&#x20;&#x20;&#x20;&#x69;&#x66;&#x20;&#x74;&#x6f;&#x6b;&#x65;&#x6e;&#x73;&#x5b;&#x30;&#x5d;&#x20;&#x3d;&#x3d;&#x20;&#x27;&#x52;&#x65;&#x73;&#x65;&#x74;&#x27;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x5b;&#x27;&#x52;&#x65;&#x73;&#x65;&#x74;&#x27;&#x5d;</div>
+    exp = [&#x27;Place&#x27;, [&#x27;Put piece here&#x27;, &#x27;Put space here&#x27;]]
+    symbols = [&#x27;X&#x27;, &#x27;O&#x27;]
+    places = [str(i) for i in range(9)]
+
+    while tokens:
+        token = tokens.pop(0)
+<div class="alt 0">        "*** YOUR CODE HERE ***"
+</div><div class="solution 0">&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x69;&#x66;&#x20;&#x74;&#x6f;&#x6b;&#x65;&#x6e;&#x20;&#x69;&#x6e;&#x20;&#x73;&#x79;&#x6d;&#x62;&#x6f;&#x6c;&#x73;&#x20;&#x61;&#x6e;&#x64;&#x20;&#x65;&#x78;&#x70;&#x5b;&#x31;&#x5d;&#x5b;&#x30;&#x5d;&#x20;&#x6e;&#x6f;&#x74;&#x20;&#x69;&#x6e;&#x20;&#x73;&#x79;&#x6d;&#x62;&#x6f;&#x6c;&#x73;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x65;&#x78;&#x70;&#x5b;&#x31;&#x5d;&#x5b;&#x30;&#x5d;&#x20;&#x3d;&#x20;&#x74;&#x6f;&#x6b;&#x65;&#x6e;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x65;&#x6c;&#x69;&#x66;&#x20;&#x74;&#x6f;&#x6b;&#x65;&#x6e;&#x20;&#x69;&#x6e;&#x20;&#x70;&#x6c;&#x61;&#x63;&#x65;&#x73;&#x20;&#x61;&#x6e;&#x64;&#x20;&#x65;&#x78;&#x70;&#x5b;&#x31;&#x5d;&#x5b;&#x30;&#x5d;&#x20;&#x69;&#x6e;&#x20;&#x73;&#x79;&#x6d;&#x62;&#x6f;&#x6c;&#x73;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x65;&#x78;&#x70;&#x5b;&#x31;&#x5d;&#x5b;&#x31;&#x5d;&#x20;&#x3d;&#x20;&#x69;&#x6e;&#x74;&#x28;&#x74;&#x6f;&#x6b;&#x65;&#x6e;&#x29;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x65;&#x78;&#x70;</div>    raise SyntaxError(&quot;Symbol or Place is missing&quot;)</code></pre>
+
+
+    <button id='0' class='toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+<p>Use OK to test your code:</p><pre><code>python3 ok -q in_game_parse</code></pre>
+
+<h3 class="question" id="q2">Question 2: Starting a new game</h3>
+
+<p>The other parsing function that we use is:</p>
+
+<ul>
+  <li><code>end_game_parse</code>: This function is called on input we received after the game is over, specifically in response to the question "Would you like to play another game?".  We use this function to determine whether or not the player answered yes or no.</li>
+</ul>
+
+<p>This parsing function can return two commands:</p>
+
+<pre><code>[&#x27;New&#x27;]</code></pre>
+
+<p>and</p>
+
+<pre><code>[&#x27;End&#x27;]</code></pre>
+
+<p>It can also return <code>None</code> if it reads through the line and doesn't find a command.</p>
+
+<p>Implement <code>end_game_parse</code> according to the rules given in the doctest.</p>
+
+
+
+<pre><code>def end_game_parse(line):
+    &quot;&quot;&quot; Takes in input from a user after the game has ended.
+    The line is a response to the question &quot;Would you like to play another game?&quot;
+    This input can correspond to a &#x27;New&#x27; expression, an &#x27;End&#x27; expression, or 
+    None if no expression was found.
+
+    To determine the expression, we look at the first letter of each word in the line.
+    If the first letter of a word is &#x27;y&#x27; or &#x27;Y&#x27;, the command is &#x27;New&#x27;.
+    If the first letter of a word is &#x27;n&#x27; or &#x27;N&#x27;, the command is &#x27;End&#x27;.
+    If both &#x27;y&#x27; and &#x27;n&#x27; appear in the first letters of words in the input, we use whichever letter came first.
+
+    &gt;&gt;&gt; end_game_parse(&quot;yes&quot;)
+    [&#x27;New&#x27;]
+    &gt;&gt;&gt; end_game_parse(&quot;no&quot;)
+    [&#x27;End&#x27;]
+    &gt;&gt;&gt; end_game_parse(&quot;I do not like this game.&quot;) # &#x27;not&#x27; begins with &#x27;n&#x27;
+    [&#x27;End&#x27;]
+    &gt;&gt;&gt; end_game_parse(&quot;I could play against you all day&quot;) # &#x27;you&#x27; begins with &#x27;y&#x27;
+    [&#x27;New&#x27;]
+    &gt;&gt;&gt; end_game_parse(&quot;Purple snacks never yaks&quot;)
+    [&#x27;End&#x27;]
+    &gt;&gt;&gt; end_game_parse(&quot;There are zero valid commands in this line&quot;)
+    &quot;&quot;&quot;
+    tokens = line.split()
+    while tokens:
+        token = tokens.pop(0)
+<div class="alt 1">        "*** YOUR CODE HERE ***"
+</div><div class="solution 1">&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x69;&#x66;&#x20;&#x27;&#x79;&#x27;&#x20;&#x3d;&#x3d;&#x20;&#x74;&#x6f;&#x6b;&#x65;&#x6e;&#x5b;&#x30;&#x5d;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x5b;&#x27;&#x4e;&#x65;&#x77;&#x27;&#x5d;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x65;&#x6c;&#x69;&#x66;&#x20;&#x27;&#x6e;&#x27;&#x20;&#x3d;&#x3d;&#x20;&#x74;&#x6f;&#x6b;&#x65;&#x6e;&#x5b;&#x30;&#x5d;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x5b;&#x27;&#x45;&#x6e;&#x64;&#x27;&#x5d;</div>    return None</code></pre>
+
+
+    <button id='1' class='toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+<p>Use OK to test your code:</p><pre><code>python3 ok -q end_game_parse</code></pre>
+
+<p><em>Note</em>: This lab is heavy on the concepts, so the big picture is important. 
+We therefore tried to make the code simpler to write to help with that.
+We suggest that you actively discuss the interpretation process and how Scheme's
+additional features (e.g. <code>define</code>) might change the way we write certain parts of the
+interpreter.</p>
+
+<h3 class="question" id="q3">Question 3: Applying operators</h3>
+
+<p><code>ttc_apply</code>: Handles the application of the normal commands
+Since our commands are simple, <code>ttc_apply</code> just needs to apply the
+operator to the operand.</p>
+
+<p>The point of apply becomes more apparent with more complicated
+languages. (Why? Which features of programming languages are missing in
+this tic-tac-toe game language?)
+However the princple holds&mdash;apply takes care of the
+function calls that are evaluated without any special rules.</p>
+
+<p><em>Hint</em>: <code>ttc_apply</code> is really straightfoward. Don't overthink it.</p>
+
+
+
+<pre><code>def ttc_apply(operator, operand):
+    &quot;&quot;&quot;Applies the operator on the given operand.
+
+    (This is a very simple function.)
+
+    &gt;&gt;&gt; ttc_apply(lambda x: x*x, 7)
+    49
+    &gt;&gt;&gt; ttc_apply(lambda y: True, False)
+    True
+    &quot;&quot;&quot;
+<div class="alt 2">    "*** YOUR CODE HERE ***"
+</div><div class="solution 2">&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x6f;&#x70;&#x65;&#x72;&#x61;&#x74;&#x6f;&#x72;&#x28;&#x6f;&#x70;&#x65;&#x72;&#x61;&#x6e;&#x64;&#x29;</div></code></pre>
+
+
+    <button id='2' class='toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+<p>Use OK to test your code:</p><pre><code>python3 ok -q ttc_apply</code></pre>
+
+<h3 class="question" id="q4">Question 4: Evaluating commands</h3>
+
+<p><code>ttc_eval</code>: our Evaluator. We want to handle all kinds of expressions.</p>
+
+<p>The rule is:</p>
+
+<ul>
+  <li>Determine the operator that corresponds to each expression.
+  Then, apply the operator to the operand by calling <code>ttc_apply</code>.</li>
+</ul>
+
+<p><code>ttc_eval</code> is truly where the action is. It takes the expression
+that is passed in and performs the correct action based on the rules
+of our game language.</p>
+
+
+
+<pre><code>def ttc_eval(board, exp):
+    &quot;&quot;&quot; Takes in the game board and the expression returned from a parse function
+    and evaluates the expression given.
+
+    Be sure to call ttc_apply whenever you want to call a function.
+
+    If the command is &#x27;Reset&#x27; or &#x27;New&#x27;, we begin a new game.  Remember that new_game
+    takes in an intro message.  (We have no restrictions on what the message can be.)
+    If the command is &#x27;Place&#x27;, we want to place a piece on the given board.
+    (Look at the tictactoe.py file to figure out how to do this)
+    If the command is &#x27;End&#x27;, we do nothing.
+
+    &gt;&gt;&gt; b = Board(False) # Create a board that doesn&#x27;t print unnecessarily
+    &gt;&gt;&gt; line = &quot;Place X at 7&quot;
+    &gt;&gt;&gt; exp = in_game_parse(line)
+    &gt;&gt;&gt; ttc_eval(b, exp)
+    &#x27;X has been placed in space 7&#x27;
+    &gt;&gt;&gt; ttc_eval(b, in_game_parse(&quot;O in for 6&quot;))
+    &#x27;O has been placed in space 6&#x27;
+    &quot;&quot;&quot;
+    if exp[0] == &#x27;Reset&#x27;:
+        return ttc_apply(new_game, &quot;The game has been reset!&quot;)
+<div class="solution 3">&#x20;&#x20;&#x20;&#x20;&#x65;&#x6c;&#x69;&#x66;&#x20;&#x65;&#x78;&#x70;&#x5b;&#x30;&#x5d;&#x20;&#x3d;&#x3d;&#x20;&#x27;&#x50;&#x6c;&#x61;&#x63;&#x65;&#x27;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x74;&#x74;&#x63;&#x5f;&#x61;&#x70;&#x70;&#x6c;&#x79;&#x28;&#x62;&#x6f;&#x61;&#x72;&#x64;&#x2e;&#x70;&#x6c;&#x61;&#x63;&#x65;&#x5f;&#x70;&#x69;&#x65;&#x63;&#x65;&#x2c;&#x65;&#x78;&#x70;&#x5b;&#x31;&#x5d;&#x29;&#xa;&#x20;&#x20;&#x20;&#x20;&#x65;&#x6c;&#x69;&#x66;&#x20;&#x65;&#x78;&#x70;&#x5b;&#x30;&#x5d;&#x20;&#x3d;&#x3d;&#x20;&#x27;&#x4e;&#x65;&#x77;&#x27;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x74;&#x74;&#x63;&#x5f;&#x61;&#x70;&#x70;&#x6c;&#x79;&#x28;&#x6e;&#x65;&#x77;&#x5f;&#x67;&#x61;&#x6d;&#x65;&#x2c;&#x20;&#x22;&#x4e;&#x65;&#x77;&#x20;&#x67;&#x61;&#x6d;&#x65;&#x21;&#x22;&#x29;&#xa;&#x20;&#x20;&#x20;&#x20;&#x65;&#x6c;&#x69;&#x66;&#x20;&#x65;&#x78;&#x70;&#x5b;&#x30;&#x5d;&#x20;&#x3d;&#x3d;&#x20;&#x27;&#x45;&#x6e;&#x64;&#x27;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x4e;&#x6f;&#x6e;&#x65;</div></code></pre>
+
+
+    <button id='3' class='toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+<p>Use OK to test your code:</p><pre><code>python3 ok -q ttc_eval</code></pre>
+
+<p>AT THIS POINT YOU CAN PLAY THE GAME! :D</p>
+
+
+<h2 id="conclusion">Conclusion</h2>
+
+
+<p>Hope this lab was fun. :)</p>
+
+<p>Lab Takeaways:</p>
+
+<ul>
+  <li>Interpreters allow us to directly interact with the computer through
+  a language.</li>
+  <li>Interpreters are made of a REPL, a parser, an evaluator, and an
+  apply'er. They interact with each other in specific ways.</li>
+  <li>There are two languages when talking about an interpreter: the
+  underlying language vs language being implemented.</li>
+  <li>Special forms have their own rules for being evaluted.  They don't
+  get handled in apply.</li>
+  <li>In interpreter.py, the tic-tac-toe game language is interpreted by the
+  Python program. You talk to the computer in tic-tac-toe talk which gets
+  translated to actions in the underlying Python language.</li>
+  <li>No tree recursion between <code>adv_eval</code> and <code>adv_apply</code>: our simple game
+  language doesn't need it. However, think about what why mutual recursion
+  is necessary in Scheme.</li>
+</ul>
+
+<p>In Project 4, you will implement a Scheme interpreter in Python.</p>
+
+<p>There are no extra questions this lab.  Study for the midterm!</p>
+
+
+  </div>
+
+  <div class='col-md-3'>
+    <nav class='hidden-print hidden-sm hidden-xs sidebar'>
+      <ul>
+  <li><a href="#introduction">Introduction</a></li>
+  <li><a href="#interpreters">Interpreters</a></li>
+  <li><a href="#tic-tac-toe">Tic-Tac-Toe</a></li>
+  <ul>
+  <li><a href="#q1">Question 1: Placing pieces</a></li>
+  <li><a href="#q2">Question 2: Starting a new game</a></li>
+  <li><a href="#q3">Question 3: Applying operators</a></li>
+  <li><a href="#q4">Question 4: Evaluating commands</a></li>
+</ul>
+
+  <li><a href="#conclusion">Conclusion</a></li>
+</ul>
+
+    </nav>
+  </div>
+
+</div>
+    </div>
+  </body>
+  <script>
+  $('.sidebar ul').addClass('nav nav-stacked');
+  $('body').scrollspy({
+    target: '.sidebar',
+    offset: 40
+  });
+</script>
+<script src="//code.jquery.com/jquery-latest.js"></script>
+<script>
+  $(function() {
+    if (false) {
+      $('.toggleButton').css('display', 'inline-block');
+      $('.toggleButton').click(function() {
+        var solution_id = $(this).attr('id');
+        $('div.' + solution_id).slideToggle(600);
+      });
+    }
+    // Always display these toggle buttons
+    $('.toggleButtonShow').click(function() {
+      var solution_id = $(this).attr('id');
+      $('div.' + solution_id).slideToggle(600);
+    });
+  });
+</script>
+</html>

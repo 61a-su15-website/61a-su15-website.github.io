@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="description" content ="CS61A: Structure and Interpretation of Computer Programs" />
+    <meta name="keywords" content ="CS61A, Computer Science, CS, 61A, Programming, John DeNero, Berkeley, EECS" />
+    <meta name="author" content ="Albert Wu, Robert Huang, Alfonso Martinez, Cale Horeff, Chris Le, Colin Schoen, Derrick Lin, Jeffrey Lu, Jessica Gu, Rohit Lalchandani, Tammy Nguyen, Will Jiang, Yulin Zheng" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width">
+
+    <script src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
+    <link rel="icon" href="/assets/images/favicon.ico">
+
+    <link rel="stylesheet" href="/assets/css/mono-blue.css">
+    <script src="/assets/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    <link rel="stylesheet" type="text/css" href="/assets/css/resource.css" />
+<link rel="stylesheet" type="text/css" href="/assets/css/lab.css" />
+
+
+    <title>Diagnostic 4: Week 4 review | CS 61A Summer 2015</title>
+
+  </head>
+
+  <body id="index" class="home">
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-section">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">CS 61A</a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="navbar-collapse-section">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/">Calendar</a></li>
+            <li><a href="/office-hours.html">Office Hours</a></li>
+            <li><a href="/tutoring.html">Tutoring</a></li>
+
+            <li><a href="/articles/using-ok.html">Using OK</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Course Info <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="/articles/about.html">Syllabus</a></li>
+                <li><a href="/staff.html">Staff</a></li>
+                <li><a href="/weekly.html">Weekly Schedule</a></li>
+              </ul>
+            </li>
+
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div id="content" class="container">
+      <div class='row'>
+  <div class='col-md-9'>
+    <div class='page-header'>
+      <h1><span class="content-title-brand">Diagnostic 4</span>: Week
+4 review</h1>
+    </div>
+
+    Diagnostics are meant for you to check your understanding of the week's
+material. They are not worth any points and are not counted towards midterm
+recovery points; instead, diagnostics are solely for your benefit.
+
+If you find yourself struggling with the questions in this diagnostic, consider
+signing up for <a href="/tutoring.html">Tutoring</a>.
+
+    
+
+
+<h2 id="trees">Trees</h2>
+
+
+<h3 class="question" id="q1">Question 1: Countdown</h3>
+
+<p>Define the function <code>countdown_tree</code> so that it returns the specific
+tree below. Make sure to use the tree constructor from the Data Abstraction!</p>
+
+<pre><code>    10
+   / \
+  /   \
+ 9     7
+ |     |
+ 8     6
+       |
+       5</code></pre>
+
+<p>The doctest below shows the <code>print_tree</code> representation:</p>
+
+
+
+<pre><code>def countdown_tree():
+    &quot;&quot;&quot;Return a tree that has the following structure.
+
+    &gt;&gt;&gt; print_tree(countdown_tree())
+    10
+      9
+        8
+      7
+        6
+          5
+    &quot;&quot;&quot;
+<div class="alt 0">    "*** YOUR CODE HERE ***"
+</div><div class="solution 0">&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x74;&#x72;&#x65;&#x65;&#x28;&#x31;&#x30;&#x2c;&#x20;&#x5b;&#x74;&#x72;&#x65;&#x65;&#x28;&#x39;&#x2c;&#x20;&#x5b;&#x74;&#x72;&#x65;&#x65;&#x28;&#x38;&#x29;&#x5d;&#x29;&#x2c;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x74;&#x72;&#x65;&#x65;&#x28;&#x37;&#x2c;&#x20;&#x5b;&#x74;&#x72;&#x65;&#x65;&#x28;&#x36;&#x2c;&#x20;&#x5b;&#x74;&#x72;&#x65;&#x65;&#x28;&#x35;&#x29;&#x5d;&#x29;&#x5d;&#x29;&#x5d;&#x29;</div></code></pre>
+
+
+    <button id='0' class='toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+<ok countdown_tree>
+
+<h3 class="question" id="q2">Question 2</h3>
+
+<p>Define <code>max_tree</code>, which takes a tree and returns the largest entry in teh tree.</p>
+
+
+
+<pre><code>def max_tree(t):
+<div class="alt 1">    "*** YOUR CODE HERE ***"
+</div><div class="solution 1">&#x20;&#x20;&#x20;&#x20;&#x69;&#x66;&#x20;&#x69;&#x73;&#x5f;&#x6c;&#x65;&#x61;&#x66;&#x28;&#x74;&#x29;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x65;&#x6e;&#x74;&#x72;&#x79;&#x28;&#x74;&#x29;&#xa;&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x6d;&#x61;&#x78;&#x28;&#x65;&#x6e;&#x74;&#x72;&#x79;&#x28;&#x74;&#x29;&#x2c;&#x20;&#x6d;&#x61;&#x78;&#x28;&#x5b;&#x6d;&#x61;&#x78;&#x5f;&#x74;&#x72;&#x65;&#x65;&#x28;&#x73;&#x29;&#x20;&#x66;&#x6f;&#x72;&#x20;&#x73;&#x20;&#x69;&#x6e;&#x20;&#x73;&#x75;&#x62;&#x74;&#x72;&#x65;&#x65;&#x73;&#x28;&#x74;&#x29;&#x5d;&#x29;&#x29;</div></code></pre>
+
+
+    <button id='1' class='toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+<h3 class="question" id="q3">Question 3: Size</h3>
+
+<p>Define the function <code>size_of_tree</code>, which takes in a tree as an
+argument and returns the number of entries in the tree.</p>
+
+
+
+<pre><code>def size_of_tree(t):
+    &quot;&quot;&quot;Return the number of entries in the tree.
+
+    &gt;&gt;&gt; print_tree(numbers)
+    1
+      2
+      3
+        4
+        5
+      6
+        7
+    &gt;&gt;&gt; size_of_tree(numbers)
+    7
+    &quot;&quot;&quot;
+<div class="alt 2">    "*** YOUR CODE HERE ***"
+</div><div class="solution 2">&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x31;&#x20;&#x2b;&#x20;&#x73;&#x75;&#x6d;&#x28;&#x5b;&#x73;&#x69;&#x7a;&#x65;&#x5f;&#x6f;&#x66;&#x5f;&#x74;&#x72;&#x65;&#x65;&#x28;&#x74;&#x29;&#x20;&#x66;&#x6f;&#x72;&#x20;&#x74;&#x20;&#x69;&#x6e;&#x20;&#x73;&#x75;&#x62;&#x74;&#x72;&#x65;&#x65;&#x73;&#x28;&#x74;&#x29;&#x5d;&#x29;&#xa;&#xa;&#x23;&#x20;&#x41;&#x6c;&#x74;&#x65;&#x72;&#x6e;&#x61;&#x74;&#x65;&#x20;&#x73;&#x6f;&#x6c;&#x75;&#x74;&#x69;&#x6f;&#x6e;&#xa;&#x64;&#x65;&#x66;&#x20;&#x73;&#x69;&#x7a;&#x65;&#x5f;&#x6f;&#x66;&#x5f;&#x74;&#x72;&#x65;&#x65;&#x28;&#x74;&#x29;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x73;&#x75;&#x62;&#x74;&#x72;&#x65;&#x65;&#x73;&#x5f;&#x73;&#x75;&#x6d;&#x20;&#x3d;&#x20;&#x30;&#xa;&#x20;&#x20;&#x20;&#x20;&#x66;&#x6f;&#x72;&#x20;&#x73;&#x75;&#x62;&#x74;&#x72;&#x65;&#x65;&#x20;&#x69;&#x6e;&#x20;&#x73;&#x75;&#x62;&#x74;&#x72;&#x65;&#x65;&#x73;&#x28;&#x74;&#x29;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x73;&#x75;&#x62;&#x74;&#x72;&#x65;&#x65;&#x73;&#x5f;&#x73;&#x75;&#x6d;&#x20;&#x2b;&#x3d;&#x20;&#x73;&#x69;&#x7a;&#x65;&#x5f;&#x6f;&#x66;&#x5f;&#x74;&#x72;&#x65;&#x65;&#x28;&#x73;&#x75;&#x62;&#x74;&#x72;&#x65;&#x65;&#x29;&#xa;&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x31;&#x20;&#x2b;&#x20;&#x73;&#x75;&#x62;&#x74;&#x72;&#x65;&#x65;&#x73;&#x5f;&#x73;&#x75;&#x6d;</div></code></pre>
+
+
+    <button id='2' class='toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+<ok size_of_tree>
+
+<h3 class="question" id="q4">Question 4: Same shape</h3>
+
+<p>Define a function <code>same_shape</code> that, given two trees, <code>t1</code> and <code>t2</code>,
+returns <code>True</code> if the two trees have the same shape (but not
+necessarily the same data in each node) and False otherwise.</p>
+
+
+
+<pre><code>def same_shape(t1, t2):
+    &quot;&quot;&quot;Return True if t1 is indentical in shape to t2.
+
+    &gt;&gt;&gt; test_tree1 = tree(1, [tree(2), tree(3)])
+    &gt;&gt;&gt; test_tree2 = tree(4, [tree(5), tree(6)])
+    &gt;&gt;&gt; test_tree3 = tree(1,
+    ...                   [tree(2,
+    ...                         [tree(3)])])
+    &gt;&gt;&gt; test_tree4 = tree(4,
+    ...                   [tree(5,
+    ...                         [tree(6)])])
+    &gt;&gt;&gt; same_shape(test_tree1, test_tree2)
+    True
+    &gt;&gt;&gt; same_shape(test_tree3, test_tree4)
+    True
+    &gt;&gt;&gt; same_shape(test_tree2, test_tree4)
+    False
+    &quot;&quot;&quot;
+<div class="alt 3">    "*** YOUR CODE HERE ***"
+</div><div class="solution 3">&#x20;&#x20;&#x20;&#x20;&#x73;&#x31;&#x2c;&#x20;&#x73;&#x32;&#x20;&#x3d;&#x20;&#x73;&#x75;&#x62;&#x74;&#x72;&#x65;&#x65;&#x73;&#x28;&#x74;&#x31;&#x29;&#x2c;&#x20;&#x73;&#x75;&#x62;&#x74;&#x72;&#x65;&#x65;&#x73;&#x28;&#x74;&#x32;&#x29;&#xa;&#x20;&#x20;&#x20;&#x20;&#x69;&#x66;&#x20;&#x6c;&#x65;&#x6e;&#x28;&#x73;&#x31;&#x29;&#x20;&#x21;&#x3d;&#x20;&#x6c;&#x65;&#x6e;&#x28;&#x73;&#x32;&#x29;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x46;&#x61;&#x6c;&#x73;&#x65;&#xa;&#x20;&#x20;&#x20;&#x20;&#x66;&#x6f;&#x72;&#x20;&#x69;&#x6e;&#x64;&#x65;&#x78;&#x20;&#x69;&#x6e;&#x20;&#x72;&#x61;&#x6e;&#x67;&#x65;&#x28;&#x6c;&#x65;&#x6e;&#x28;&#x73;&#x31;&#x29;&#x29;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x69;&#x66;&#x20;&#x6e;&#x6f;&#x74;&#x20;&#x73;&#x61;&#x6d;&#x65;&#x5f;&#x73;&#x68;&#x61;&#x70;&#x65;&#x28;&#x73;&#x31;&#x5b;&#x69;&#x6e;&#x64;&#x65;&#x78;&#x5d;&#x2c;&#x20;&#x73;&#x32;&#x5b;&#x69;&#x6e;&#x64;&#x65;&#x78;&#x5d;&#x29;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x46;&#x61;&#x6c;&#x73;&#x65;&#xa;&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x54;&#x72;&#x75;&#x65;&#xa;&#xa;&#x23;&#x20;&#x41;&#x6c;&#x74;&#x65;&#x72;&#x6e;&#x61;&#x74;&#x65;&#x20;&#x73;&#x6f;&#x6c;&#x75;&#x74;&#x69;&#x6f;&#x6e;&#xa;&#x64;&#x65;&#x66;&#x20;&#x73;&#x61;&#x6d;&#x65;&#x5f;&#x73;&#x68;&#x61;&#x70;&#x65;&#x28;&#x74;&#x31;&#x2c;&#x20;&#x74;&#x32;&#x29;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x63;&#x68;&#x69;&#x6c;&#x64;&#x72;&#x65;&#x6e;&#x5f;&#x73;&#x61;&#x6d;&#x65;&#x20;&#x3d;&#x20;&#x61;&#x6c;&#x6c;&#x28;&#x6d;&#x61;&#x70;&#x28;&#x73;&#x61;&#x6d;&#x65;&#x5f;&#x73;&#x68;&#x61;&#x70;&#x65;&#x2c;&#x20;&#x73;&#x75;&#x62;&#x74;&#x72;&#x65;&#x65;&#x73;&#x28;&#x74;&#x31;&#x29;&#x2c;&#x20;&#x73;&#x75;&#x62;&#x74;&#x72;&#x65;&#x65;&#x73;&#x28;&#x74;&#x32;&#x29;&#x29;&#x29;&#xa;&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x6c;&#x65;&#x6e;&#x28;&#x73;&#x75;&#x62;&#x74;&#x72;&#x65;&#x65;&#x73;&#x28;&#x74;&#x31;&#x29;&#x29;&#x20;&#x3d;&#x3d;&#x20;&#x6c;&#x65;&#x6e;&#x28;&#x73;&#x75;&#x62;&#x74;&#x72;&#x65;&#x65;&#x73;&#x28;&#x74;&#x32;&#x29;&#x29;&#x20;&#x61;&#x6e;&#x64;&#x20;&#x63;&#x68;&#x69;&#x6c;&#x64;&#x72;&#x65;&#x6e;&#x5f;&#x73;&#x61;&#x6d;&#x65;</div></code></pre>
+
+
+    <button id='3' class='toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+<ok same_shape>
+
+
+<h2 id="mutability">Mutability</h2>
+
+
+<h3 class="question" id="q5">Question 5: Fibonacci</h3>
+
+<p>Write a function <code>make_fib</code> that returns a function that returns the
+next Fibonacci number each time it is called.</p>
+
+
+
+<pre><code>def make_fib():
+    &quot;&quot;&quot;Returns a function that returns the next Fibonacci number
+    every time it is called.
+
+    &gt;&gt;&gt; fib = make_fib()
+    &gt;&gt;&gt; fib()
+    0
+    &gt;&gt;&gt; fib()
+    1
+    &gt;&gt;&gt; fib()
+    1
+    &gt;&gt;&gt; fib()
+    2
+    &gt;&gt;&gt; fib()
+    3
+    &quot;&quot;&quot;
+<div class="alt 4">    "*** YOUR CODE HERE ***"
+</div><div class="solution 4">&#x20;&#x20;&#x20;&#x20;&#x63;&#x75;&#x72;&#x2c;&#x20;&#x6e;&#x65;&#x78;&#x74;&#x20;&#x3d;&#x20;&#x30;&#x2c;&#x20;&#x31;&#xa;&#x20;&#x20;&#x20;&#x20;&#x64;&#x65;&#x66;&#x20;&#x66;&#x69;&#x62;&#x28;&#x29;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x6e;&#x6f;&#x6e;&#x6c;&#x6f;&#x63;&#x61;&#x6c;&#x20;&#x63;&#x75;&#x72;&#x2c;&#x20;&#x6e;&#x65;&#x78;&#x74;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x73;&#x75;&#x6c;&#x74;&#x20;&#x3d;&#x20;&#x63;&#x75;&#x72;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x63;&#x75;&#x72;&#x2c;&#x20;&#x6e;&#x65;&#x78;&#x74;&#x20;&#x3d;&#x20;&#x6e;&#x65;&#x78;&#x74;&#x2c;&#x20;&#x63;&#x75;&#x72;&#x20;&#x2b;&#x20;&#x6e;&#x65;&#x78;&#x74;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x72;&#x65;&#x73;&#x75;&#x6c;&#x74;&#xa;&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x66;&#x69;&#x62;</div></code></pre>
+
+
+    <button id='4' class='toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+<h3 class="question" id="q6">Question 6</h3>
+
+<p>Define a function <code>make_accumulator</code> that returns an <code>accumulator</code>
+function, which takes one numerical argument and returns the sum of all
+arguments ever passed to <code>accumulator</code>.  Use a <code>list</code> and not a
+<code>nonlocal</code> statement:</p>
+
+
+
+<pre><code>def make_accumulator():
+    &quot;&quot;&quot;Return an accumulator function that takes a single numeric argument and
+    accumulates that argument into total, then returns total.
+
+    &gt;&gt;&gt; acc = make_accumulator()
+    &gt;&gt;&gt; acc(15)
+    15
+    &gt;&gt;&gt; acc(10)
+    25
+    &gt;&gt;&gt; acc2 = make_accumulator()
+    &gt;&gt;&gt; acc2(7)
+    7
+    &gt;&gt;&gt; acc3 = acc2
+    &gt;&gt;&gt; acc3(6)
+    13
+    &gt;&gt;&gt; acc2(5)
+    18
+    &gt;&gt;&gt; acc(4)
+    29
+    &quot;&quot;&quot;
+<div class="alt 5">    "*** YOUR CODE HERE ***"
+</div><div class="solution 5">&#x20;&#x20;&#x20;&#x20;&#x74;&#x6f;&#x74;&#x61;&#x6c;&#x20;&#x3d;&#x20;&#x5b;&#x30;&#x5d;&#xa;&#x20;&#x20;&#x20;&#x20;&#x64;&#x65;&#x66;&#x20;&#x61;&#x63;&#x63;&#x75;&#x6d;&#x75;&#x6c;&#x61;&#x74;&#x6f;&#x72;&#x28;&#x61;&#x6d;&#x6f;&#x75;&#x6e;&#x74;&#x29;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x74;&#x6f;&#x74;&#x61;&#x6c;&#x5b;&#x30;&#x5d;&#x20;&#x2b;&#x3d;&#x20;&#x61;&#x6d;&#x6f;&#x75;&#x6e;&#x74;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x74;&#x6f;&#x74;&#x61;&#x6c;&#x5b;&#x30;&#x5d;&#xa;&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x61;&#x63;&#x63;&#x75;&#x6d;&#x75;&#x6c;&#x61;&#x74;&#x6f;&#x72;</div></code></pre>
+
+
+    <button id='5' class='toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+<h3 class="question" id="q7">Question 7</h3>
+
+<p>Define a function <code>make_accumulator_nonlocal</code> that returns an
+<code>accumulator</code> function, which takes one numerical argument and returns
+the sum of all arguments ever passed to <code>accumulator</code>. Use a <code>nonlocal</code>
+statement, but no <code>list</code> or <code>dict</code>:</p>
+
+
+
+<pre><code>def make_accumulator_nonlocal():
+    &quot;&quot;&quot;Return an accumulator function that takes a single numeric argument and
+    accumulates that argument into total, then returns total.
+
+    &gt;&gt;&gt; acc = make_accumulator_nonlocal()
+    &gt;&gt;&gt; acc(15)
+    15
+    &gt;&gt;&gt; acc(10)
+    25
+    &gt;&gt;&gt; acc2 = make_accumulator_nonlocal()
+    &gt;&gt;&gt; acc2(7)
+    7
+    &gt;&gt;&gt; acc3 = acc2
+    &gt;&gt;&gt; acc3(6)
+    13
+    &gt;&gt;&gt; acc2(5)
+    18
+    &gt;&gt;&gt; acc(4)
+    29
+    &quot;&quot;&quot;
+<div class="alt 6">    "*** YOUR CODE HERE ***"
+</div><div class="solution 6">&#x20;&#x20;&#x20;&#x20;&#x74;&#x6f;&#x74;&#x61;&#x6c;&#x20;&#x3d;&#x20;&#x30;&#xa;&#x20;&#x20;&#x20;&#x20;&#x64;&#x65;&#x66;&#x20;&#x61;&#x63;&#x63;&#x75;&#x6d;&#x75;&#x6c;&#x61;&#x74;&#x6f;&#x72;&#x28;&#x61;&#x6d;&#x6f;&#x75;&#x6e;&#x74;&#x29;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x6e;&#x6f;&#x6e;&#x6c;&#x6f;&#x63;&#x61;&#x6c;&#x20;&#x74;&#x6f;&#x74;&#x61;&#x6c;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x74;&#x6f;&#x74;&#x61;&#x6c;&#x20;&#x2b;&#x3d;&#x20;&#x61;&#x6d;&#x6f;&#x75;&#x6e;&#x74;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x74;&#x6f;&#x74;&#x61;&#x6c;&#xa;&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x61;&#x63;&#x63;&#x75;&#x6d;&#x75;&#x6c;&#x61;&#x74;&#x6f;&#x72;</div></code></pre>
+
+
+    <button id='6' class='toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+<h3 class="question" id="q8">Question 8: Filter</h3>
+
+<p>Write a function that filters a list, only keeping elements that
+satisfy the predicate. Be sure to mutate the original list.</p>
+
+<blockquote><p>This function should NOT return anything. This is to emphasize that this
+function should utilize mutability.</p></blockquote>
+
+
+
+<pre><code>def filter(pred, lst):
+    &quot;&quot;&quot;Filters lst with pred using mutation.
+    &gt;&gt;&gt; original_list = [5, &#x2d;1, 2, 0]
+    &gt;&gt;&gt; filter(lambda x: x % 2 == 0, original_list)
+    &gt;&gt;&gt; original_list
+    [2, 0]
+    &quot;&quot;&quot;
+<div class="alt 7">    "*** YOUR CODE HERE ***"
+</div><div class="solution 7">&#x20;&#x20;&#x20;&#x20;&#x69;&#x20;&#x3d;&#x20;&#x6c;&#x65;&#x6e;&#x28;&#x6c;&#x73;&#x74;&#x29;&#x20;&#x2d;&#x20;&#x31;&#xa;&#x20;&#x20;&#x20;&#x20;&#x77;&#x68;&#x69;&#x6c;&#x65;&#x20;&#x69;&#x20;&#x3e;&#x3d;&#x20;&#x30;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x69;&#x66;&#x20;&#x6e;&#x6f;&#x74;&#x20;&#x70;&#x72;&#x65;&#x64;&#x28;&#x6c;&#x73;&#x74;&#x5b;&#x69;&#x5d;&#x29;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x6c;&#x73;&#x74;&#x2e;&#x70;&#x6f;&#x70;&#x28;&#x69;&#x29;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x69;&#x20;&#x2d;&#x3d;&#x20;&#x31;&#xa;&#xa;&#x64;&#x65;&#x66;&#x20;&#x66;&#x69;&#x6c;&#x74;&#x65;&#x72;&#x28;&#x70;&#x72;&#x65;&#x64;&#x2c;&#x20;&#x6c;&#x73;&#x74;&#x29;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x22;&#x22;&#x22;&#x46;&#x69;&#x6c;&#x74;&#x65;&#x72;&#x73;&#x20;&#x6c;&#x73;&#x74;&#x20;&#x77;&#x69;&#x74;&#x68;&#x20;&#x70;&#x72;&#x65;&#x64;&#x20;&#x75;&#x73;&#x69;&#x6e;&#x67;&#x20;&#x6d;&#x75;&#x74;&#x61;&#x74;&#x69;&#x6f;&#x6e;&#x2e;&#xa;&#x20;&#x20;&#x20;&#x20;&#x3e;&#x3e;&#x3e;&#x20;&#x6f;&#x72;&#x69;&#x67;&#x69;&#x6e;&#x61;&#x6c;&#x5f;&#x6c;&#x69;&#x73;&#x74;&#x20;&#x3d;&#x20;&#x5b;&#x35;&#x2c;&#x20;&#x2d;&#x31;&#x2c;&#x20;&#x32;&#x2c;&#x20;&#x30;&#x5d;&#xa;&#x20;&#x20;&#x20;&#x20;&#x3e;&#x3e;&#x3e;&#x20;&#x66;&#x69;&#x6c;&#x74;&#x65;&#x72;&#x28;&#x6c;&#x61;&#x6d;&#x62;&#x64;&#x61;&#x20;&#x78;&#x3a;&#x20;&#x78;&#x20;&#x25;&#x20;&#x32;&#x20;&#x3d;&#x3d;&#x20;&#x30;&#x2c;&#x20;&#x6f;&#x72;&#x69;&#x67;&#x69;&#x6e;&#x61;&#x6c;&#x5f;&#x6c;&#x69;&#x73;&#x74;&#x29;&#xa;&#x20;&#x20;&#x20;&#x20;&#x3e;&#x3e;&#x3e;&#x20;&#x6f;&#x72;&#x69;&#x67;&#x69;&#x6e;&#x61;&#x6c;&#x5f;&#x6c;&#x69;&#x73;&#x74;&#xa;&#x20;&#x20;&#x20;&#x20;&#x5b;&#x32;&#x2c;&#x20;&#x30;&#x5d;&#xa;&#x20;&#x20;&#x20;&#x20;&#x22;&#x22;&#x22;&#xa;&#x20;&#x20;&#x20;&#x20;&#x69;&#x66;&#x20;&#x6c;&#x73;&#x74;&#x3a;&#x20;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x74;&#x65;&#x6d;&#x70;&#x20;&#x3d;&#x20;&#x6c;&#x73;&#x74;&#x2e;&#x70;&#x6f;&#x70;&#x28;&#x30;&#x29;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x66;&#x69;&#x6c;&#x74;&#x65;&#x72;&#x28;&#x70;&#x72;&#x65;&#x64;&#x2c;&#x20;&#x6c;&#x73;&#x74;&#x29;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x69;&#x66;&#x20;&#x70;&#x72;&#x65;&#x64;&#x28;&#x74;&#x65;&#x6d;&#x70;&#x29;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x6c;&#x73;&#x74;&#x2e;&#x69;&#x6e;&#x73;&#x65;&#x72;&#x74;&#x28;&#x30;&#x2c;&#x20;&#x74;&#x65;&#x6d;&#x70;&#x29;</div></code></pre>
+
+
+    <button id='7' class='toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+<h3 class="question" id="q9">Question 9: Reverse</h3>
+
+<p>Write a function that reverses the given list. Be sure to mutate the original list.</p>
+
+<blockquote><p>This function should NOT return anything. This is to emphasize that this
+function should utilize mutability.</p></blockquote>
+
+
+
+<pre><code>def reverse(lst):
+    &quot;&quot;&quot;Reverses lst using mutation.
+    &gt;&gt;&gt; original_list = [5, &#x2d;1, 29, 0]
+    &gt;&gt;&gt; reverse(original_list)
+    &gt;&gt;&gt; original_list
+    [0, 29, &#x2d;1, 5]
+    &quot;&quot;&quot;
+<div class="alt 8">    "*** YOUR CODE HERE ***"
+</div><div class="solution 8">&#x20;&#x20;&#x20;&#x20;&#x23;&#x20;&#x69;&#x74;&#x65;&#x72;&#x61;&#x74;&#x69;&#x76;&#x65;&#x20;&#x73;&#x6f;&#x6c;&#x75;&#x74;&#x69;&#x6f;&#x6e;&#xa;&#x20;&#x20;&#x20;&#x20;&#x6d;&#x69;&#x64;&#x70;&#x6f;&#x69;&#x6e;&#x74;&#x20;&#x3d;&#x20;&#x6c;&#x65;&#x6e;&#x28;&#x6c;&#x73;&#x74;&#x29;&#x20;&#x2f;&#x2f;&#x20;&#x32;&#xa;&#x20;&#x20;&#x20;&#x20;&#x6c;&#x61;&#x73;&#x74;&#x20;&#x3d;&#x20;&#x6c;&#x65;&#x6e;&#x28;&#x6c;&#x73;&#x74;&#x29;&#x20;&#x2d;&#x20;&#x31;&#xa;&#x20;&#x20;&#x20;&#x20;&#x66;&#x6f;&#x72;&#x20;&#x69;&#x20;&#x69;&#x6e;&#x20;&#x72;&#x61;&#x6e;&#x67;&#x65;&#x28;&#x6d;&#x69;&#x64;&#x70;&#x6f;&#x69;&#x6e;&#x74;&#x29;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x6c;&#x73;&#x74;&#x5b;&#x69;&#x5d;&#x2c;&#x20;&#x6c;&#x73;&#x74;&#x5b;&#x6c;&#x61;&#x73;&#x74;&#x20;&#x2d;&#x20;&#x69;&#x5d;&#x20;&#x3d;&#x20;&#x6c;&#x73;&#x74;&#x5b;&#x6c;&#x61;&#x73;&#x74;&#x20;&#x2d;&#x20;&#x69;&#x5d;&#x2c;&#x20;&#x6c;&#x73;&#x74;&#x5b;&#x69;&#x5d;&#xa;&#xa;&#x23;&#x20;&#x52;&#x65;&#x63;&#x75;&#x72;&#x73;&#x69;&#x76;&#x65;&#x20;&#x73;&#x6f;&#x6c;&#x75;&#x74;&#x69;&#x6f;&#x6e;&#xa;&#x64;&#x65;&#x66;&#x20;&#x72;&#x65;&#x76;&#x65;&#x72;&#x73;&#x65;&#x28;&#x6c;&#x73;&#x74;&#x29;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x22;&#x22;&#x22;&#x52;&#x65;&#x76;&#x65;&#x72;&#x73;&#x65;&#x73;&#x20;&#x6c;&#x73;&#x74;&#x20;&#x75;&#x73;&#x69;&#x6e;&#x67;&#x20;&#x6d;&#x75;&#x74;&#x61;&#x74;&#x69;&#x6f;&#x6e;&#x2e;&#xa;&#x20;&#x20;&#x20;&#x20;&#x3e;&#x3e;&#x3e;&#x20;&#x6f;&#x72;&#x69;&#x67;&#x69;&#x6e;&#x61;&#x6c;&#x5f;&#x6c;&#x69;&#x73;&#x74;&#x20;&#x3d;&#x20;&#x5b;&#x35;&#x2c;&#x20;&#x2d;&#x31;&#x2c;&#x20;&#x32;&#x39;&#x2c;&#x20;&#x30;&#x5d;&#xa;&#x20;&#x20;&#x20;&#x20;&#x3e;&#x3e;&#x3e;&#x20;&#x72;&#x65;&#x76;&#x65;&#x72;&#x73;&#x65;&#x28;&#x6f;&#x72;&#x69;&#x67;&#x69;&#x6e;&#x61;&#x6c;&#x5f;&#x6c;&#x69;&#x73;&#x74;&#x29;&#xa;&#x20;&#x20;&#x20;&#x20;&#x3e;&#x3e;&#x3e;&#x20;&#x6f;&#x72;&#x69;&#x67;&#x69;&#x6e;&#x61;&#x6c;&#x5f;&#x6c;&#x69;&#x73;&#x74;&#xa;&#x20;&#x20;&#x20;&#x20;&#x5b;&#x30;&#x2c;&#x20;&#x32;&#x39;&#x2c;&#x20;&#x2d;&#x31;&#x2c;&#x20;&#x35;&#x5d;&#xa;&#x20;&#x20;&#x20;&#x20;&#x22;&#x22;&#x22;&#xa;&#x20;&#x20;&#x20;&#x20;&#x69;&#x66;&#x20;&#x6c;&#x65;&#x6e;&#x28;&#x6c;&#x73;&#x74;&#x29;&#x20;&#x3e;&#x20;&#x31;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x74;&#x65;&#x6d;&#x70;&#x20;&#x3d;&#x20;&#x6c;&#x73;&#x74;&#x2e;&#x70;&#x6f;&#x70;&#x28;&#x29;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x76;&#x65;&#x72;&#x73;&#x65;&#x28;&#x6c;&#x73;&#x74;&#x29;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x6c;&#x73;&#x74;&#x2e;&#x69;&#x6e;&#x73;&#x65;&#x72;&#x74;&#x28;&#x30;&#x2c;&#x20;&#x74;&#x65;&#x6d;&#x70;&#x29;&#xa;&#xa;&#x23;&#x20;&#x41;&#x6c;&#x74;&#x65;&#x72;&#x6e;&#x61;&#x74;&#x69;&#x76;&#x65;&#x20;&#x72;&#x65;&#x63;&#x75;&#x72;&#x73;&#x69;&#x76;&#x65;&#x20;&#x73;&#x6f;&#x6c;&#x75;&#x74;&#x69;&#x6f;&#x6e;&#xa;&#x64;&#x65;&#x66;&#x20;&#x72;&#x65;&#x76;&#x65;&#x72;&#x73;&#x65;&#x28;&#x6c;&#x73;&#x74;&#x29;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x22;&#x22;&#x22;&#x52;&#x65;&#x76;&#x65;&#x72;&#x73;&#x65;&#x73;&#x20;&#x6c;&#x73;&#x74;&#x20;&#x75;&#x73;&#x69;&#x6e;&#x67;&#x20;&#x6d;&#x75;&#x74;&#x61;&#x74;&#x69;&#x6f;&#x6e;&#x2e;&#xa;&#x20;&#x20;&#x20;&#x20;&#x3e;&#x3e;&#x3e;&#x20;&#x6f;&#x72;&#x69;&#x67;&#x69;&#x6e;&#x61;&#x6c;&#x5f;&#x6c;&#x69;&#x73;&#x74;&#x20;&#x3d;&#x20;&#x5b;&#x35;&#x2c;&#x20;&#x2d;&#x31;&#x2c;&#x20;&#x32;&#x39;&#x2c;&#x20;&#x30;&#x5d;&#xa;&#x20;&#x20;&#x20;&#x20;&#x3e;&#x3e;&#x3e;&#x20;&#x72;&#x65;&#x76;&#x65;&#x72;&#x73;&#x65;&#x28;&#x6f;&#x72;&#x69;&#x67;&#x69;&#x6e;&#x61;&#x6c;&#x5f;&#x6c;&#x69;&#x73;&#x74;&#x29;&#xa;&#x20;&#x20;&#x20;&#x20;&#x3e;&#x3e;&#x3e;&#x20;&#x6f;&#x72;&#x69;&#x67;&#x69;&#x6e;&#x61;&#x6c;&#x5f;&#x6c;&#x69;&#x73;&#x74;&#xa;&#x20;&#x20;&#x20;&#x20;&#x5b;&#x30;&#x2c;&#x20;&#x32;&#x39;&#x2c;&#x20;&#x2d;&#x31;&#x2c;&#x20;&#x35;&#x5d;&#xa;&#x20;&#x20;&#x20;&#x20;&#x22;&#x22;&#x22;&#xa;&#x20;&#x20;&#x20;&#x20;&#x6d;&#x69;&#x64;&#x70;&#x6f;&#x69;&#x6e;&#x74;&#x20;&#x3d;&#x20;&#x6c;&#x65;&#x6e;&#x28;&#x6c;&#x73;&#x74;&#x29;&#x20;&#x2f;&#x2f;&#x20;&#x32;&#xa;&#x20;&#x20;&#x20;&#x20;&#x6c;&#x61;&#x73;&#x74;&#x20;&#x3d;&#x20;&#x6c;&#x65;&#x6e;&#x28;&#x6c;&#x73;&#x74;&#x29;&#x20;&#x2d;&#x20;&#x31;&#xa;&#x20;&#x20;&#x20;&#x20;&#x64;&#x65;&#x66;&#x20;&#x68;&#x65;&#x6c;&#x70;&#x65;&#x72;&#x28;&#x69;&#x29;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x69;&#x66;&#x20;&#x69;&#x20;&#x3d;&#x3d;&#x20;&#x6d;&#x69;&#x64;&#x70;&#x6f;&#x69;&#x6e;&#x74;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x6c;&#x73;&#x74;&#x5b;&#x69;&#x5d;&#x2c;&#x20;&#x6c;&#x73;&#x74;&#x5b;&#x6c;&#x61;&#x73;&#x74;&#x20;&#x2d;&#x20;&#x69;&#x5d;&#x20;&#x3d;&#x20;&#x6c;&#x73;&#x74;&#x5b;&#x6c;&#x61;&#x73;&#x74;&#x20;&#x2d;&#x20;&#x69;&#x5d;&#x2c;&#x20;&#x6c;&#x73;&#x74;&#x5b;&#x69;&#x5d;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x68;&#x65;&#x6c;&#x70;&#x65;&#x72;&#x28;&#x69;&#x20;&#x2b;&#x20;&#x31;&#x29;&#xa;&#x20;&#x20;&#x20;&#x20;&#x68;&#x65;&#x6c;&#x70;&#x65;&#x72;&#x28;&#x30;&#x29;</div></code></pre>
+
+
+    <button id='8' class='toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+
+<h2 id="object-oriented-programming">Object-Oriented Programming</h2>
+
+
+<h3 class="question" id="q10">Question 10: Person</h3>
+
+<p>Modify the following <code>Person</code> class to add a <code>repeat</code> method, which
+repeats the last thing said. See the doctests for an example of its
+use.</p>
+
+<blockquote><p><em>Hint</em>: you will have to modify other methods as well, not just the
+<code>repeat</code> method.</p></blockquote>
+
+
+
+<pre><code>class Person(object):
+    &quot;&quot;&quot;Person class.
+
+    &gt;&gt;&gt; steven = Person(&quot;Steven&quot;)
+    &gt;&gt;&gt; steven.repeat()       # starts at whatever value you&#x27;d like
+    &#x27;I squirreled it away before it could catch on fire.&#x27;
+    &gt;&gt;&gt; steven.say(&quot;Hello&quot;)
+    &#x27;Hello&#x27;
+    &gt;&gt;&gt; steven.repeat()
+    &#x27;Hello&#x27;
+    &gt;&gt;&gt; steven.greet()
+    &#x27;Hello, my name is Steven&#x27;
+    &gt;&gt;&gt; steven.repeat()
+    &#x27;Hello, my name is Steven&#x27;
+    &gt;&gt;&gt; steven.ask(&quot;preserve abstraction barriers&quot;)
+    &#x27;Would you please preserve abstraction barriers&#x27;
+    &gt;&gt;&gt; steven.repeat()
+    &#x27;Would you please preserve abstraction barriers&#x27;
+    &quot;&quot;&quot;
+    def __init__(self, name):
+        self.name = name
+<div class="alt 9">        "*** YOUR CODE HERE ***"
+</div><div class="solution 9">&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x73;&#x65;&#x6c;&#x66;&#x2e;&#x70;&#x72;&#x65;&#x76;&#x69;&#x6f;&#x75;&#x73;&#x20;&#x3d;&#x20;&#x22;&#x49;&#x20;&#x73;&#x71;&#x75;&#x69;&#x72;&#x72;&#x65;&#x6c;&#x65;&#x64;&#x20;&#x69;&#x74;&#x20;&#x61;&#x77;&#x61;&#x79;&#x20;&#x62;&#x65;&#x66;&#x6f;&#x72;&#x65;&#x20;&#x69;&#x74;&#x20;&#x63;&#x6f;&#x75;&#x6c;&#x64;&#x20;&#x63;&#x61;&#x74;&#x63;&#x68;&#x20;&#x6f;&#x6e;&#x20;&#x66;&#x69;&#x72;&#x65;&#x2e;&#x22;</div>
+    def say(self, stuff):
+<div class="alt 9">        "*** YOUR CODE HERE ***"
+</div><div class="solution 9">&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x73;&#x65;&#x6c;&#x66;&#x2e;&#x70;&#x72;&#x65;&#x76;&#x69;&#x6f;&#x75;&#x73;&#x20;&#x3d;&#x20;&#x73;&#x74;&#x75;&#x66;&#x66;</div>        return stuff
+
+    def ask(self, stuff):
+        return self.say(&quot;Would you please &quot; + stuff)
+
+    def greet(self):
+        return self.say(&quot;Hello, my name is &quot; + self.name)
+
+    def repeat(self):
+<div class="alt 9">        "*** YOUR CODE HERE ***"
+</div><div class="solution 9">&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x73;&#x65;&#x6c;&#x66;&#x2e;&#x73;&#x61;&#x79;&#x28;&#x73;&#x65;&#x6c;&#x66;&#x2e;&#x70;&#x72;&#x65;&#x76;&#x69;&#x6f;&#x75;&#x73;&#x29;</div></code></pre>
+
+
+    <button id='9' class='toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+<h3 class="question" id="q11">Question 11: DoubleTalker</h3>
+
+<p>Suppose now that we wanted to define a class called <code>DoubleTalker</code> to
+represent people who always say things twice:</p>
+
+<pre><code>&gt;&gt;&gt; steven = DoubleTalker(&quot;Steven&quot;)
+&gt;&gt;&gt; steven.say(&quot;hello&quot;)
+&quot;hello hello&quot;
+&gt;&gt;&gt; steven.say(&quot;the sky is falling&quot;)
+&quot;the sky is falling the sky is falling&quot;</code></pre>
+
+<p>Consider the following three definitions for <code>DoubleTalker</code> that
+inherit from the <code>Person</code> class:</p>
+
+<pre><code>class DoubleTalker(Person):
+    def __init__(self, name):
+        Person.__init__(self, name)
+    def say(self, stuff):
+        return Person.say(self, stuff) + &quot; &quot; + self.repeat()
+
+class DoubleTalker(Person):
+    def __init__(self, name):
+        Person.__init__(self, name)
+    def say(self, stuff):
+        return stuff + &quot; &quot; + stuff
+
+class DoubleTalker(Person):
+    def __init__(self, name):
+        Person.__init__(self, name)
+    def say(self, stuff):
+        return Person.say(self, stuff + &quot; &quot; + stuff)</code></pre>
+
+<p>Determine which of these definitions work as intended. Also determine
+for which of the methods the three versions would respond differently.
+(Don't forget about the <code>repeat</code> method!)</p>
+
+<div class="solution 10">
+
+<p>The last one works as intended.  For the first and second ones,
+calling <code>repeat</code> would fail.</p>
+
+</div>
+    <button id='10' class='toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+
+  </div>
+
+  <div class='col-md-3'>
+    <nav class='hidden-print hidden-sm hidden-xs sidebar'>
+      <ul>
+  <li><a href="#trees">Trees</a></li>
+  <ul>
+  <li><a href="#q1">Question 1: Countdown</a></li>
+  <li><a href="#q2">Question 2</a></li>
+  <li><a href="#q3">Question 3: Size</a></li>
+  <li><a href="#q4">Question 4: Same shape</a></li>
+</ul>
+
+  <li><a href="#mutability">Mutability</a></li>
+  <ul>
+  <li><a href="#q5">Question 5: Fibonacci</a></li>
+  <li><a href="#q6">Question 6</a></li>
+  <li><a href="#q7">Question 7</a></li>
+  <li><a href="#q8">Question 8: Filter</a></li>
+  <li><a href="#q9">Question 9: Reverse</a></li>
+</ul>
+
+  <li><a href="#object-oriented-programming">Object-Oriented Programming</a></li>
+  <ul>
+  <li><a href="#q10">Question 10: Person</a></li>
+  <li><a href="#q11">Question 11: DoubleTalker</a></li>
+</ul>
+
+</ul>
+
+    </nav>
+  </div>
+
+</div>
+    </div>
+  </body>
+  <script>
+  $('.sidebar ul').addClass('nav nav-stacked');
+  $('body').scrollspy({
+    target: '.sidebar',
+    offset: 40
+  });
+</script>
+<script src="//code.jquery.com/jquery-latest.js"></script>
+<script>
+  $(function() {
+    $('.toggleButton').css('display', 'inline-block');
+    $('.toggleButton').click(function() {
+      alert('Solutions have been removed.');
+    });
+  });
+</script>
+</html>

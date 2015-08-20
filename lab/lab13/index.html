@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="description" content ="CS61A: Structure and Interpretation of Computer Programs" />
+    <meta name="keywords" content ="CS61A, Computer Science, CS, 61A, Programming, John DeNero, Berkeley, EECS" />
+    <meta name="author" content ="Albert Wu, Robert Huang, Alfonso Martinez, Cale Horeff, Chris Le, Colin Schoen, Derrick Lin, Jeffrey Lu, Jessica Gu, Rohit Lalchandani, Tammy Nguyen, Will Jiang, Yulin Zheng" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width">
+
+    <script src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
+    <link rel="icon" href="/assets/images/favicon.ico">
+
+    <link rel="stylesheet" href="/assets/css/mono-blue.css">
+    <script src="/assets/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    <link rel="stylesheet" type="text/css" href="/assets/css/resource.css" />
+<link rel="stylesheet" type="text/css" href="/assets/css/lab.css" />
+
+
+    <title>Lab 13: Tail Recursion and Streams | CS 61A Summer 2015</title>
+
+  </head>
+
+  <body id="index" class="home">
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-section">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">CS 61A</a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="navbar-collapse-section">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/">Calendar</a></li>
+            <li><a href="/office-hours.html">Office Hours</a></li>
+            <li><a href="/tutoring.html">Tutoring</a></li>
+
+            <li><a href="/articles/using-ok.html">Using OK</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Course Info <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="/articles/about.html">Syllabus</a></li>
+                <li><a href="/staff.html">Staff</a></li>
+                <li><a href="/weekly.html">Weekly Schedule</a></li>
+              </ul>
+            </li>
+
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div id="content" class="container">
+      <div class='row'>
+  <div class='col-md-9'>
+    <div class='page-header'>
+      <h1><span class="content-title-brand">Lab 13</span>: Tail Recursion and Streams</h1>
+    </div>
+
+    <p><i>Due at 11:59pm on 08/04/2015.</i></p>
+
+<h2 id='starter-files'>Starter Files</h2>
+
+<p>Download <a href="lab13.zip">lab13.zip</a>.
+Inside the archive, you will find starter files for the questions in this lab,
+  along with a copy of the <a href="ok">OK</a> autograder.</p>
+
+<h2 id='submission'>Submission</h2>
+
+<p>By the end of this lab, you should have submitted the lab with
+<code>python3 ok --submit</code>. You may submit more than once before the
+deadline; only the final submission will be graded.</p>
+
+
+<ul>
+  <li>To receive credit for this lab, you must complete Questions 2, 3, 5, 6, 7
+  in <a href="lab13.scm">lab13.scm</a> and submit through OK.</li>
+  <li>Questions 8, 9 is <em>extra practice</em>. It can be found in the
+  <a href="lab13_extra.scm">lab13_extra.scm</a> file. It is recommended that you complete
+  this problem on your own time.</li>
+</ul>
+
+
+    
+
+
+<h2 id="tail-recursion">Tail Recursion</h2>
+
+
+<p>Recall from lecture that Scheme supports tail-call optimization.  The
+example we used was factorial (shown in both Python and Scheme):</p>
+
+<pre><code># Python
+def fact(n):
+    if n == 0:
+        return 1
+    return n * fact(n &#x2d; 1)
+
+# Scheme
+(define (fact n)
+    (if (= n 0)
+        1
+        (* n (fact (&#x2d; n 1)))))</code></pre>
+
+<p>Notice that in this version of <code>factorial</code>, the return expressions both
+use recursive calls, and then use the values for more "work." In other
+words, the current frame needs to sit around, waiting for the recursive
+call to return with a value. Then the current frame can use that value
+to calculate the final answer.</p>
+
+<p>As an example, consider a call to <code>fact(5)</code> (Shown with Scheme below).
+We make a new frame for the call, and in carrying out the body of the
+function, we hit the recursive case, where we want to multiply 5 by the
+return value of the call to <code>fact(4)</code>.  Then we want to return this
+product as the answer to <code>fact(5)</code>.  However, before calculating this
+product, we must wait for the call to <code>fact(4)</code>.  The current frame
+stays while it waits.  This is true for every successive recursive
+call, so by calling <code>fact(5)</code>, at one point we will have the frame of
+<code>fact(5)</code> as well as the frames of <code>fact(4)</code>, <code>fact(3)</code>, <code>fact(2)</code>, and
+<code>fact(1)</code>, all waiting for <code>fact(0)</code>.</p>
+
+<pre><code>(fact 5)
+(* 5 (fact 4))
+(* 5 (* 4 (fact 3)))
+(* 5 (* 4 (* 3 (fact 2))))
+(* 5 (* 4 (* 3 (* 2 (fact 1)))))
+(* 5 (* 4 (* 3 (* 2 (* 1 (fact 0))))))
+(* 5 (* 4 (* 3 (* 2 (* 1 1)))))
+(* 5 (* 4 (* 3 (* 2 1))))
+(* 5 (* 4 (* 3 2)))
+(* 5 (* 4 6))
+(* 5 24)
+120</code></pre>
+
+<p>Keeping all these frames around wastes a lot of space, so our goal is
+to come up with an implementation of factorial that uses a constant
+amount of space. We notice that in Python we can do this with a while
+loop:</p>
+
+<pre><code>def fact_while(n):
+    total = 1
+    while n &gt; 0:
+        total = total * n
+        n = n &#x2d; 1
+    return total</code></pre>
+
+<p>However, Scheme doesn't have <code>for</code> and <code>while</code> constructs. No problem!
+Everything that can be written with while and <code>for</code> loops and also be
+written recursively.  Instead of a variable, we introduce a new
+parameter to keep track of the total.</p>
+
+<pre><code>def fact(n):
+    def fact_optimized(n, total):
+        if n == 0:
+            return total
+        return fact_optimized(n &#x2d; 1, total * n)
+    return fact_optimized(n, 1)
+
+(define (fact n)
+    (define (fact&#x2d;optimized n total)
+        (if (= n 0)
+            total
+            (fact&#x2d;optimized (&#x2d; n 1) (* total n))))
+    (fact&#x2d;optimized n 1))</code></pre>
+
+<p>Why is this better? Consider calling <code>fact(n)</code> on based on this
+definition:</p>
+
+<pre><code>(fact 5)
+(fact&#x2d;optimized 5   1)
+(fact&#x2d;optimized 4   5)
+(fact&#x2d;optimized 3  20)
+(fact&#x2d;optimized 2  60)
+(fact&#x2d;optimized 1 120)
+(fact&#x2d;optimized 0 120)
+120</code></pre>
+
+<p>Because Scheme supports tail-call optimization (note that Python <strong>does
+not</strong>), it knows when it no longer needs to keep around frames because
+there is no further calculation to do.  Looking at the last line in
+<code>fact_optimized</code>, we notice that it returns the same thing that the
+recursive call does, no more work required.  Scheme realizes that there
+is no reason to keep around a frame that has no work left to do, so it
+just has the return of the recursive call return directly to whatever
+called the current frame.</p>
+
+<p>Therefore the last line in <code>fact_optimized</code> is a <strong>tail-call</strong>.</p>
+
+<h3 class="question" id="q1">Question 1</h3>
+
+<p>To sum it up (with vocabulary!), here is the quote from lecture: "A
+procedure call that has not yet returned is <strong>active</strong>. Some procedure
+calls are <strong>tail calls</strong>. A Scheme interpreter should support an
+unbounded number of active tail calls."</p>
+
+<p>A tail call is a call expression in a <strong>tail context</strong>:</p>
+
+<ul>
+  <li>The last body sub-expression in a <code>lambda</code> expression</li>
+  <li>Sub-expressions 2 and 3 in a tail context <code>if</code> expression</li>
+  <li>All non-predicate sub-expressions in a tail context <code>cond</code></li>
+  <li>The last sub-expression in a tail context <code>and</code> or <code>or</code></li>
+  <li>The last sub-expression in a tail context <code>begin</code></li>
+</ul>
+
+<p>Call expressions in "tail contexts" are tail calls, because there is no
+reason to keep the current frame "active."</p>
+
+<p>For the following procedures, decide whether each is tail-call
+optimized.  Do not run the procedures (they may not work)!</p>
+
+<p>Check the recursive calls in tail positions (there might be multiple).
+Is it in a tail context?  In other words, does the last recursive call
+need to return to the caller because there is still more work to be
+done with it?</p>
+
+<p>List what each of the tail-calls are to help decide if they are
+optimized.</p>
+
+<pre><code>(define (question&#x2d;a x)
+    (if (= x 0)
+        0
+        (+ x (question&#x2d;a (&#x2d; x 1)))))</code></pre>
+
+
+    <button id='8' class='toggleButtonShow'>
+    Toggle Explanation<noscript> (enable JavaScript)</noscript>
+    </button>
+    <div class="solution 8">
+
+<p>The tail call is a <code>+</code>.  This is not optimized, because a recursive
+call is an argument to the call to <code>+</code>.</p>
+
+</div>
+
+<pre><code>(define (question&#x2d;b x y)
+    (if (= x 0)
+        y
+        (question&#x2d;b (&#x2d; x 1) (+ y x))))</code></pre>
+
+
+    <button id='9' class='toggleButtonShow'>
+    Toggle Explanation<noscript> (enable JavaScript)</noscript>
+    </button>
+    <div class="solution 9">
+
+<p>Tail-call to <code>question&#x2d;b</code>.  It is in sub-expression 3 in a tail context
+<code>if</code> expression.</p>
+
+</div>
+
+<pre><code>(define (question&#x2d;c x y)
+    (if (= x y)
+        #t
+        (if (&lt; x y)
+            #f
+            (or (question&#x2d;c (&#x2d; x 1) (&#x2d; y 2)) #f))))</code></pre>
+
+
+    <button id='10' class='toggleButtonShow'>
+    Toggle Explanation<noscript> (enable JavaScript)</noscript>
+    </button>
+    <div class="solution 10">
+
+<p>Does not have a tail-call. (<code>question&#x2d;c</code> would need to be called
+outside of the <code>or</code> statement <code>or</code> in the last sub-expression)</p>
+
+</div>
+
+<pre><code>(define (question&#x2d;d x y)
+    (cond ((= x y) #t)
+            ((&lt; x y) #f)
+            (else (or #f (question&#x2d;d (&#x2d; x 1) (&#x2d; y 2))))))</code></pre>
+
+
+    <button id='11' class='toggleButtonShow'>
+    Toggle Explanation<noscript> (enable JavaScript)</noscript>
+    </button>
+    <div class="solution 11">
+
+<p>There is a tail-call to <code>question&#x2d;d</code> because it is the last
+sub-expression in a tail context or statement.</p>
+
+</div>
+
+<pre><code>(define (question&#x2d;e x y)
+    (if (&gt; x y)
+        (question&#x2d;e (&#x2d; y 1) x)
+        (question&#x2d;e (+ x 10) y)))</code></pre>
+
+
+    <button id='12' class='toggleButtonShow'>
+    Toggle Explanation<noscript> (enable JavaScript)</noscript>
+    </button>
+    <div class="solution 12">
+
+<p>Both recursive calls are tail-calls.  But infinite loop!  So please
+don't do this.</p>
+
+</div>
+
+<pre><code>(define (question&#x2d;f n)
+    (if (question&#x2d;f n)
+        (question&#x2d;f (&#x2d; n 1))
+        (question&#x2d;f (+ n 10))))</code></pre>
+
+
+    <button id='13' class='toggleButtonShow'>
+    Toggle Explanation<noscript> (enable JavaScript)</noscript>
+    </button>
+    <div class="solution 13">
+
+<p>The 2 recursive calls in the non-predicate sub-expressions are
+tail-calls.</p>
+
+</div>
+
+<h3 class="question" id="q2">Question 2: Last</h3>
+
+<p>Write a function <code>last</code>, which takes in a Scheme list of length 1 or more and 
+returns the last element of the list. Make sure it is tail recursive!</p>
+
+
+
+<pre><code>(define (last s)
+<div class="alt 0">  'YOUR-CODE-HERE
+</div><div class="solution 0">&#x20;&#x20;&#x28;&#x69;&#x66;&#x20;&#x28;&#x6e;&#x75;&#x6c;&#x6c;&#x3f;&#x20;&#x28;&#x63;&#x64;&#x72;&#x20;&#x73;&#x29;&#x29;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x28;&#x63;&#x61;&#x72;&#x20;&#x73;&#x29;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x28;&#x6c;&#x61;&#x73;&#x74;&#x20;&#x28;&#x63;&#x64;&#x72;&#x20;&#x73;&#x29;&#x29;&#x29;</div>)</code></pre>
+
+
+    <button id='0' class='toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+<p>Use OK to unlock and test your code:</p><pre><code>python3 ok -q last -u
+python3 ok -q last</code></pre>
+
+<h3 class="question" id="q3">Question 3: Reverse</h3>
+
+<p>Write a tail-recursive function <code>reverse</code> that takes in a Scheme list a
+returns a reversed copy. <em>Hint</em>: use a helper function!</p>
+
+
+
+<pre><code>(define (reverse lst)
+<div class="alt 1">  'YOUR-CODE-HERE
+</div><div class="solution 1">&#x20;&#x20;&#x28;&#x64;&#x65;&#x66;&#x69;&#x6e;&#x65;&#x20;&#x28;&#x72;&#x65;&#x76;&#x65;&#x72;&#x73;&#x65;&#x2d;&#x74;&#x61;&#x69;&#x6c;&#x20;&#x73;&#x6f;&#x66;&#x61;&#x72;&#x20;&#x72;&#x65;&#x73;&#x74;&#x29;&#xa;&#x20;&#x20;&#x20;&#x20;&#x28;&#x69;&#x66;&#x20;&#x28;&#x6e;&#x75;&#x6c;&#x6c;&#x3f;&#x20;&#x72;&#x65;&#x73;&#x74;&#x29;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x73;&#x6f;&#x66;&#x61;&#x72;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x28;&#x72;&#x65;&#x76;&#x65;&#x72;&#x73;&#x65;&#x2d;&#x74;&#x61;&#x69;&#x6c;&#x20;&#x28;&#x63;&#x6f;&#x6e;&#x73;&#x20;&#x28;&#x63;&#x61;&#x72;&#x20;&#x72;&#x65;&#x73;&#x74;&#x29;&#x20;&#x73;&#x6f;&#x66;&#x61;&#x72;&#x29;&#x20;&#x28;&#x63;&#x64;&#x72;&#x20;&#x72;&#x65;&#x73;&#x74;&#x29;&#x29;&#x29;&#x29;&#xa;&#x20;&#x20;&#x28;&#x72;&#x65;&#x76;&#x65;&#x72;&#x73;&#x65;&#x2d;&#x74;&#x61;&#x69;&#x6c;&#x20;&#x6e;&#x69;&#x6c;&#x20;&#x6c;&#x73;&#x74;&#x29;</div>)</code></pre>
+
+
+    <button id='1' class='toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+<p>Use OK to unlock and test your code:</p><pre><code>python3 ok -q reverse -u
+python3 ok -q reverse</code></pre>
+
+
+<h2 id="streams">Streams</h2>
+
+
+<p>A stream is another example of a lazy sequence. A stream is a lazily
+evaluated linked list. In other words, the stream's elements (except
+for the first element) are only evaluated when the values are needed.
+In addition, streams are <em>memoized</em>: the elements that have already
+been computed are saved!</p>
+
+<p>We have many built-in procedures that can manipulate streams:</p>
+
+<ul>
+  <li>Stream creation: <code>cons&#x2d;stream</code></li>
+  <li>First of the Stream: <code>car</code></li>
+  <li>Rest of the Stream: <code>stream&#x2d;cdr</code></li>
+  <li>Empty Stream: <code>nil</code></li>
+  <li>Empty handling: <code>null?</code></li>
+</ul>
+
+<p>Now we are ready to look at a simple example. This stream is an
+infinite stream where each element is 1.</p>
+
+<pre><code>scm&gt; (define ones (cons&#x2d;stream 1 ones))
+ones
+scm&gt; (car ones)
+1
+scm&gt; (stream&#x2d;cdr ones)
+(1 . #[promise (forced)])</code></pre>
+
+<p>We start out with a stream whose first element is 1, and whose <code>rest</code> is an
+unevaluated expression that will lead to another stream. Thus, we can recurse
+on the name <code>ones</code> that we are trying to define in the first place.</p>
+
+<p>Next, here's one way to build a stream of the natural numbers starting at the
+nth number.</p>
+
+<pre><code>scm&gt; (define (naturals (n))
+       (cons&#x2d;stream n
+         (naturals (+ n 1))))
+naturals
+scm&gt; (define nat (naturals 0))
+nat
+scm&gt; (car nat)
+0
+scm&gt; (car (stream&#x2d;cdr nat))
+1
+scm&gt; (car (stream&#x2d;cdr (stream&#x2d;cdr nat)))
+2</code></pre>
+
+<p>So when we do compute the <code>rest</code>, we get another stream whose first
+element is one greater than the previous element, and whose <code>rest</code>
+creates another stream. Hence, we effectively get an infinite stream of
+integers, computed one at a time. This is almost like an infinite
+recursion, but one which can be viewed one step at a time, and so does
+not crash.</p>
+
+<h3 class="question" id="q4">Question 4: What would Scheme print?</h3>
+
+<p>Use OK to unlock the following questions:</p>
+
+<pre><code>python3 ok &#x2d;q wwsp &#x2d;u</code></pre>
+
+<p>The following function has been defined for you.</p>
+
+<pre><code>scm&gt; (define (has&#x2d;even? s)
+       (cond ((null? s) False)
+             ((even? (car s)) True)
+             (else (has&#x2d;even? (stream&#x2d;cdr s)))))
+has&#x2d;even?</code></pre>
+
+
+    <pre><code>scm&gt; (define ones (cons&#x2d;stream 1 ones))
+<div class="alt 7">______</div><div class="solution 7">&#x6f;&#x6e;&#x65;&#x73;</div>
+scm&gt; (define twos (cons&#x2d;stream 2 twos))
+<div class="alt 7">______</div><div class="solution 7">&#x74;&#x77;&#x6f;&#x73;</div>
+scm&gt; (has&#x2d;even? twos)
+<div class="alt 7">______</div><div class="solution 7">&#x54;&#x72;&#x75;&#x65;</div>
+scm&gt; (has&#x2d;even? ones)
+<div class="alt 7">______</div><div class="solution 7">&#x49;&#x6e;&#x66;&#x69;&#x6e;&#x69;&#x74;&#x65;&#x20;&#x6c;&#x6f;&#x6f;&#x70;</div>
+scm&gt; (define (foo x) (+ x 1))
+<div class="alt 7">______</div><div class="solution 7">&#x66;&#x6f;&#x6f;</div>
+scm&gt; (define bar (cons&#x2d;stream (foo 1) (cons&#x2d;stream (foo 2) bar)))
+<div class="alt 7">______</div><div class="solution 7">&#x62;&#x61;&#x72;</div>
+scm&gt; (car bar)
+<div class="alt 7">______</div><div class="solution 7">&#x32;</div>
+scm&gt; (define (foo x) (+ x 5))
+<div class="alt 7">______</div><div class="solution 7">&#x66;&#x6f;&#x6f;</div>
+scm&gt; (car bar)
+<div class="alt 7">______</div><div class="solution 7">&#x32;</div>
+scm&gt; (stream&#x2d;cdr bar)
+<div class="alt 7">______</div><div class="solution 7">&#x28;&#x37;&#x20;&#x2e;&#x20;&#x23;&#x5b;&#x70;&#x72;&#x6f;&#x6d;&#x69;&#x73;&#x65;&#x20;&#x28;&#x6e;&#x6f;&#x74;&#x20;&#x66;&#x6f;&#x72;&#x63;&#x65;&#x64;&#x29;&#x5d;&#x29;</div>
+scm&gt; (define (foo x) (+ x 7))
+<div class="alt 7">______</div><div class="solution 7">&#x66;&#x6f;&#x6f;</div>
+scm&gt; (stream&#x2d;cdr bar)
+<div class="alt 7">______</div><div class="solution 7">&#x28;&#x37;&#x20;&#x2e;&#x20;&#x23;&#x5b;&#x70;&#x72;&#x6f;&#x6d;&#x69;&#x73;&#x65;&#x20;&#x28;&#x6e;&#x6f;&#x74;&#x20;&#x66;&#x6f;&#x72;&#x63;&#x65;&#x64;&#x29;&#x5d;&#x29;</div></code></pre>
+
+    <button id='7' class='toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+<h3 class="question" id="q5">Question 5: Interleave</h3>
+
+<p>We implemented the <code>stream&#x2d;to&#x2d;list</code> function that takes in a stream <code>s</code>
+and an int <code>num&#x2d;elements</code>. It returns a list that contains the first <code>num&#x2d;elements</code>
+items from the stream <code>s</code>. This is just to visualize streams; you shouldn't be using
+this function to solve the following problems.</p>
+
+<pre><code>(define (stream&#x2d;to&#x2d;list s num&#x2d;elements)
+  (if (or (null? s) (= num&#x2d;elements 0))
+    nil
+    (cons (car s)
+          (stream&#x2d;to&#x2d;list (stream&#x2d;cdr s)
+                          (&#x2d; num&#x2d;elements 1)))))</code></pre>
+
+<p>Write the <code>interleave</code> function which takes in two streams:</p>
+
+<ul>
+  <li><code>a1, a2, a3, ...</code></li>
+  <li><code>b1, b2, b3, ...</code></li>
+</ul>
+
+<p>and returns the new stream</p>
+
+<pre><code>a1, b1, a2, b2, a3, b3, ...</code></pre>
+
+<p>If either of the inputs is finite, the output stream should be finite
+as well, terminating just at the point where it would be impossible to
+go on. If both of the inputs are infinite, the output stream should be
+infinite as well.</p>
+
+
+
+<pre><code>(define (interleave&#x2d;map s1 s2)
+<div class="alt 2">  'YOUR-CODE-HERE
+</div><div class="solution 2">&#x20;&#x20;&#x28;&#x69;&#x66;&#x20;&#x28;&#x6e;&#x75;&#x6c;&#x6c;&#x3f;&#x20;&#x73;&#x31;&#x29;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x6e;&#x69;&#x6c;&#x20;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x28;&#x63;&#x6f;&#x6e;&#x73;&#x2d;&#x73;&#x74;&#x72;&#x65;&#x61;&#x6d;&#x20;&#x28;&#x63;&#x61;&#x72;&#x20;&#x73;&#x31;&#x29;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x28;&#x69;&#x6e;&#x74;&#x65;&#x72;&#x6c;&#x65;&#x61;&#x76;&#x65;&#x2d;&#x6d;&#x61;&#x70;&#x20;&#x73;&#x32;&#x20;&#x28;&#x73;&#x74;&#x72;&#x65;&#x61;&#x6d;&#x2d;&#x63;&#x64;&#x72;&#x20;&#x73;&#x31;&#x29;&#x29;&#x29;&#x29;</div>)</code></pre>
+
+
+    <button id='2' class='toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+<p>Use OK to unlock and test your code:</p><pre><code>python3 ok -q interleave-map -u
+python3 ok -q interleave-map</code></pre>
+
+<blockquote><p><em>Note</em>: Due to a typo, the function is called <code>interleave&#x2d;map</code>, even though
+it doesn't do any mapping. Oops!</p></blockquote>
+
+<h3 class="question" id="q6">Question 6: Filter</h3>
+
+<p>Define <code>stream&#x2d;filter</code>, which takes in a stream <code>s</code> and a predicate <code>pred</code>. 
+<code>stream&#x2d;filter</code> returns a new stream that filters <code>s</code> based on <code>pred</code>.</p>
+
+
+
+<pre><code>(define (stream&#x2d;filter s pred)
+<div class="alt 3">    'YOUR-CODE-HERE
+</div><div class="solution 3">&#x20;&#x20;&#x20;&#x20;&#x28;&#x63;&#x6f;&#x6e;&#x64;&#x20;&#x28;&#x28;&#x6e;&#x75;&#x6c;&#x6c;&#x3f;&#x20;&#x73;&#x29;&#x20;&#x73;&#x29;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x28;&#x28;&#x70;&#x72;&#x65;&#x64;&#x20;&#x28;&#x63;&#x61;&#x72;&#x20;&#x73;&#x29;&#x29;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x28;&#x63;&#x6f;&#x6e;&#x73;&#x2d;&#x73;&#x74;&#x72;&#x65;&#x61;&#x6d;&#x20;&#x28;&#x63;&#x61;&#x72;&#x20;&#x73;&#x29;&#x20;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x28;&#x73;&#x74;&#x72;&#x65;&#x61;&#x6d;&#x2d;&#x66;&#x69;&#x6c;&#x74;&#x65;&#x72;&#x20;&#x28;&#x73;&#x74;&#x72;&#x65;&#x61;&#x6d;&#x2d;&#x63;&#x64;&#x72;&#x20;&#x73;&#x29;&#x20;&#x70;&#x72;&#x65;&#x64;&#x29;&#x29;&#x29;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x28;&#x65;&#x6c;&#x73;&#x65;&#x20;&#x28;&#x73;&#x74;&#x72;&#x65;&#x61;&#x6d;&#x2d;&#x66;&#x69;&#x6c;&#x74;&#x65;&#x72;&#x20;&#x28;&#x73;&#x74;&#x72;&#x65;&#x61;&#x6d;&#x2d;&#x63;&#x64;&#x72;&#x20;&#x73;&#x29;&#x20;&#x70;&#x72;&#x65;&#x64;&#x29;&#x29;&#x29;</div>)</code></pre>
+
+
+    <button id='3' class='toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+<p>Use OK to unlock and test your code:</p><pre><code>python3 ok -q stream-filter -u
+python3 ok -q stream-filter</code></pre>
+
+<h3 class="question" id="q7">Question 7: Fibonacci</h3>
+
+<p>Let's create an infinite stream of Fibonacci numbers called <code>fibs</code>. To do so,
+implement the <code>make&#x2d;fib&#x2d;stream</code> helper function (try to figure out what <code>a</code> and
+<code>b</code> are). Remember that the first two Fibonacci numbers are 0 and 1.</p>
+
+
+
+<pre><code>(define fibs (make&#x2d;fib&#x2d;stream 0 1))
+(define (make&#x2d;fib&#x2d;stream a b)
+<div class="alt 4">  'YOUR-CODE-HERE
+</div><div class="solution 4">&#x20;&#x20;&#x28;&#x63;&#x6f;&#x6e;&#x73;&#x2d;&#x73;&#x74;&#x72;&#x65;&#x61;&#x6d;&#x20;&#x61;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x28;&#x6d;&#x61;&#x6b;&#x65;&#x2d;&#x66;&#x69;&#x62;&#x2d;&#x73;&#x74;&#x72;&#x65;&#x61;&#x6d;&#x20;&#x62;&#x20;&#x28;&#x2b;&#x20;&#x61;&#x20;&#x62;&#x29;&#x29;&#x29;</div>)</code></pre>
+
+<div class="solution 4">
+
+<p>If the <code>add&#x2d;streams</code> function has been defined (<code>add&#x2d;streams</code> is a function that 
+adds the ith elements of two streams together), we can write
+<code>fibs</code> this way instead:</p>
+
+<pre><code>(define fibs
+  (cons&#x2d;stream 0
+    (cons&#x2d;stream 1
+      (add&#x2d;streams (stream&#x2d;cdr fibs) fibs))))</code></pre>
+
+</div>
+
+
+    <button id='4' class='toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+<p>Use OK to unlock and test your code:</p><pre><code>python3 ok -q fibs -u
+python3 ok -q fibs</code></pre>
+
+
+<h2 id="extra-questions">Extra Questions</h2>
+
+
+<blockquote><p>The following questions are for <strong>extra practice</strong> &mdash; it can be found in the
+the <a href="lab13_extra.py">lab13_extra.py</a> file. It is recommended that you complete
+this problem on your own time.</p></blockquote>
+
+<h3 class="question" id="q8">Question 8: Insert</h3>
+
+<p>Write a tail-recursive function that inserts number n into a sorted
+list of numbers, s. s is of at least length 1. Hint: Use the built-in Scheme 
+function <code>append</code>.</p>
+
+
+
+<pre><code>(define (insert n s)
+<div class="alt 5">  'YOUR-CODE-HERE
+</div><div class="solution 5">&#x20;&#x20;&#x28;&#x64;&#x65;&#x66;&#x69;&#x6e;&#x65;&#x20;&#x28;&#x69;&#x6e;&#x73;&#x65;&#x72;&#x74;&#x2d;&#x68;&#x65;&#x6c;&#x70;&#x20;&#x73;&#x20;&#x73;&#x6f;&#x2d;&#x66;&#x61;&#x72;&#x29;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x28;&#x63;&#x6f;&#x6e;&#x64;&#x20;&#x28;&#x28;&#x6e;&#x75;&#x6c;&#x6c;&#x3f;&#x20;&#x73;&#x29;&#x20;&#x28;&#x61;&#x70;&#x70;&#x65;&#x6e;&#x64;&#x20;&#x73;&#x6f;&#x2d;&#x66;&#x61;&#x72;&#x20;&#x28;&#x63;&#x6f;&#x6e;&#x73;&#x20;&#x6e;&#x20;&#x73;&#x29;&#x29;&#x29;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x28;&#x28;&#x3c;&#x20;&#x6e;&#x20;&#x28;&#x63;&#x61;&#x72;&#x20;&#x73;&#x29;&#x29;&#x20;&#x28;&#x61;&#x70;&#x70;&#x65;&#x6e;&#x64;&#x20;&#x73;&#x6f;&#x2d;&#x66;&#x61;&#x72;&#x20;&#x28;&#x63;&#x6f;&#x6e;&#x73;&#x20;&#x6e;&#x20;&#x73;&#x29;&#x29;&#x29;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x28;&#x65;&#x6c;&#x73;&#x65;&#x20;&#x28;&#x69;&#x6e;&#x73;&#x65;&#x72;&#x74;&#x2d;&#x68;&#x65;&#x6c;&#x70;&#x20;&#x28;&#x63;&#x64;&#x72;&#x20;&#x73;&#x29;&#x20;&#x28;&#x61;&#x70;&#x70;&#x65;&#x6e;&#x64;&#x20;&#x73;&#x6f;&#x2d;&#x66;&#x61;&#x72;&#x20;&#x28;&#x6c;&#x69;&#x73;&#x74;&#x20;&#x28;&#x63;&#x61;&#x72;&#x20;&#x73;&#x29;&#x29;&#x29;&#x29;&#x29;&#x29;&#x29;&#xa;&#x20;&#x20;&#x28;&#x69;&#x6e;&#x73;&#x65;&#x72;&#x74;&#x2d;&#x68;&#x65;&#x6c;&#x70;&#x20;&#x73;&#x20;&#x6e;&#x69;&#x6c;&#x29;</div>)</code></pre>
+
+
+    <button id='5' class='toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+<p>Use OK to unlock and test your code:</p><pre><code>python3 ok -q insert -u
+python3 ok -q insert</code></pre>
+
+<h3 class="question" id="q9">Question 9: Cycle</h3>
+
+<p>Define a function <code>cycle</code> which takes in as input an ordinary Scheme
+list and returns a stream which just repeats that list over and over.
+For example, <code>cycle(&#x27;(a b c) ))</code> is the stream containing elements <code>(a
+b c a b c ...)</code>. If the input list is empty, output the empty stream;
+otherwise, the output stream should be infinite.</p>
+
+
+
+<pre><code>(define (cycle lst)
+<div class="alt 6">  'YOUR-CODE-HERE
+</div><div class="solution 6">&#x20;&#x20;&#x28;&#x69;&#x66;&#x20;&#x28;&#x6e;&#x75;&#x6c;&#x6c;&#x3f;&#x20;&#x6c;&#x73;&#x74;&#x29;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x6e;&#x69;&#x6c;&#x20;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x28;&#x63;&#x6f;&#x6e;&#x73;&#x2d;&#x73;&#x74;&#x72;&#x65;&#x61;&#x6d;&#x20;&#x28;&#x63;&#x61;&#x72;&#x20;&#x6c;&#x73;&#x74;&#x29;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x28;&#x63;&#x79;&#x63;&#x6c;&#x65;&#x20;&#x28;&#x61;&#x70;&#x70;&#x65;&#x6e;&#x64;&#x20;&#x28;&#x63;&#x64;&#x72;&#x20;&#x6c;&#x73;&#x74;&#x29;&#x20;&#x28;&#x6c;&#x69;&#x73;&#x74;&#x20;&#x28;&#x63;&#x61;&#x72;&#x20;&#x6c;&#x73;&#x74;&#x29;&#x29;&#x29;&#x29;&#x29;&#x29;</div>)</code></pre>
+
+
+    <button id='6' class='toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+<p>Use OK to unlock and test your code:</p><pre><code>python3 ok -q cycle -u
+python3 ok -q cycle</code></pre>
+
+
+  </div>
+
+  <div class='col-md-3'>
+    <nav class='hidden-print hidden-sm hidden-xs sidebar'>
+      <ul>
+  <li><a href="#tail-recursion">Tail Recursion</a></li>
+  <ul>
+  <li><a href="#q1">Question 1</a></li>
+  <li><a href="#q2">Question 2: Last</a></li>
+  <li><a href="#q3">Question 3: Reverse</a></li>
+</ul>
+
+  <li><a href="#streams">Streams</a></li>
+  <ul>
+  <li><a href="#q4">Question 4: What would Scheme print?</a></li>
+  <li><a href="#q5">Question 5: Interleave</a></li>
+  <li><a href="#q6">Question 6: Filter</a></li>
+  <li><a href="#q7">Question 7: Fibonacci</a></li>
+</ul>
+
+  <li><a href="#extra-questions">Extra Questions</a></li>
+  <ul>
+  <li><a href="#q8">Question 8: Insert</a></li>
+  <li><a href="#q9">Question 9: Cycle</a></li>
+</ul>
+
+</ul>
+
+    </nav>
+  </div>
+
+</div>
+    </div>
+  </body>
+  <script>
+  $('.sidebar ul').addClass('nav nav-stacked');
+  $('body').scrollspy({
+    target: '.sidebar',
+    offset: 40
+  });
+</script>
+<script src="//code.jquery.com/jquery-latest.js"></script>
+<script>
+  $(function() {
+    if (false) {
+      $('.toggleButton').css('display', 'inline-block');
+      $('.toggleButton').click(function() {
+        var solution_id = $(this).attr('id');
+        $('div.' + solution_id).slideToggle(600);
+      });
+    }
+    // Always display these toggle buttons
+    $('.toggleButtonShow').click(function() {
+      var solution_id = $(this).attr('id');
+      $('div.' + solution_id).slideToggle(600);
+    });
+  });
+</script>
+</html>

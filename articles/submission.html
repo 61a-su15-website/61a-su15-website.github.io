@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="description" content ="CS61A: Structure and Interpretation of Computer Programs" />
+    <meta name="keywords" content ="CS61A, Computer Science, CS, 61A, Programming, John DeNero, Berkeley, EECS" />
+    <meta name="author" content ="Albert Wu, Robert Huang, Alfonso Martinez, Cale Horeff, Chris Le, Colin Schoen, Derrick Lin, Jeffrey Lu, Jessica Gu, Rohit Lalchandani, Tammy Nguyen, Will Jiang, Yulin Zheng" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width">
+
+    <script src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
+    <link rel="icon" href="/assets/images/favicon.ico">
+
+    <link rel="stylesheet" href="/assets/css/mono-blue.css">
+    <script src="/assets/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    
+
+    <title>Submitting Assignments | CS 61A Summer 2015</title>
+
+  </head>
+
+  <body id="index" class="home">
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-section">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">CS 61A</a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="navbar-collapse-section">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/">Calendar</a></li>
+            <li><a href="/office-hours.html">Office Hours</a></li>
+            <li><a href="/tutoring.html">Tutoring</a></li>
+
+            <li><a href="/articles/using-ok.html">Using OK</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Course Info <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="/articles/about.html">Syllabus</a></li>
+                <li><a href="/staff.html">Staff</a></li>
+                <li><a href="/weekly.html">Weekly Schedule</a></li>
+              </ul>
+            </li>
+
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div id="content" class="container">
+      <div class='row'>
+  <div class='col-md-9'>
+    <div class='page-header'>
+      <h1>Submitting Assignments</h1>
+    </div>
+
+     <h2 id="submitting-assignments">Submitting Assignments</h2>
+
+
+<p>Here is a simple guide that will help you submit all your assignments
+for CS61A. Don't worry: it's easy!</p>
+
+
+<h3 id="the-basics">The Basics</h3>
+
+
+<p>Before we begin to submit an assignment, we need to check for a few
+things:</p>
+
+<p>We are logged into our CS61A account (i.e. cs61a-bh).  We have the
+files we need to submit in our account.  We know what assignment we are
+supposed to submit.  To submit assignments for this class, we will use
+a simple command line program called &mdash; wait for it &mdash; <code>submit</code>. To
+start submitting an assignment, type submit, followed by the name of
+the assignment. When we are at the prompt, we should see something like
+this:</p>
+
+<pre><code>cory [16] ~/hw1 # submit hw1</code></pre>
+
+<p>This means that we are currently in our Homework 1 directory, indicated
+by <code>~/hw1</code>, and that we are submitting the assignment hw1, the first
+homework assignment.</p>
+
+<p>Tap return and you should then see that the sumbit program
+automatically searches for the files it wants in the current directory.</p>
+
+<pre><code>Looking for files to turn in....
+Submitting hw1.py.</code></pre>
+
+<p>If there are other files (apart from the required files) in the current
+directory, the sumbit program will also ask to check those files. Once
+finished selecting the right files, you'll see:</p>
+
+<pre><code>Is this correct? [yes/no]</code></pre>
+
+<p>If any of the information above is incorrect, you have a chance to
+cancel your submission here (type <code>no</code> or <code>n</code>). However, don't worry
+too much because you can submit as many times as you want before the
+deadline. If it is correct, type <code>yes</code> or <code>y</code>. To finish up, the system
+should output:</p>
+
+<pre><code>Submission complete.</code></pre>
+
+
+<h3 id="few-simple-rules">Few Simple Rules</h3>
+
+
+<p>Here are some simple rules that you need to know to make sure all of
+your assignments get submitted properly.</p>
+
+
+<h4 id="names">Names</h4>
+
+
+<p><code>submit</code> only accepts certain names for assignments, but they are easy
+to remember:</p>
+
+<ol>
+  <li><code>hw#</code>, for each homework assignment.</li>
+  <li><code>proj#</code>, for each project.</li>
+</ol>
+
+<p>If you type in an incorrect name, <code>submit</code> will kindly remind you of
+all possible assignments.</p>
+
+
+<h4 id="files">Files</h4>
+
+
+<p><code>submit</code> is only trained to look for certain files depending upon the
+assignment. In CS61A, we will provide you all of the files you will
+need to submit for each homework assignment and project. If you try to
+change the name of the file that submit is expecting (or the file isn't
+there), <code>submit</code> will let you know what files need to be present for
+the submission to be successful.</p>
+
+<pre><code>Looking for files to turn in....
+Turn in ./interesting_file.something?  [yes/no] yes
+You must turn in a file hw1.py for this assignment.
+Here is the complete list of files you must turn in:
+  hw1.py
+Error: submission FAILED.</code></pre>
+
+<p>If you have subdirectories (that is, a directory within a directory),
+then <code>submit</code> will ask you whether or not you would like it to check
+those.</p>
+
+<pre><code>cory [32] ~/hw1 # submit hw1
+Looking for files to turn in....
+Look at files in directory ./Another_Dir? [yes/no] yes
+Look at files in directory ./Another_Dir/And_Another? [yes/no] yes
+Look at files in directory ./Another_Dir/And_Another/WHEN_WILL_IT_END? [yes/no] yes
+Look at files in directory ./Another_Dir/And_Another/WHEN_WILL_IT_END/NOW? [yes/no] no
+Skipping directory ./Another_Dir/And_Another/WHEN_WILL_IT_END/NOW.
+Turn in ./interesting_file.something?  [yes/no] yes
+Submitting hw1.py.
+The files you have submitted are:
+        ./hw1.py ./interesting_file.something
+Is this correct? [yes/no] yes
+Copying submission of assignment hw1....
+Submission complete.</code></pre>
+
+
+<h3 id="some-tips">Some Tips</h3>
+
+
+<p>These will help you make the most effective use of <code>submit</code>.</p>
+
+<ol>
+  <li>Remember that you tell submit the name of the assignment you are
+  submitting, not the current directory.</li>
+  <li>Whenever <code>submit</code> asks for <code>[yes/no]</code>, typing in <code>y</code> is equivalent
+  to typing in <code>yes</code> (and similarly, <code>n</code> for <code>no</code>).</li>
+  <li>While you may submit from your home directory (<code>~/</code>), it is often
+  best to create a separate folder for each assignment. This is to
+  avoid having <code>submit</code> ask you if you would like to submit every,
+  single, file in your current directory (including all hidden files
+  used by UNIX for its own purposes). Keeping your assignments
+  organized by making separate directories for each assignment will
+  make your life easier (i.e. <code>proj1/</code>, <code>hw1/</code>, etc.).</li>
+  <li>If you want to cancel a submission while submit is running, issue
+  the abort command with the key combination <code>Ctrl&#x2d;C</code>.</li>
+  <li>Finally, our submission system allows for repeated submits. We will
+  always grade your <strong>last</strong> submission. Just make sure your last
+  submission is done before the assignment deadline!</li>
+</ol>
+
+<p>Remember, <code>submit</code> is a UNIX program, so if you need any help don't
+forget to check out Lab 0 and information on connecting to your CS61A
+account. You can also get a brief description of <code>submit</code> using the
+command <code>submit &#x2d;h</code>.</p>
+
+<p>If you have any other questions about <code>submit</code> or anything else CS61A
+related, don't forget to ask your friendly neighborhood staff or post
+on Piazza. ☺</p>
+  </div>
+
+  <div class='col-md-3'>
+    <nav class='hidden-print hidden-sm hidden-xs sidebar'>
+      <ul>
+  <li><a href="#submitting-assignments">Submitting Assignments</a></li>
+  <ul>
+  <li><a href="#the-basics">The Basics</a></li>
+  <li><a href="#few-simple-rules">Few Simple Rules</a></li>
+  <ul>
+  <li><a href="#names">Names</a></li>
+  <li><a href="#files">Files</a></li>
+</ul>
+
+  <li><a href="#some-tips">Some Tips</a></li>
+</ul>
+
+</ul>
+
+    </nav>
+  </div>
+
+</div>
+    </div>
+  </body>
+  <script>
+  $('.sidebar ul').addClass('nav nav-stacked');
+  $('body').scrollspy({
+    target: '.sidebar',
+    offset: 40
+  });
+</script>
+
+</html>

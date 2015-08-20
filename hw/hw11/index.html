@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="description" content ="CS61A: Structure and Interpretation of Computer Programs" />
+    <meta name="keywords" content ="CS61A, Computer Science, CS, 61A, Programming, John DeNero, Berkeley, EECS" />
+    <meta name="author" content ="Albert Wu, Robert Huang, Alfonso Martinez, Cale Horeff, Chris Le, Colin Schoen, Derrick Lin, Jeffrey Lu, Jessica Gu, Rohit Lalchandani, Tammy Nguyen, Will Jiang, Yulin Zheng" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width">
+
+    <script src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
+    <link rel="icon" href="/assets/images/favicon.ico">
+
+    <link rel="stylesheet" href="/assets/css/mono-blue.css">
+    <script src="/assets/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    <link rel="stylesheet" type="text/css" href="/assets/css/resource.css" />
+<link rel="stylesheet" type="text/css" href="../../assets/css/hw.css"/>
+
+
+    <title>Homework 11 | CS 61A Summer 2015</title>
+
+  </head>
+
+  <body id="index" class="home">
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-section">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">CS 61A</a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="navbar-collapse-section">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/">Calendar</a></li>
+            <li><a href="/office-hours.html">Office Hours</a></li>
+            <li><a href="/tutoring.html">Tutoring</a></li>
+
+            <li><a href="/articles/using-ok.html">Using OK</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Course Info <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="/articles/about.html">Syllabus</a></li>
+                <li><a href="/staff.html">Staff</a></li>
+                <li><a href="/weekly.html">Weekly Schedule</a></li>
+              </ul>
+            </li>
+
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div id="content" class="container">
+      <div class='row'>
+  <div class='col-md-9'>
+    <div class='page-header'>
+      <h1><span class="content-title-brand">Homework 11</span></h1>
+    </div>
+
+    <p><em>Due by 11:59pm on Monday, 8/10</em></p>
+
+<h2>Instructions</h2>
+
+<p>Download <a href="hw11.zip">
+  hw11.zip</a>.  Inside the archive, you will
+find a file called <a href="hw11.logic">
+  hw11.logic</a>, along with a copy of the <a href="logic">Logic
+interpreter</a>.
+
+<p><strong>Submission:</strong> To receive full credit for this homework, you
+only need to fill out the survey in Question 1. The rest of the homework
+consists of practice problems for Logic.
+
+<p><strong>Readings:</strong> You might find the following references
+useful:</p>
+
+<ul>
+  <li><a href="http://composingprograms.com/pages/43-declarative-programming.html#logic">4.3</a></li>
+</ul>
+
+    
+
+
+<h2 id="required-questions">Required questions</h2>
+
+
+<h3 class="question" id="q1">Question 1: A survey</h3>
+
+<p>To get credit for this homework (3 points), all you have to do is fill out <a href="http://goo.gl/forms/Ysb6hNW4OY">this
+survey</a> (it should take about 15 minutes). The
+survey is not anonymous, since we will be using your response to give you credit
+for the assignment. We value any feedback you can give us!</p>
+
+
+<h2 id="logic-practice">Logic practice</h2>
+
+
+<blockquote><p>The following questions are not required for submission. They are meant as
+extra practice for Logic.</p>
+
+<p>You can test your solutions by running <code>logic</code> on <code>hw11.logic</code>:</p>
+
+<pre><code>python3 logic hw11.logic</code></pre></blockquote>
+
+<h3 class="question" id="q2">Question 2: Add to all</h3>
+
+<p>Write facts for <code>add&#x2d;to&#x2d;all</code>, which declares a relation between an
+item, a list of lists, and a second list whose elements are the
+elements of the first list with the item added to the front of each:</p>
+
+<pre><code>; YOUR CODE HERE
+
+(query (add&#x2d;to&#x2d;all a ((b) (c d)) ((a b) (a c d))))
+; expect Success!
+(query (add&#x2d;to&#x2d;all a ((b c) (b) (foo)) ?what))
+; expect Success! ; what: ((a b c) (a b) (a foo))
+(query (add&#x2d;to&#x2d;all ?what ((c) (d e) ()) ((b c) (b d e) (b))))
+; expect Success! ; what: b
+(query (add&#x2d;to&#x2d;all ?what ?list ((b c) (d e) (b))))
+; expect Failed.</code></pre>
+
+<h3 class="question" id="q3">Question 3: Sublists</h3>
+
+<p>Write facts for <code>sublists</code>, which relates a list of items to another
+list that contains every possible sublist of the first. A sublist of a
+list is a list that contains zero or more items from the original list,
+in the same order that they appear in the original list:</p>
+
+<pre><code>(fact (append () ?a ?a))
+(fact (append (?x . ?r) ?b (?x . ?c))
+      (append ?r ?b ?c))
+
+; YOUR CODE HERE
+
+(query (sublists (1 2 3) ?subs))
+; expect Success! ; subs: (() (3) (2) (2 3) (1) (1 3) (1 2) (1 2 3))</code></pre>
+
+<h3 class="question" id="q4">Question 4</h3>
+
+<p>Below is a list of <code>fruits</code>. Write facts for <code>fruits&#x2d;tail</code>, which
+relates sublists of <code>fruits</code> starting at a given fruit:</p>
+
+<pre><code>(fact (fruits apple banana cherry date elderberry fig guava))
+
+; YOUR CODE HERE
+
+(query (fruits&#x2d;tail date elderberry fig guava))
+; expect Success!
+(query (fruits&#x2d;tail banana . ?after&#x2d;banana))
+; expect Success! ; after&#x2d;banana: (cherry date elderberry fig guava)
+(query (fruits&#x2d;tail ?e fig guava))
+; expect Success! ; e: elderberry</code></pre>
+
+  </div>
+
+  <div class='col-md-3'>
+    <nav class='hidden-print hidden-sm hidden-xs sidebar'>
+      <ul>
+  <li><a href="#required-questions">Required questions</a></li>
+  <ul>
+  <li><a href="#q1">Question 1: A survey</a></li>
+</ul>
+
+  <li><a href="#logic-practice">Logic practice</a></li>
+  <ul>
+  <li><a href="#q2">Question 2: Add to all</a></li>
+  <li><a href="#q3">Question 3: Sublists</a></li>
+  <li><a href="#q4">Question 4</a></li>
+</ul>
+
+</ul>
+
+    </nav>
+  </div>
+
+</div>
+    </div>
+  </body>
+  <script>
+  $('.sidebar ul').addClass('nav nav-stacked');
+  $('body').scrollspy({
+    target: '.sidebar',
+    offset: 40
+  });
+</script>
+
+</html>

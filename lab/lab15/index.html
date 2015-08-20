@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="description" content ="CS61A: Structure and Interpretation of Computer Programs" />
+    <meta name="keywords" content ="CS61A, Computer Science, CS, 61A, Programming, John DeNero, Berkeley, EECS" />
+    <meta name="author" content ="Albert Wu, Robert Huang, Alfonso Martinez, Cale Horeff, Chris Le, Colin Schoen, Derrick Lin, Jeffrey Lu, Jessica Gu, Rohit Lalchandani, Tammy Nguyen, Will Jiang, Yulin Zheng" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width">
+
+    <script src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
+    <link rel="icon" href="/assets/images/favicon.ico">
+
+    <link rel="stylesheet" href="/assets/css/mono-blue.css">
+    <script src="/assets/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    <link rel="stylesheet" type="text/css" href="/assets/css/resource.css" />
+<link rel="stylesheet" type="text/css" href="/assets/css/lab.css" />
+
+
+    <title>Lab 15: Logic | CS 61A Summer 2015</title>
+
+  </head>
+
+  <body id="index" class="home">
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-section">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">CS 61A</a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="navbar-collapse-section">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/">Calendar</a></li>
+            <li><a href="/office-hours.html">Office Hours</a></li>
+            <li><a href="/tutoring.html">Tutoring</a></li>
+
+            <li><a href="/articles/using-ok.html">Using OK</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Course Info <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="/articles/about.html">Syllabus</a></li>
+                <li><a href="/staff.html">Staff</a></li>
+                <li><a href="/weekly.html">Weekly Schedule</a></li>
+              </ul>
+            </li>
+
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div id="content" class="container">
+      <div class='row'>
+  <div class='col-md-9'>
+    <div class='page-header'>
+      <h1><span class="content-title-brand">Lab 15</span>: Logic</h1>
+    </div>
+
+    <p><i>Due at 11:59pm on No due date.</i></p>
+
+<h2 id='starter-files'>Starter Files</h2>
+
+<p>Download <a href="lab15.zip">lab15.zip</a>.
+Inside the archive, you will find starter files for the questions in this
+lab.</p>
+
+<h2 id='submission'>Submission</h2>
+
+<p>You do not need to submit anything for this lab.</p>
+
+<p>We've released the solutions so that you can double check your answers and use
+this lab as a resource for studying. We encourage you to try solving the
+questions on your own first before consulting the solutions!</p>
+
+
+
+    
+
+
+<h2 id="introduction">Introduction</h2>
+
+
+<p>In Declarative Programming, we aim to define facts about our universe.
+With these in place, we can make queries in the form of assertions. The
+system will then check if the query is true, based on a database of
+facts. It will inform us of what replacements for the variables will
+make the query true.</p>
+
+<p>The language we will use is called Logic. You can download a version of Logic
+<a href="logic">here</a>. There is also an <a href="http://inst.eecs.berkeley.edu/~cs61a/sp14/logic/logic.html">online Logic interpreter</a> that
+contains a subset of our version of Logic; it doesn't support arithmetic or the
+<code>not</code> relation, but it is enough to complete this lab.</p>
+
+<p>In Logic, the primitive data types are called symbols: these include numbers
+and strings. Unlike other languages we have seen in this course, numbers are
+not evaluated: they are still symbols, but they do not have their regular
+numerical meaning.  Variables in Logic are denoted with a <code>?</code> mark preceding
+the name. So for example, <code>?x</code> represents the variable <code>x</code>. A relation is a
+named tuple with a truth value.</p>
+
+<p>The next thing we need to do is define facts about our
+universe. Facts are defined using a combination that starts with the
+fact keyword. The first relation that follows is the conclusion, and
+any remaining relations are hypotheses. All hypotheses must be
+satisfied for the conclusion to be valid.</p>
+
+<pre><code>(fact (food&#x2d;chain ?creature1 ?creature2)
+      (eats ?creature1 ?creature3)
+      (eats ?creature3 ?creature2))</code></pre>
+
+<p>Here we have defined the fact for a food chain: If <code>creature1</code> eats
+<code>creature3</code>, and <code>creature3</code> eats <code>creature2</code>, then <code>creature1</code> is
+higher on the food chain than <code>creature2</code>.</p>
+
+<p>Simple facts contain only a conclusion relation, which is always true.</p>
+
+<pre><code>(fact (eats shark big&#x2d;fish))
+(fact (eats big&#x2d;fish small&#x2d;fish))
+(fact (eats domo kitten))
+(fact (eats kitten small&#x2d;fish))
+(fact (eats zombie brain))</code></pre>
+
+<p>Here we have defined a few simple facts: that in our universe, <code>sharks</code>
+eat <code>big&#x2d;fish</code>, <code>big&#x2d;fish</code> eat <code>small&#x2d;fish</code>, <code>Domos</code> eat <code>kittens</code>,
+<code>kittens</code> eat <code>small&#x2d;fish</code>, <code>zombies</code> eat <code>brains</code>. Poor kittens.</p>
+
+<p>Queries are combinations that start with the query keyword. The
+interpreter prints the truth value (either <code>Success!</code> or <code>Failed.</code>). If
+there are variables inside of the query, the interpreter will print all
+possible mappings that satisfy the query.</p>
+
+<p>Try the following queries in your Logic interpreter after you've defined the
+previous facts:</p>
+
+<pre><code>(query (eats zombie brain))
+; expect Succcess!
+
+(query (eats domo zombie))
+; expect Failed.
+
+(query (eats zombie ?what))
+; expect Success! ; what: brain
+
+(query (?what zombie brain))
+; expect Success! ; what: eats</code></pre>
+
+<p>We're first asking Logic whether a zombie eats brains (the answer is
+<code>Success!</code>) and if a domo eats zombies (the answer is <code>Failed</code>). Then
+we ask whether a zombie can eat something (the answer is <code>Success!</code>),
+and Logic will figure out for us, based on predefined facts in our
+universe, what a zombie eats. If there are more possible values for
+what a zombie can eat, then Logic will print out all of the possible
+values. In the end, we ask if there is a relation between zombie and brains
+(the answer is <code>Success!</code>). Logic will then print out the relation
+based on predefined facts.</p>
+
+<h3 class="question" id="q1">Question 1: Food chain</h3>
+
+<p>The <code>food&#x2d;chain</code> facts mentioned above are already defined in your starter file.
+You can load a file into your Logic interpreter with the following command:</p>
+
+<pre><code>python3 logic &#x2d;load filename.logic</code></pre>
+
+<p>In your interpreter, write Logic queries that answers the following questions:</p>
+
+<ol>
+  <li>Do sharks eat big-fish?</li>
+  <li>What animal is higher on the food chain than small-fish?</li>
+  <li>What animals (if any, or multiple) eat small-fish?</li>
+  <li>What animals (if any, or multiple) eat sharks?</li>
+  <li>What animals (if any, or multiple) eat zombies?</li>
+  <li>What is the relation (if any, or multiple) between shark and small-fish?</li>
+</ol>
+
+<div class="solution 0">
+
+<pre><code>(query (eats shark big&#x2d;fish))
+(query (food&#x2d;chain ?what small&#x2d;fish))
+(query (eats ?what small&#x2d;fish))
+(query (eats ?what shark))
+(query (eats ?what zombie))
+(query (?what shark small&#x2d;fish))</code></pre>
+
+</div>
+    <button id='0' class='toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+
+<h2 id="recursive-facts">Recursive facts</h2>
+
+
+<p>Currently, the <code>food&#x2d;chain</code> fact is a little lacking. A query <code>(query
+(food&#x2d;chain A B))</code> will only output <code>Success!</code> if <code>A</code> and <code>B</code> are
+separated by only one animal. For instance, if I added the following
+facts:</p>
+
+<pre><code>(fact (eats shark big&#x2d;fish))
+(fact (eats big&#x2d;fish small&#x2d;fish))
+(fact (eats small&#x2d;fish shrimp))</code></pre>
+
+<p>I'd like the <code>food&#x2d;chain</code> to output that shark is higher on the food
+chain than shrimp. Currently, the <code>food&#x2d;chain</code> fact doesn't do this:</p>
+
+<pre><code>logic&gt; (query (food&#x2d;chain shark shrimp))
+Failed.</code></pre>
+
+<p>We will define the <code>food&#x2d;chain&#x2d;v2</code> fact that correctly handles
+arbitrary length hierarchies. We'll use the following logic:</p>
+
+<ul>
+  <li>Given animals <code>A</code> and <code>B</code>, <code>A</code> is on top of the food chain of <code>B</code> if:</li>
+  <li><code>A</code> eats <code>B</code>, OR</li>
+  <li>There exists an animal <code>C</code> such that <code>A</code> eats <code>C</code>, and <code>C</code>
+   dominates <code>B</code>.</li>
+</ul>
+
+<p>Notice we have two different cases for the <code>food&#x2d;chain&#x2d;v2</code> fact. We can
+express different cases of a fact simply by entering in each case one
+at a time:</p>
+
+<pre><code>(fact (food&#x2d;chain&#x2d;v2 ?a ?b)
+      (eats ?a ?b))
+(fact (food&#x2d;chain&#x2d;v2 ?a ?b)
+      (eats ?a ?c)
+      (food&#x2d;chain&#x2d;v2 ?c ?b))</code></pre>
+
+<p>Now, if we try the same query as before, we get a <code>Success!</code>:</p>
+
+<pre><code>logic&gt; (query (food&#x2d;chain&#x2d;v2 shark shrimp))
+Success!</code></pre>
+
+<p>Take a few moments and read through how the above facts work, and how
+it implements the approach we outlined. In particular, make a few
+queries to <code>food&#x2d;chain&#x2d;v2</code> &mdash; for instance, try retrieving all animals
+that dominate shrimp!</p>
+
+<p><em>Note</em>: In the Logic system, multiple 'definitions' of a fact can exist
+at the same time (as in <code>food&#x2d;chain&#x2d;v2</code>) &mdash; definitions don't overwrite
+each other. Instead, they are all checked when you execute a query
+against that particular fact.</p>
+
+
+<h3 id="example-append">Example: Append</h3>
+
+
+<p>Next, we will define <code>append</code>, Logic style.</p>
+
+<p>As we've done in the past, let's try to explain how <code>append</code> works
+recursively. For instance, in Scheme, given two lists <code>(1 2 3)</code> and <code>(5 7)</code>,
+the result of <code>(append (1 2 3) (5 7))</code> is:</p>
+
+<pre><code>(1 2 3 5 7) = (cons 1 (append (2 3) (5 7)))</code></pre>
+
+<p>In Scheme, the full solution would be:</p>
+
+<pre><code>(define (append a b)
+        (if (null? a)
+            b
+            (cons (car a) (append (cdr a) b))))</code></pre>
+
+<p>Thus, we've broken <code>append</code> up into two different cases. Let's start
+translating this idea into Logic! The first base case is relatively
+straightforward:</p>
+
+<pre><code>(fact (append () ?b ?b ))</code></pre>
+
+<p>This takes care of cases like</p>
+
+<pre><code>logic&gt; (query (append () (1 2 3) ?what))
+(1 2 3)</code></pre>
+
+<p>So far so good! Now, we have to handle the general (recursive) case:</p>
+
+<pre><code>;;                  A        B       C
+(fact (append (?car . ?cdr) ?b (?car . ?partial)) (append ?cdr ?b ?partial))</code></pre>
+
+<p>This translates to: the list <code>A</code> appended to <code>B</code> is <code>C</code> if <code>C</code> is the
+result of sticking the CAR of <code>A</code> to the result of appending the CDR of
+<code>A</code> to <code>B</code>. Do you see how the Logic code corresponds to the recursive
+case of the Scheme function definition? As a summary, here is the
+complete definition for append:</p>
+
+<pre><code>(fact (append () ?b ?b ))
+(fact (append (?a . ?r) ?y (?a . ?z))
+      (append ?r ?y ?z))</code></pre>
+
+<h3 class="question" id="q2">Question 2: Append</h3>
+
+<p>The <code>append</code> fact has been defined for you in the starter file. You can load a
+file into the <a href="logic">Logic interpreter</a> with the following command:</p>
+
+<pre><code>python3 logic &#x2d;load filename.logic</code></pre>
+
+<p>Using the append fact, issue the following queries, and ruminate on the
+outputs. Note that some of these queries might result in multiple
+possible outputs.</p>
+
+
+    <pre><code>logic&gt; (query (append (1 2 3) (4 5) (1 2 3 4 5)))
+<div class="alt 9">______</div><div class="solution 9">&#x53;&#x75;&#x63;&#x63;&#x65;&#x73;&#x73;&#x21;</div>
+logic&gt; (query (append (1 2) (5 8) ?what))
+<div class="alt 9">______</div><div class="solution 9">&#x53;&#x75;&#x63;&#x63;&#x65;&#x73;&#x73;&#x21;&#xa;&#x77;&#x68;&#x61;&#x74;&#x3a;&#x20;&#x28;&#x31;&#x20;&#x32;&#x20;&#x35;&#x20;&#x38;&#x29;</div>
+logic&gt; (query (append (a b c) ?what (a b c oh mai gawd)))
+<div class="alt 9">______</div><div class="solution 9">&#x53;&#x75;&#x63;&#x63;&#x65;&#x73;&#x73;&#x21;&#xa;&#x77;&#x68;&#x61;&#x74;&#x3a;&#x20;&#x28;&#x6f;&#x68;&#x20;&#x6d;&#x61;&#x69;&#x20;&#x67;&#x61;&#x77;&#x64;&#x29;</div>
+logic&gt; (query (append ?what (so cool) (this is so cool)))
+<div class="alt 9">______</div><div class="solution 9">&#x53;&#x75;&#x63;&#x63;&#x65;&#x73;&#x73;&#x21;&#xa;&#x77;&#x68;&#x61;&#x74;&#x3a;&#x20;&#x28;&#x74;&#x68;&#x69;&#x73;&#x20;&#x69;&#x73;&#x29;</div>
+logic&gt; (query (append ?what1 ?what2 (will this really work)))
+<div class="alt 9">______</div><div class="solution 9">&#x53;&#x75;&#x63;&#x63;&#x65;&#x73;&#x73;&#x21;&#xa;&#x77;&#x68;&#x61;&#x74;&#x31;&#x3a;&#x20;&#x28;&#x29;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x77;&#x68;&#x61;&#x74;&#x32;&#x3a;&#x20;&#x28;&#x77;&#x69;&#x6c;&#x6c;&#x20;&#x74;&#x68;&#x69;&#x73;&#x20;&#x72;&#x65;&#x61;&#x6c;&#x6c;&#x79;&#x20;&#x77;&#x6f;&#x72;&#x6b;&#x29;&#xa;&#x77;&#x68;&#x61;&#x74;&#x31;&#x3a;&#x20;&#x28;&#x77;&#x69;&#x6c;&#x6c;&#x29;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x77;&#x68;&#x61;&#x74;&#x32;&#x3a;&#x20;&#x28;&#x74;&#x68;&#x69;&#x73;&#x20;&#x72;&#x65;&#x61;&#x6c;&#x6c;&#x79;&#x20;&#x77;&#x6f;&#x72;&#x6b;&#x29;&#xa;&#x77;&#x68;&#x61;&#x74;&#x31;&#x3a;&#x20;&#x28;&#x77;&#x69;&#x6c;&#x6c;&#x20;&#x74;&#x68;&#x69;&#x73;&#x29;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x77;&#x68;&#x61;&#x74;&#x32;&#x3a;&#x20;&#x28;&#x72;&#x65;&#x61;&#x6c;&#x6c;&#x79;&#x20;&#x77;&#x6f;&#x72;&#x6b;&#x29;&#xa;&#x77;&#x68;&#x61;&#x74;&#x31;&#x3a;&#x20;&#x28;&#x77;&#x69;&#x6c;&#x6c;&#x20;&#x74;&#x68;&#x69;&#x73;&#x20;&#x72;&#x65;&#x61;&#x6c;&#x6c;&#x79;&#x29;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x77;&#x68;&#x61;&#x74;&#x32;&#x3a;&#x20;&#x28;&#x77;&#x6f;&#x72;&#x6b;&#x29;&#xa;&#x77;&#x68;&#x61;&#x74;&#x31;&#x3a;&#x20;&#x28;&#x77;&#x69;&#x6c;&#x6c;&#x20;&#x74;&#x68;&#x69;&#x73;&#x20;&#x72;&#x65;&#x61;&#x6c;&#x6c;&#x79;&#x20;&#x77;&#x6f;&#x72;&#x6b;&#x29;&#x20;&#x20;&#x20;&#x77;&#x68;&#x61;&#x74;&#x32;&#x3a;&#x20;&#x28;&#x29;</div></code></pre>
+
+    <button id='9' class='toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+
+<h2 id="lists-in-logic">Lists in Logic</h2>
+
+
+<h3 class="question" id="q3">Question 3: Last element</h3>
+
+<p>Define a set of facts for <code>last&#x2d;element</code>, which relates an element and a list
+in the following way: if the element is the last element of the list,
+<code>last&#x2d;element</code> will report <code>Success!</code>.</p>
+
+
+
+<pre><code><div class="alt 1">; YOUR CODE HERE
+</div><div class="solution 1">&#x28;&#x66;&#x61;&#x63;&#x74;&#x20;&#x28;&#x6c;&#x61;&#x73;&#x74;&#x2d;&#x65;&#x6c;&#x65;&#x6d;&#x65;&#x6e;&#x74;&#x20;&#x28;&#x3f;&#x78;&#x29;&#x20;&#x3f;&#x78;&#x29;&#x29;&#xa;&#x28;&#x66;&#x61;&#x63;&#x74;&#x20;&#x28;&#x6c;&#x61;&#x73;&#x74;&#x2d;&#x65;&#x6c;&#x65;&#x6d;&#x65;&#x6e;&#x74;&#x20;&#x28;&#x3f;&#x63;&#x61;&#x72;&#x20;&#x2e;&#x20;&#x3f;&#x63;&#x64;&#x72;&#x29;&#x20;&#x3f;&#x78;&#x29;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x28;&#x6c;&#x61;&#x73;&#x74;&#x2d;&#x65;&#x6c;&#x65;&#x6d;&#x65;&#x6e;&#x74;&#x20;&#x3f;&#x63;&#x64;&#x72;&#x20;&#x3f;&#x78;&#x29;&#x29;</div>
+(query (last&#x2d;element (a b c) c))
+; expect Success!
+
+(query (last&#x2d;element (3) ?x))
+; expect Success! ; x: 3
+
+(query (last&#x2d;element (1 2 3) ?x))
+; expect Success! ; x: 3
+
+(query (last&#x2d;element (2 ?x) 3))
+; expect Success! ; x: 3</code></pre>
+
+
+    <button id='1' class='toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+<h3 class="question" id="q4">Question 4: Firsts</h3>
+
+<p>Write a fact "firsts" that, when input with a list of lists, gives us the first
+element of each list.</p>
+
+<blockquote><p>What's your base case? What's your recursive case?</p></blockquote>
+
+
+
+<pre><code><div class="alt 2">; YOUR CODE HERE
+</div><div class="solution 2">&#x28;&#x66;&#x61;&#x63;&#x74;&#x20;&#x28;&#x66;&#x69;&#x72;&#x73;&#x74;&#x73;&#x20;&#x28;&#x29;&#x20;&#x28;&#x29;&#x29;&#x29;&#xa;&#x28;&#x66;&#x61;&#x63;&#x74;&#x20;&#x28;&#x66;&#x69;&#x72;&#x73;&#x74;&#x73;&#x20;&#x28;&#x28;&#x3f;&#x78;&#x20;&#x2e;&#x20;&#x3f;&#x72;&#x29;&#x20;&#x2e;&#x20;&#x3f;&#x6c;&#x73;&#x29;&#x20;&#x28;&#x3f;&#x78;&#x20;&#x2e;&#x20;&#x3f;&#x78;&#x73;&#x29;&#x29;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x28;&#x66;&#x69;&#x72;&#x73;&#x74;&#x73;&#x20;&#x3f;&#x6c;&#x73;&#x20;&#x3f;&#x78;&#x73;&#x29;&#x29;</div>
+(query (firsts ((1 2 3 4) (2 3 4 5) (1 2 3 4) (1 2 3 2)) ?x))
+; expect Success! ; x: (1 2 1 1)
+
+(query (firsts ((2 3 4) (3 4 5) (2 3 4) (2 3 2)) ?y))
+; expect Success! ; y: (2 3 2 2)</code></pre>
+
+
+    <button id='2' class='toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+<h3 class="question" id="q5">Question 5: Rests</h3>
+
+<p>Now, instead of getting us the firsts, let's gather the rests!</p>
+
+
+
+<pre><code><div class="alt 3">; YOUR CODE HERE
+</div><div class="solution 3">&#x28;&#x66;&#x61;&#x63;&#x74;&#x20;&#x28;&#x72;&#x65;&#x73;&#x74;&#x73;&#x20;&#x28;&#x29;&#x20;&#x28;&#x29;&#x29;&#x29;&#xa;&#x28;&#x66;&#x61;&#x63;&#x74;&#x20;&#x28;&#x72;&#x65;&#x73;&#x74;&#x73;&#x20;&#x28;&#x28;&#x3f;&#x5f;&#x20;&#x2e;&#x20;&#x3f;&#x72;&#x29;&#x20;&#x2e;&#x20;&#x3f;&#x6c;&#x73;&#x29;&#x20;&#x28;&#x3f;&#x72;&#x20;&#x2e;&#x20;&#x3f;&#x78;&#x73;&#x29;&#x29;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x28;&#x72;&#x65;&#x73;&#x74;&#x73;&#x20;&#x3f;&#x6c;&#x73;&#x20;&#x3f;&#x78;&#x73;&#x29;&#x29;</div>
+(query (rests ((1 2 3 4) (2 3 4 5) (1 2 3 4) (1 2 3 2)) ?x))
+; Success! ; x: ((2 3 4) (3 4 5) (2 3 4) (2 3 2))
+
+(query (rests ((2 3 4) (3 4 5) (2 3 4) (2 3 2)) ?y))
+; Success! ; y: ((3 4) (4 5) (3 4) (3 2))</code></pre>
+
+
+    <button id='3' class='toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+
+<h2 id="solving-sudoku">Solving Sudoku</h2>
+
+
+<p>Assume we have the two facts insert and anagram as follows</p>
+
+<pre><code>(fact (insert ?a ?r (?a . ?r)))
+(fact (insert ?a (?b . ?r) (?b . ?s)) (insert ?a ?r ?s))
+
+(fact (anagram () ()))
+(fact (anagram (?a . ?r) ?b) (insert ?a ?s ?b) (anagram ?r ?s))</code></pre>
+
+<p>With our anagram fact, we can write a few more facts to help us solve a
+4 by 4 Sudoku puzzle!  In our version of Sudoku, our objective is to
+fill a 4x4 grid such that each column and each row of our simple grid
+contain all of the digits from 1 to 4.</p>
+
+<h3 class="question" id="q6">Question 6: Boxes</h3>
+
+<p>Let's start by defining our grid using our fact called boxes. Fill in the
+remainder of the fact.</p>
+
+
+
+<pre><code>    (fact (boxes ((?a ?b ?c ?d)
+                 (?e ?f ?g ?h)
+                 (?i ?j ?k ?l)
+                 (?m ?n ?o ?p)))
+        (anagram (?a ?b ?e ?f) (1 2 3 4))
+<div class="alt 4">        ; YOUR CODE HERE
+</div><div class="solution 4">&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x28;&#x61;&#x6e;&#x61;&#x67;&#x72;&#x61;&#x6d;&#x20;&#x28;&#x3f;&#x63;&#x20;&#x3f;&#x64;&#x20;&#x3f;&#x67;&#x20;&#x3f;&#x68;&#x29;&#x20;&#x28;&#x31;&#x20;&#x32;&#x20;&#x33;&#x20;&#x34;&#x29;&#x29;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x28;&#x61;&#x6e;&#x61;&#x67;&#x72;&#x61;&#x6d;&#x20;&#x28;&#x3f;&#x69;&#x20;&#x3f;&#x6a;&#x20;&#x3f;&#x6d;&#x20;&#x3f;&#x6e;&#x29;&#x20;&#x28;&#x31;&#x20;&#x32;&#x20;&#x33;&#x20;&#x34;&#x29;&#x29;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x28;&#x61;&#x6e;&#x61;&#x67;&#x72;&#x61;&#x6d;&#x20;&#x28;&#x3f;&#x6b;&#x20;&#x3f;&#x6c;&#x20;&#x3f;&#x6f;&#x20;&#x3f;&#x70;&#x29;&#x20;&#x28;&#x31;&#x20;&#x32;&#x20;&#x33;&#x20;&#x34;&#x29;&#x29;</div>                                        )</code></pre>
+
+
+    <button id='4' class='toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+<h3 class="question" id="q7">Question 7: Rows</h3>
+
+<p>Next, let's define a fact of specifying the rules for each row in our
+grid.  The input to rows will be the entire 4x4 grid. Fill in the rest of
+the facts in the prompt below:</p>
+
+
+
+<pre><code>(fact (rows ()))
+(fact (rows (?x . ?xs))
+<div class="alt 5">      ; YOUR CODE HERE
+</div><div class="solution 5">&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x28;&#x61;&#x6e;&#x61;&#x67;&#x72;&#x61;&#x6d;&#x20;&#x3f;&#x78;&#x20;&#x28;&#x31;&#x20;&#x32;&#x20;&#x33;&#x20;&#x34;&#x29;&#x29;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x28;&#x72;&#x6f;&#x77;&#x73;&#x20;&#x3f;&#x78;&#x73;&#x29;</div>      )
+
+(query (rows (( 1  2  4 ?a)
+              (?b  3  2  1)
+              (?c  4  3  2)
+              ( 2  4  3 ?d))))
+; expect Success! ; a: 3 ; b: 4 ; c: 1 ; d: 1</code></pre>
+
+
+    <button id='5' class='toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+<h3 class="question" id="q8">Question 8: Columns</h3>
+
+<p>Next, let's define the fact specifying the rules for each column in our
+grid.  Again, remember the the entire grid will be the input to our
+column query.</p>
+
+
+
+<pre><code>(fact (cols (() () () ())))
+<div class="alt 6">; YOUR CODE HERE
+</div><div class="solution 6">&#x28;&#x66;&#x61;&#x63;&#x74;&#x20;&#x28;&#x63;&#x6f;&#x6c;&#x73;&#x20;&#x28;&#x28;&#x3f;&#x61;&#x20;&#x2e;&#x20;&#x3f;&#x61;&#x73;&#x29;&#x20;&#x28;&#x3f;&#x62;&#x20;&#x2e;&#x20;&#x3f;&#x62;&#x73;&#x29;&#x20;&#x28;&#x3f;&#x63;&#x20;&#x2e;&#x20;&#x3f;&#x63;&#x73;&#x29;&#x20;&#x28;&#x3f;&#x64;&#x20;&#x2e;&#x20;&#x3f;&#x64;&#x73;&#x29;&#x29;&#x29;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x28;&#x61;&#x6e;&#x61;&#x67;&#x72;&#x61;&#x6d;&#x20;&#x28;&#x3f;&#x61;&#x20;&#x3f;&#x62;&#x20;&#x3f;&#x63;&#x20;&#x3f;&#x64;&#x29;&#x20;&#x28;&#x31;&#x20;&#x32;&#x20;&#x33;&#x20;&#x34;&#x29;&#x29;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x28;&#x63;&#x6f;&#x6c;&#x73;&#x20;&#x28;&#x3f;&#x61;&#x73;&#x20;&#x3f;&#x62;&#x73;&#x20;&#x3f;&#x63;&#x73;&#x20;&#x3f;&#x64;&#x73;&#x29;&#x29;&#x29;</div>
+(query (cols (( 1 ?b  4 ?d)
+              ( 3  3  2  1)
+              (?a  1 ?c  2)
+              ( 2  4  3  4))))
+; expect Success! ; a: 4 ; b: 2 ; c: 1 ; d: 3</code></pre>
+
+
+    <button id='6' class='toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+<h3 class="question" id="q9">Question 9: Solve</h3>
+
+<p>Now, let's put all of this together to solve our any 4x4 Sudoku grid.
+Fill in the fact below to do so.</p>
+
+
+
+<pre><code>(fact (solve ?grid)
+<div class="alt 7">      ; YOUR CODE HERE
+</div><div class="solution 7">&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x28;&#x62;&#x6f;&#x78;&#x65;&#x73;&#x20;&#x3f;&#x67;&#x72;&#x69;&#x64;&#x29;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x28;&#x72;&#x6f;&#x77;&#x73;&#x20;&#x3f;&#x67;&#x72;&#x69;&#x64;&#x29;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x28;&#x63;&#x6f;&#x6c;&#x73;&#x20;&#x3f;&#x67;&#x72;&#x69;&#x64;&#x29;</div>      )
+
+; Template for solving Sudoku, don&#x27;t run this without
+; replacing some variables with numbers!
+
+; (query (solve ((?a ?b ?c ?d)
+;                (?e ?f ?g ?h)
+;                (?i ?j ?k ?l)
+;                (?m ?n ?o ?p))))
+
+(query (solve (( 1 ?b  4 ?d)
+               (?e  3 ?g  1)
+               (?i  4 ?k  2)
+               ( 2 ?n  3 ?p))))
+; expect Success! ; b: 2 ; d: 3 ; e: 4 ; g: 2 ; i: 3 ; k: 1 n: 1 ; p: 4</code></pre>
+
+
+    <button id='7' class='toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+<h3 class="question" id="q10">Question 10</h3>
+
+<p>Solve the following sudoku puzzle with the new solver that you built!</p>
+
+<pre><code>+&#x2d;+&#x2d;+&#x2d;+&#x2d;+
+|3| | |1|
++&#x2d;+&#x2d;+&#x2d;+&#x2d;+
+|1| | | |
++&#x2d;+&#x2d;+&#x2d;+&#x2d;+
+| | | | |
++&#x2d;+&#x2d;+&#x2d;+&#x2d;+
+| | |2| |
++&#x2d;+&#x2d;+&#x2d;+&#x2d;+</code></pre>
+
+<blockquote><p><em>Note</em>: The query will take a long time to resolve, but it should eventually
+work! Can you solve it faster than Logic?</p></blockquote>
+
+<pre><code>(query (solve ((3  ?b ?c 1 )
+               (1  ?f ?g ?h)
+               (?i ?j ?k ?l)
+               (?m ?n 2  ?p))))</code></pre>
+
+<div class="solution 8">
+
+<pre><code>+&#x2d;+&#x2d;+&#x2d;+&#x2d;+
+|3|2|4|1|
++&#x2d;+&#x2d;+&#x2d;+&#x2d;+
+|1|4|3|2|
++&#x2d;+&#x2d;+&#x2d;+&#x2d;+
+|2|3|1|4|
++&#x2d;+&#x2d;+&#x2d;+&#x2d;+
+|4|1|2|3|
++&#x2d;+&#x2d;+&#x2d;+&#x2d;+</code></pre>
+
+</div>
+    <button id='8' class='toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+
+  </div>
+
+  <div class='col-md-3'>
+    <nav class='hidden-print hidden-sm hidden-xs sidebar'>
+      <ul>
+  <li><a href="#introduction">Introduction</a></li>
+  <ul>
+  <li><a href="#q1">Question 1: Food chain</a></li>
+</ul>
+
+  <li><a href="#recursive-facts">Recursive facts</a></li>
+  <ul>
+  <li><a href="#example-append">Example: Append</a></li>
+  <li><a href="#q2">Question 2: Append</a></li>
+</ul>
+
+  <li><a href="#lists-in-logic">Lists in Logic</a></li>
+  <ul>
+  <li><a href="#q3">Question 3: Last element</a></li>
+  <li><a href="#q4">Question 4: Firsts</a></li>
+  <li><a href="#q5">Question 5: Rests</a></li>
+</ul>
+
+  <li><a href="#solving-sudoku">Solving Sudoku</a></li>
+  <ul>
+  <li><a href="#q6">Question 6: Boxes</a></li>
+  <li><a href="#q7">Question 7: Rows</a></li>
+  <li><a href="#q8">Question 8: Columns</a></li>
+  <li><a href="#q9">Question 9: Solve</a></li>
+  <li><a href="#q10">Question 10</a></li>
+</ul>
+
+</ul>
+
+    </nav>
+  </div>
+
+</div>
+    </div>
+  </body>
+  <script>
+  $('.sidebar ul').addClass('nav nav-stacked');
+  $('body').scrollspy({
+    target: '.sidebar',
+    offset: 40
+  });
+</script>
+<script src="//code.jquery.com/jquery-latest.js"></script>
+<script>
+  $(function() {
+    if (false) {
+      $('.toggleButton').css('display', 'inline-block');
+      $('.toggleButton').click(function() {
+        var solution_id = $(this).attr('id');
+        $('div.' + solution_id).slideToggle(600);
+      });
+    }
+    // Always display these toggle buttons
+    $('.toggleButtonShow').click(function() {
+      var solution_id = $(this).attr('id');
+      $('div.' + solution_id).slideToggle(600);
+    });
+  });
+</script>
+</html>

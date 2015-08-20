@@ -1,0 +1,91 @@
+(fact (father vader luke))
+(fact (father vader leia))
+
+(fact (equal ?x ?x))
+
+; Harry Potter families
+(fact (parent james harry))
+(fact (parent lily harry))
+(fact (parent harry albus-severus))
+(fact (parent ginny albus-severus))
+(fact (parent harry james-jr))
+(fact (parent ginny james-jr))
+(fact (parent harry lily-jr))
+(fact (parent ginny lily-jr))
+
+(fact (parent arthur bill))
+(fact (parent arthur charlie))
+(fact (parent arthur percy))
+(fact (parent arthur george))
+(fact (parent arthur fred))
+(fact (parent arthur ron))
+(fact (parent arthur ginny))
+(fact (parent molly bill))
+(fact (parent molly charlie))
+(fact (parent molly percy))
+(fact (parent molly george))
+(fact (parent molly fred))
+(fact (parent molly ron))
+(fact (parent molly ginny))
+
+(fact (parent ron rose))
+(fact (parent hermione rose))
+(fact (parent ron hugo))
+(fact (parent hermione hugo))
+
+; Compound facts
+(fact (grandparent ?x ?y)
+      (parent ?x ?z)
+      (parent ?z ?y))
+
+; Recursive facts
+(fact (ancestor ?x ?y)
+      (parent ?x ?y))
+(fact (ancestor ?x ?y)
+      (parent ?x ?z)
+      (ancestor ?z ?y))
+
+
+(fact (in ?elem (?elem . ?r)))
+(fact (in ?x (?y . ?r))
+      (in ?x ?r))
+
+(fact (append ?lst1 () ?lst2))
+(fact (append (?elem . ?rest1) ?lst2 (?elem . ?rest2))
+      (append ?rest1 ?lst2 ?rest2))
+
+; Map coloring
+(query (in ?WA (red green blue))
+       (in ?NT (red green blue))
+       (in ?Q (red green blue))
+       (in ?NSW (red green blue))
+       (in ?V (red green blue))
+       (in ?SA (red green blue))
+       (in ?T (red green blue))
+
+       (not (equal ?WA ?NT))
+       (not (equal ?WA ?SA))
+       (not (equal ?NT ?SA))
+       (not (equal ?NT ?Q))
+       (not (equal ?SA ?Q))
+       (not (equal ?NSW ?Q))
+       (not (equal ?SA ?NSW))
+       (not (equal ?V ?NSW))
+       (not (equal ?V ?SA))
+       )
+
+; List change
+(fact (ordered ()))
+(fact (ordered (?x)))
+(fact (ordered (?x ?y . ?z))
+      (not (< ?x ?y))
+      (ordered (?y . ?z)))
+
+(fact (partition () 0 ?denoms))
+(fact (partition (?p1 . ?part-rest) ?total ?denoms)
+      (= ?total (+ ?total-rest ?p1))
+      (partition ?part-rest ?total-rest ?denoms)
+      (in ?p1 ?denoms)
+      (< 0 ?total)
+      (ordered (?p1 . ?part-rest))
+      )

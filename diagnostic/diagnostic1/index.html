@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="description" content ="CS61A: Structure and Interpretation of Computer Programs" />
+    <meta name="keywords" content ="CS61A, Computer Science, CS, 61A, Programming, John DeNero, Berkeley, EECS" />
+    <meta name="author" content ="Albert Wu, Robert Huang, Alfonso Martinez, Cale Horeff, Chris Le, Colin Schoen, Derrick Lin, Jeffrey Lu, Jessica Gu, Rohit Lalchandani, Tammy Nguyen, Will Jiang, Yulin Zheng" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width">
+
+    <script src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
+    <link rel="icon" href="/assets/images/favicon.ico">
+
+    <link rel="stylesheet" href="/assets/css/mono-blue.css">
+    <script src="/assets/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    <link rel="stylesheet" type="text/css" href="/assets/css/resource.css" />
+<link rel="stylesheet" type="text/css" href="/assets/css/lab.css" />
+
+
+    <title>Diagnostic 1: Week 1 review | CS 61A Summer 2015</title>
+
+  </head>
+
+  <body id="index" class="home">
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-section">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">CS 61A</a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="navbar-collapse-section">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/">Calendar</a></li>
+            <li><a href="/office-hours.html">Office Hours</a></li>
+            <li><a href="/tutoring.html">Tutoring</a></li>
+
+            <li><a href="/articles/using-ok.html">Using OK</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Course Info <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="/articles/about.html">Syllabus</a></li>
+                <li><a href="/staff.html">Staff</a></li>
+                <li><a href="/weekly.html">Weekly Schedule</a></li>
+              </ul>
+            </li>
+
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div id="content" class="container">
+      <div class='row'>
+  <div class='col-md-9'>
+    <div class='page-header'>
+      <h1><span class="content-title-brand">Diagnostic 1</span>: Week
+1 review</h1>
+    </div>
+
+    Diagnostics are meant for you to check your understanding of the week's
+material. They are not worth any points and are not counted towards midterm
+recovery points; instead, diagnostics are solely for your benefit.
+
+If you find yourself struggling with the questions in this diagnostic, consider
+signing up for <a href="/tutoring.html">Tutoring</a>.
+
+    
+
+
+<h2 id="functions-and-expressions">Functions and expressions</h2>
+
+
+<h3 class="question" id="q1">Question 1</h3>
+
+<p>Try running the following code in Python:</p>
+
+<pre><code>x, y = 42, 0
+def swap(a, b):
+    &quot;&quot;&quot;Reassigns variables x and y to b and a, respectively.&quot;&quot;&quot;
+    x, y = b, a
+
+swap(x, y)
+result = x / y</code></pre>
+
+<p>You should see an error occur on the last line:</p>
+
+<pre><code>ZeroDivisionError: division by zero</code></pre>
+
+<p>It seems like calling <code>swap(x, y)</code> didn't actually swap the variables! Why?</p>
+
+<div class="solution 0">
+
+<p>When <code>swap</code> is called, Python creates a new frame (let's call it <code>f1</code>). When
+Python executes the line <code>x, y = b, a</code>, it sees that <code>f1</code> doesn't contain
+variables called <code>x</code> and <code>y</code>, so it creates local variables <code>x</code> and <code>y</code> in
+<code>f1</code>. It <strong>does not reassign</strong> variables in the global frame.</p>
+
+</div>
+    <button id='0' class='toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+<p>What happens if we change the definition of <code>swap</code> to</p>
+
+<pre><code>def swap(a, b):
+    a, b = b, a</code></pre>
+
+<div class="solution 1">
+
+<p>A <code>ZeroDivisionError</code> still occurs. Instead of creating two new local variables
+<code>x</code> and <code>y</code> in <code>f1</code>, now Python just reassigns the local variables <code>a</code> and <code>b</code>.
+The global variables <code>x</code> and <code>y</code> remain untouched.</p>
+
+</div>
+    <button id='1' class='toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+
+<h2 id="print-vs-return"><code>print</code> vs. <code>return</code></h2>
+
+
+<h3 class="question" id="q2">Question 2</h3>
+
+<p>Suppose the following functions are entered into an interactive Python session:</p>
+
+<pre><code>def squirrel(facts):
+    if facts &gt;= 60:
+        return facts
+    else:
+        print(&#x27;Hungry&#x27;)
+
+def berkeley(facts, squirrel):
+    print(&#x27;acorn&#x27;)
+    status = squirrel(facts)
+    if status:
+        return 3
+    else:
+        print(4)</code></pre>
+
+<p>For each of the expressions in the table below, write all the lines that the
+interpreter would display.</p>
+
+<ul>
+  <li>The output may have multiple lines.</li>
+  <li>If it would display a function, write FUNCTION.</li>
+  <li>If it would cause an error, write ERROR.</li>
+  <li>You should include any lines displayed before an error.</li>
+</ul>
+
+<p>The first row has been given to you as an example.</p>
+
+<blockquote><p>Remember from <a href="/lab/lab02/">Lab 2</a> that <code>None</code> is a false-y value, and a
+non-empty string is a truth-y value.</p></blockquote>
+
+<table class="table table-responsive table-bordered">
+  <tr>
+    <th>Expression</th>
+    <th>Evaluates to</th>
+    <th>Displays in the interpreter:</th>
+  </tr>
+  <tr>
+    <td>print(42)</td>
+    <td>None</td>
+    <td>42</td>
+  </tr>
+  <tr>
+    <td>berkeley(squirrel, 100)</td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>berkeley(70, squirrel)</td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>berkeley(50, squirrel)</td>
+    <td></td>
+    <td></td>
+  </tr>
+</table>
+
+<div class="solution 2">
+
+<p><strong>Answers</strong>:</p>
+
+<table class="table table-responsive table-bordered">
+  <tr>
+    <th>Expression</th>
+    <th>Evaluates to</th>
+    <th>Displays in the interpreter:</th>
+  </tr>
+  <tr>
+    <td>print(42)</td>
+    <td>None</td>
+    <td>42</td>
+  </tr>
+  <tr>
+    <td>berkeley(squirrel, 100)</td>
+    <td>ERROR</td>
+    <td><pre>acorn
+ERROR</pre></td>
+  </tr>
+  <tr>
+    <td>berkeley(70, squirrel)</td>
+    <td>3</td>
+    <td><pre>acorn
+3</pre></td>
+  </tr>
+  <tr>
+    <td>berkeley(50, squirrel)</td>
+    <td>None</td>
+    <td><pre>acorn
+Hungry
+4</pre></td>
+  </tr>
+</table>
+
+</div>
+    <button id='2' class='toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+
+<h2 id="control-structures">Control structures</h2>
+
+
+<h3 class="question" id="q3">Question 3</h3>
+
+<p>Implement the function <code>ordered_two_digits(n)</code>, where <code>n</code> is a non-negative
+integer (it can be 0). <code>ordered_two_digits</code> returns <code>True</code> if the tens digit of
+<code>n</code>is larger than the ones digit of <code>n</code>. For example,</p>
+
+<ul>
+  <li><p>Calling <code>ordered_two_digits</code> on these numbers will return <code>True</code>:</p>
+
+  <ul>
+    <li><strong>52</strong></li>
+    <li>13<strong>42</strong></li>
+  </ul></li>
+  <li><p>Calling <code>ordered_two_digits</code> on these numbers will return <code>False</code>:</p>
+
+  <ul>
+    <li><strong>25</strong></li>
+    <li><strong>55</strong></li>
+    <li>12<strong>34</strong></li>
+    <li>9 (interpreted as <strong>09</strong>)</li>
+    <li>0 (interpreted as <strong>00</strong>)</li>
+  </ul></li>
+</ul>
+
+<p><em>Hint</em>: You can use the <code>//</code> and <code>%</code> operators to separate digits.</p>
+
+<blockquote><p><em>Note</em>: Your solution should only fill in the blank &mdash; you do not need more
+than one line for this solution.</p></blockquote>
+
+
+
+<pre><code>def ordered_two_digits(n):
+    &quot;&quot;&quot;Returns True if the tens digit of n is larger than the ones digit.
+
+    &gt;&gt;&gt; ordered_two_digits(52)
+    True
+    &gt;&gt;&gt; ordered_two_digits(1342)
+    True
+
+    &gt;&gt;&gt; ordered_two_digits(25)
+    False
+    &gt;&gt;&gt; ordered_two_digits(55)
+    False
+    &gt;&gt;&gt; ordered_two_digits(1234)
+    False
+    &gt;&gt;&gt; ordered_two_digits(9)
+    False
+    &gt;&gt;&gt; ordered_two_digits(0)
+    False
+    &quot;&quot;&quot;
+<div class="alt 3">    "*** YOUR CODE HERE ***"
+    return ______
+</div><div class="solution 3">&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x28;&#x6e;&#x20;&#x2f;&#x2f;&#x20;&#x31;&#x30;&#x29;&#x20;&#x25;&#x20;&#x31;&#x30;&#x20;&#x3e;&#x20;&#x6e;&#x20;&#x25;&#x20;&#x31;&#x30;</div></code></pre>
+
+<div class="solution 3">
+
+<p>The ones digit of a number can be calculated with <code>n % 10</code>. The tens digit of a
+number can be calculated with <code>(n // 10) % 10</code> (remove the ones digit, then get
+the last digit of the new number).</p>
+
+</div>
+
+
+    <button id='3' class='toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+<h3 class="question" id="q4">Question 4: Two equal</h3>
+
+<p>Implement a function <code>two_equal</code> that takes three integer arguments and returns
+whether exactly two of the arguments are equal and the third is not.</p>
+
+
+
+<pre><code>def two_equal(a, b, c):
+    &quot;&quot;&quot;Return whether exactly two of the arguments are equal and the
+    third is not.
+
+    &gt;&gt;&gt; two_equal(1, 2, 3)
+    False
+    &gt;&gt;&gt; two_equal(1, 2, 1)
+    True
+    &gt;&gt;&gt; two_equal(1, 1, 1)
+    False
+    &gt;&gt;&gt; result = two_equal(5, &#x2d;1, &#x2d;1) # return, don&#x27;t print
+    &gt;&gt;&gt; result
+    True
+    &gt;&gt;&gt; two_equal(0, 0, &#x2d;1)
+    True
+    &gt;&gt;&gt; two_equal(0, 0, 0)
+    False
+    &quot;&quot;&quot;
+<div class="alt 4">    "*** YOUR CODE HERE ***"
+</div><div class="solution 4">&#x20;&#x20;&#x20;&#x20;&#x69;&#x66;&#x20;&#x61;&#x20;&#x3d;&#x3d;&#x20;&#x62;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x61;&#x20;&#x21;&#x3d;&#x20;&#x63;&#xa;&#x20;&#x20;&#x20;&#x20;&#x65;&#x6c;&#x73;&#x65;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x61;&#x20;&#x3d;&#x3d;&#x20;&#x63;&#x20;&#x6f;&#x72;&#x20;&#x62;&#x20;&#x3d;&#x3d;&#x20;&#x63;</div></code></pre>
+
+
+    <button id='4' class='toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+<h3 class="question" id="q5">Question 5</h3>
+
+<p>If we list all the natural numbers below 10 that are multiples of 3 or 5, we
+get 3, 5, 6 and 9. The sum of these multiples is 23. Find the sum of all the
+multiples of <code>m</code>or <code>n</code> below some number <code>limit</code>.</p>
+
+
+
+<pre><code>def sum_multiples(m, n, limit):
+    &quot;&quot;&quot;
+    &gt;&gt;&gt; sum_multiples(3, 5, 10)
+    23
+    &gt;&gt;&gt; sum_multiples(3, 7, 1000)
+    214216
+    &quot;&quot;&quot;
+<div class="alt 5">    "*** YOUR CODE HERE ***"
+</div><div class="solution 5">&#x20;&#x20;&#x20;&#x20;&#x63;&#x6f;&#x75;&#x6e;&#x74;&#x20;&#x3d;&#x20;&#x30;&#xa;&#x20;&#x20;&#x20;&#x20;&#x74;&#x6f;&#x74;&#x61;&#x6c;&#x20;&#x3d;&#x20;&#x30;&#xa;&#x20;&#x20;&#x20;&#x20;&#x77;&#x68;&#x69;&#x6c;&#x65;&#x20;&#x63;&#x6f;&#x75;&#x6e;&#x74;&#x20;&#x3c;&#x20;&#x6c;&#x69;&#x6d;&#x69;&#x74;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x69;&#x66;&#x20;&#x63;&#x6f;&#x75;&#x6e;&#x74;&#x20;&#x25;&#x20;&#x6d;&#x20;&#x3d;&#x3d;&#x20;&#x30;&#x20;&#x6f;&#x72;&#x20;&#x63;&#x6f;&#x75;&#x6e;&#x74;&#x20;&#x25;&#x20;&#x6e;&#x20;&#x3d;&#x3d;&#x20;&#x30;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x74;&#x6f;&#x74;&#x61;&#x6c;&#x20;&#x2b;&#x3d;&#x20;&#x63;&#x6f;&#x75;&#x6e;&#x74;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x63;&#x6f;&#x75;&#x6e;&#x74;&#x20;&#x2b;&#x3d;&#x20;&#x31;&#xa;&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x74;&#x6f;&#x74;&#x61;&#x6c;</div></code></pre>
+
+
+    <button id='5' class='toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+<h3 class="question" id="q6">Question 6</h3>
+
+<p>Implement the function <code>ordered_digits</code>, which takes as input a
+positive integer and returns <code>True</code> if its digits, read left to right,
+are in non-decreasing order, and <code>False</code> otherwise.  For example, the
+digits of 5, 11, 127, 1357 are ordered, but not those of 21 or 1375.</p>
+
+<p><em>Hint:</em> You can use <code>//</code> and <code>%</code> to separate a positive integer into
+its one's digit and the rest of its digits.</p>
+
+
+
+<pre><code>def ordered_digits(x):
+    &quot;&quot;&quot;Return True if the (base 10) digits of X&gt;0 are in non&#x2d;decreasing
+    order, and False otherwise.
+
+    &gt;&gt;&gt; ordered_digits(5)
+    True
+    &gt;&gt;&gt; ordered_digits(11)
+    True
+    &gt;&gt;&gt; ordered_digits(127)
+    True
+    &gt;&gt;&gt; ordered_digits(1357)
+    True
+    &gt;&gt;&gt; ordered_digits(21)
+    False
+    &gt;&gt;&gt; result = ordered_digits(1375) # Return, don&#x27;t print
+    &gt;&gt;&gt; result
+    False
+
+<div class="solution 6">&#xa;&#x20;&#x20;&#x20;&#x20;&#x3e;&#x3e;&#x3e;&#x20;&#x63;&#x61;&#x73;&#x65;&#x73;&#x20;&#x3d;&#x20;&#x5b;&#x28;&#x31;&#x2c;&#x20;&#x54;&#x72;&#x75;&#x65;&#x29;&#x2c;&#x20;&#x28;&#x39;&#x2c;&#x20;&#x54;&#x72;&#x75;&#x65;&#x29;&#x2c;&#x20;&#x28;&#x31;&#x30;&#x2c;&#x20;&#x46;&#x61;&#x6c;&#x73;&#x65;&#x29;&#x2c;&#x20;&#x28;&#x31;&#x31;&#x2c;&#x20;&#x54;&#x72;&#x75;&#x65;&#x29;&#x2c;&#x20;&#x28;&#x33;&#x32;&#x2c;&#x20;&#x46;&#x61;&#x6c;&#x73;&#x65;&#x29;&#x2c;&#xa;&#x20;&#x20;&#x20;&#x20;&#x2e;&#x2e;&#x2e;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x28;&#x32;&#x33;&#x2c;&#x20;&#x54;&#x72;&#x75;&#x65;&#x29;&#x2c;&#x20;&#x28;&#x39;&#x39;&#x2c;&#x20;&#x54;&#x72;&#x75;&#x65;&#x29;&#x2c;&#x20;&#x28;&#x31;&#x31;&#x31;&#x2c;&#x20;&#x54;&#x72;&#x75;&#x65;&#x29;&#x2c;&#x20;&#x28;&#x31;&#x32;&#x32;&#x2c;&#x20;&#x54;&#x72;&#x75;&#x65;&#x29;&#x2c;&#x20;&#x28;&#x32;&#x32;&#x33;&#x2c;&#x20;&#x54;&#x72;&#x75;&#x65;&#x29;&#x2c;&#xa;&#x20;&#x20;&#x20;&#x20;&#x2e;&#x2e;&#x2e;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x28;&#x32;&#x33;&#x32;&#x2c;&#x20;&#x46;&#x61;&#x6c;&#x73;&#x65;&#x29;&#x2c;&#x20;&#x28;&#x39;&#x39;&#x39;&#x2c;&#x20;&#x54;&#x72;&#x75;&#x65;&#x29;&#x2c;&#xa;&#x20;&#x20;&#x20;&#x20;&#x2e;&#x2e;&#x2e;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x28;&#x31;&#x33;&#x33;&#x33;&#x34;&#x35;&#x36;&#x36;&#x36;&#x36;&#x36;&#x38;&#x38;&#x39;&#x2c;&#x20;&#x54;&#x72;&#x75;&#x65;&#x29;&#x2c;&#x20;&#x28;&#x39;&#x38;&#x37;&#x36;&#x35;&#x34;&#x33;&#x32;&#x31;&#x2c;&#x20;&#x46;&#x61;&#x6c;&#x73;&#x65;&#x29;&#x5d;&#xa;&#x20;&#x20;&#x20;&#x20;&#x3e;&#x3e;&#x3e;&#x20;&#x5b;&#x6f;&#x72;&#x64;&#x65;&#x72;&#x65;&#x64;&#x5f;&#x64;&#x69;&#x67;&#x69;&#x74;&#x73;&#x28;&#x73;&#x29;&#x20;&#x3d;&#x3d;&#x20;&#x74;&#x20;&#x66;&#x6f;&#x72;&#x20;&#x73;&#x2c;&#x20;&#x74;&#x20;&#x69;&#x6e;&#x20;&#x63;&#x61;&#x73;&#x65;&#x73;&#x5d;&#x2e;&#x63;&#x6f;&#x75;&#x6e;&#x74;&#x28;&#x46;&#x61;&#x6c;&#x73;&#x65;&#x29;&#xa;&#x20;&#x20;&#x20;&#x20;&#x30;&#xa;</div>    &quot;&quot;&quot;
+<div class="alt 6">    "*** YOUR CODE HERE ***"
+</div><div class="solution 6">&#x20;&#x20;&#x20;&#x20;&#x6c;&#x61;&#x73;&#x74;&#x20;&#x3d;&#x20;&#x78;&#x20;&#x25;&#x20;&#x31;&#x30;&#xa;&#x20;&#x20;&#x20;&#x20;&#x76;&#x61;&#x6c;&#x20;&#x3d;&#x20;&#x78;&#x20;&#x2f;&#x2f;&#x20;&#x31;&#x30;&#xa;&#x20;&#x20;&#x20;&#x20;&#x77;&#x68;&#x69;&#x6c;&#x65;&#x20;&#x78;&#x20;&#x3e;&#x20;&#x30;&#x20;&#x61;&#x6e;&#x64;&#x20;&#x6c;&#x61;&#x73;&#x74;&#x20;&#x3e;&#x3d;&#x20;&#x78;&#x20;&#x25;&#x20;&#x31;&#x30;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x6c;&#x61;&#x73;&#x74;&#x20;&#x3d;&#x20;&#x78;&#x20;&#x25;&#x20;&#x31;&#x30;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x78;&#x20;&#x3d;&#x20;&#x78;&#x20;&#x2f;&#x2f;&#x20;&#x31;&#x30;&#xa;&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x78;&#x20;&#x3d;&#x3d;&#x20;&#x30;</div></code></pre>
+
+<div class="solution 6">
+
+<p>We split off each digit in turn from the right, comparing it to the
+previous digit we split off, which was the one immediately to its
+right.  We stop when we run out of digits or we find an out-of-order
+digit.</p>
+
+</div>
+
+
+    <button id='6' class='toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+
+<h2 id="higher-order-functions-and-lambdas">Higher order functions and Lambdas</h2>
+
+
+<h3 class="question" id="q7">Question 7: Intersect</h3>
+
+<p>Two functions intersect at an argument <code>x</code> if they return equal values.
+Implement <code>intersects</code>, which takes a one-argument functions <code>f</code> and a value
+<code>x</code>. It returns a function that takes another function <code>g</code> and returns whether
+<code>f</code> and <code>g</code> intersect at <code>x</code>.</p>
+
+
+
+<pre><code>def intersects(f, x):
+    &quot;&quot;&quot;Returns a function that returns whether f intersects g at x.
+
+    &gt;&gt;&gt; at_three = intersects(square, 3)
+    &gt;&gt;&gt; at_three(triple) # triple(3) == square(3)
+    True
+    &gt;&gt;&gt; at_three(increment)
+    False
+    &gt;&gt;&gt; at_one = intersects(identity, 1)
+    &gt;&gt;&gt; at_one(square)
+    True
+    &gt;&gt;&gt; at_one(triple)
+    False
+    &quot;&quot;&quot;
+<div class="alt 7">    "*** YOUR CODE HERE ***"
+</div><div class="solution 7">&#x20;&#x20;&#x20;&#x20;&#x64;&#x65;&#x66;&#x20;&#x61;&#x74;&#x5f;&#x78;&#x28;&#x67;&#x29;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x66;&#x28;&#x78;&#x29;&#x20;&#x3d;&#x3d;&#x20;&#x67;&#x28;&#x78;&#x29;&#xa;&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x61;&#x74;&#x5f;&#x78;</div></code></pre>
+
+
+    <button id='7' class='toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+<h3 class="question" id="q8">Question 8: Smooth</h3>
+
+<p>The idea of smoothing a function is an important concept in signal
+processing. If <code>f</code> is a one-argument function and <code>dx</code> is some small
+number, then the smoothed version of <code>f</code> is the function whose value at
+a point <code>x</code> is the average of <code>f(x &#x2d; dx)</code>, <code>f(x)</code>, and <code>f(x + dx)</code>.
+Write a function <code>smooth</code> that takes as input a function <code>f</code> and a
+value to use for <code>dx</code> and returns a function that computes the smoothed
+version of <code>f</code>. Do not use any <code>def</code> statements inside of <code>smooth</code>; use
+<code>lambda</code> expressions instead.</p>
+
+
+
+<pre><code>def smooth(f, dx):
+    &quot;&quot;&quot;Returns the smoothed version of f, g where
+
+    g(x) = (f(x &#x2d; dx) + f(x) + f(x + dx)) / 3
+
+    &gt;&gt;&gt; square = lambda x: x ** 2
+    &gt;&gt;&gt; round(smooth(square, 1)(0), 3)
+    0.667
+    &quot;&quot;&quot;
+<div class="alt 8">    "*** YOUR CODE HERE ***"
+</div><div class="solution 8">&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x6c;&#x61;&#x6d;&#x62;&#x64;&#x61;&#x20;&#x78;&#x3a;&#x20;&#x28;&#x66;&#x28;&#x78;&#x20;&#x2d;&#x20;&#x64;&#x78;&#x29;&#x20;&#x2b;&#x20;&#x66;&#x28;&#x78;&#x29;&#x20;&#x2b;&#x20;&#x66;&#x28;&#x78;&#x20;&#x2b;&#x20;&#x64;&#x78;&#x29;&#x29;&#x20;&#x2f;&#x20;&#x33;</div></code></pre>
+
+
+    <button id='8' class='toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+<h3 class="question" id="q9">Question 9</h3>
+
+<p>Draw the environment diagram for the following code:</p>
+
+<pre><code>x = 5
+def compose1(f, g):
+    def h(x):
+        return f(g(x))
+    return h
+d = lambda y: y * x
+x = 4
+result = compose1(lambda z: z &#x2d; 1, d)(3)</code></pre>
+
+<p>There are 5 frames total (including the Global frame). In addition, consider
+the following questions:</p>
+
+<ol>
+  <li>In frame <code>f1</code> (the frame for <code>compose1</code>), the parameter <code>f</code> points to a
+  function object. What is the intrinsic name of that function object, and
+  what frame is its parent?</li>
+  <li>In frame <code>f2</code>, what name is the frame labeled with (<code>h</code> or &lambda;)? Which
+  frame is the parent of <code>f2</code>?</li>
+  <li>In frame <code>f3</code>, what name is the frame labeled with (<code>f</code>, <code>g</code>, <code>d</code>, or
+  &lambda;)?  Which frame is the parent of <code>f3</code>? In order to compute the
+  return value <code>y * x</code>, in which frame does Python find <code>x</code>? What is that
+  value of <code>x</code>?</li>
+  <li>In frame <code>f4</code>, what name is the frame labeled with (<code>f</code>, <code>g</code>, <code>d</code>, or
+  &lambda;)?  Which frame is the parent of <code>f3</code>?</li>
+  <li>What value is the variable <code>result</code> bound to in the Global frame?</li>
+</ol>
+
+<div class="solution 9">
+
+<p>You can try out the environment diagram at <a href="tutor.cs61a.org">tutor.cs61a.org</a>.</p>
+
+<ol>
+  <li>The intrinsic name of the function object that <code>f</code> points to is &lambda;
+  (specifically, the lambda whose parameter is <code>z</code>). The parent frame of this
+  lambda is Global.</li>
+  <li><code>f2</code> is labeled with the name <code>h</code>; the parent frame of <code>f2</code> is <code>f1</code>, since
+  that is where <code>h</code> is defined.</li>
+  <li><code>f3</code> is labeled with the name &lambda; (specifically, it is the &lambda;
+  that takes in a parameter <code>y</code>). The parent frame of <code>f3</code> is Global, since
+  that is where this lambda was defined (the line <code>d = lambda y: y * x</code>).</li>
+  <li><p><code>f4</code> is labeled with the name &lambda; (specifically, it is the &lambda;
+  that takes a parameter <code>z</code>). The parent frame of <code>f4</code> is Global, since that
+  is where the lambda is defined.</p>
+
+  <p>You might think that the parent of <code>f4</code> is <code>f1</code>, since <code>lambda z: z &#x2d; 1</code> is
+  being passed into <code>compose1</code>. Remember, however, that operands are evaluated
+  <em>before</em> the operator is <em>applied</em> (that is, before we create the frame
+  <code>f1</code>).  Since we are evaluating <code>lambda z: z &#x2d; 1</code> in the Global frame, its
+  parent is Global.</p></li>
+  <li>The variable <code>result</code> is bound to 11.</li>
+</ol>
+
+</div>
+    <button id='9' class='toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+
+  </div>
+
+  <div class='col-md-3'>
+    <nav class='hidden-print hidden-sm hidden-xs sidebar'>
+      <ul>
+  <li><a href="#functions-and-expressions">Functions and expressions</a></li>
+  <ul>
+  <li><a href="#q1">Question 1</a></li>
+</ul>
+
+  <li><a href="#print-vs-return"><code>print</code> vs. <code>return</code></a></li>
+  <ul>
+  <li><a href="#q2">Question 2</a></li>
+</ul>
+
+  <li><a href="#control-structures">Control structures</a></li>
+  <ul>
+  <li><a href="#q3">Question 3</a></li>
+  <li><a href="#q4">Question 4: Two equal</a></li>
+  <li><a href="#q5">Question 5</a></li>
+  <li><a href="#q6">Question 6</a></li>
+</ul>
+
+  <li><a href="#higher-order-functions-and-lambdas">Higher order functions and Lambdas</a></li>
+  <ul>
+  <li><a href="#q7">Question 7: Intersect</a></li>
+  <li><a href="#q8">Question 8: Smooth</a></li>
+  <li><a href="#q9">Question 9</a></li>
+</ul>
+
+</ul>
+
+    </nav>
+  </div>
+
+</div>
+    </div>
+  </body>
+  <script>
+  $('.sidebar ul').addClass('nav nav-stacked');
+  $('body').scrollspy({
+    target: '.sidebar',
+    offset: 40
+  });
+</script>
+<script src="//code.jquery.com/jquery-latest.js"></script>
+<script>
+  $(function() {
+    $('.toggleButton').css('display', 'inline-block');
+    $('.toggleButton').click(function() {
+      alert('Solutions have been removed.');
+    });
+  });
+</script>
+</html>

@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="description" content ="CS61A: Structure and Interpretation of Computer Programs" />
+    <meta name="keywords" content ="CS61A, Computer Science, CS, 61A, Programming, John DeNero, Berkeley, EECS" />
+    <meta name="author" content ="Albert Wu, Robert Huang, Alfonso Martinez, Cale Horeff, Chris Le, Colin Schoen, Derrick Lin, Jeffrey Lu, Jessica Gu, Rohit Lalchandani, Tammy Nguyen, Will Jiang, Yulin Zheng" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width">
+
+    <script src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
+    <link rel="icon" href="/assets/images/favicon.ico">
+
+    <link rel="stylesheet" href="/assets/css/mono-blue.css">
+    <script src="/assets/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    <link rel="stylesheet" type="text/css" href="/assets/css/resource.css" />
+<link rel="stylesheet" type="text/css" href="/assets/css/lab.css" />
+
+
+    <title>Lab 7: Trees | CS 61A Summer 2015</title>
+
+  </head>
+
+  <body id="index" class="home">
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-section">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">CS 61A</a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="navbar-collapse-section">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/">Calendar</a></li>
+            <li><a href="/office-hours.html">Office Hours</a></li>
+            <li><a href="/tutoring.html">Tutoring</a></li>
+
+            <li><a href="/articles/using-ok.html">Using OK</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Course Info <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="/articles/about.html">Syllabus</a></li>
+                <li><a href="/staff.html">Staff</a></li>
+                <li><a href="/weekly.html">Weekly Schedule</a></li>
+              </ul>
+            </li>
+
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div id="content" class="container">
+      <div class='row'>
+  <div class='col-md-9'>
+    <div class='page-header'>
+      <h1><span class="content-title-brand">Lab 7</span>: Trees</h1>
+    </div>
+
+    <p><i>Due at 11:59pm on 07/14/2015.</i></p>
+
+<h2 id='starter-files'>Starter Files</h2>
+
+<p>Download <a href="lab07.zip">lab07.zip</a>.
+Inside the archive, you will find starter files for the questions in this lab,
+  along with a copy of the <a href="ok">OK</a> autograder.</p>
+
+<h2 id='submission'>Submission</h2>
+
+<p>By the end of this lab, you should have submitted the lab with
+<code>python3 ok --submit</code>. You may submit more than once before the
+deadline; only the final submission will be graded.</p>
+
+
+<ul>
+  <li>To receive credit for this lab, you must complete Questions 1, 2, 3, and 4
+  in <a href="lab07.py">lab07.py</a> and submit through OK.</li>
+  <li>Questions 5 is <em>extra practice</em>. It can be found in
+  the <a href="lab07_extra.py">lab07_extra.py</a> file. It is recommended that you
+  complete this problem on your own time.</li>
+</ul>
+
+
+    
+
+
+<h2 id="trees">Trees</h2>
+
+<p>A <code>tree</code> is a data structure that represents a hierarchy of information. A
+file system is a good example of a tree structure. For example, within your <code>cs61a</code> folder, you have folders separating your <code>projects</code>, <code>lab</code> assignments, and <code>homework</code>. The next level is folders that separate different assignments, <code>hw01</code>, <code>lab01</code>, <code>hog</code>, etc., and inside those are the files themselves, including the starter files and <code>ok</code>. Below is an incomplete diagram of what your <code>cs61a</code> directory might look like.</p>
+
+<p><img class="img-responsive center-block" src="assets/cs61a-tree.png" alt="cs61a tree"></p>
+
+<p>As you can see, unlike trees in nature, which is where this data structure gets its name from, CS trees are drawn with the root at the top and the leaves at the bottom.</p>
+
+<ul>
+  <li><strong>node</strong>: a single unit in a tree.</li>
+  <li><strong>entry</strong>: the data inside of each tree's root node.</li>
+  <li><strong>root</strong>: the node at the top of a tree. every tree has one root node.</li>
+  <li><strong>subtree</strong>: a tree within the main tree, has its own entry and subtrees.</li>
+  <li><strong>branch</strong>: connects two nodes.</li>
+  <li><strong>leaf</strong>: a node that has no subtrees.</li>
+</ul>
+
+<p>Our <code>tree</code> abstract data type consists of the <code>entry</code> at its root node and a list of its <code>subtrees</code>. To create a tree and access its entry and subtrees, use the following constructor and selectors:</p>
+
+<ul>
+  <li><p>Constructor</p>
+
+  <ul>
+    <li><code>tree(entry, subtrees=[])</code>: creates a tree object with the given <code>entry</code> and list of <code>subtrees</code>.</li>
+  </ul></li>
+  <li><p>Selectors</p>
+
+  <ul>
+    <li><code>entry(tree)</code>: returns the value at the root of the <code>tree</code>.</li>
+    <li><code>subtrees(tree)</code>: returns the list of subtrees of the given <code>tree</code>.</li>
+    <li><code>is_leaf(tree)</code>: returns <code>True</code> if <code>tree</code>'s list of <code>subtrees</code> is empty, and <code>False</code> otherwise.</li>
+  </ul></li>
+</ul>
+
+<p>For example, the tree generated by</p>
+
+<pre><code>t = tree(1, [tree(2),
+             tree(3, [tree(4), tree(5)]),
+             tree(6, [tree(7)])])</code></pre>
+
+<p>would look like this:</p>
+
+<pre><code>   1
+ / | \
+2  3  6
+  / \  \
+ 4   5  7</code></pre>
+
+<p>It may be easier to visualize this translation by formatting the code
+like this:</p>
+
+<pre><code>t = tree(1,
+         [tree(2),
+          tree(3,
+               [tree(4),
+                tree(5)]),
+          tree(6,
+               [tree(7)])])</code></pre>
+
+<p>To extract the number <code>3</code> from this tree, which is the entry of its second subtree, we would do this:</p>
+
+<pre><code>entry(subtrees(t)[1])</code></pre>
+
+<p>The <code>print_tree</code> function prints out a tree in a
+human-readable form. The exact form follows the pattern illustrated
+above, where the root is unindented, and each of its subtrees is
+indented one level further.</p>
+
+<pre><code>def print_tree(t, indent=0):
+    &quot;&quot;&quot;Print a representation of this tree in which each node is
+    indented by two spaces times its depth from the entry.
+
+    &gt;&gt;&gt; print_tree(tree(1))
+    1
+    &gt;&gt;&gt; print_tree(tree(1, [tree(2)]))
+    1
+      2
+    &gt;&gt;&gt; print_tree(numbers)
+    1
+      2
+      3
+        4
+        5
+      6
+        7
+    &quot;&quot;&quot;
+    print(&#x27;  &#x27; * indent + str(entry(t)))
+    for subtree in subtrees(t):
+        print_tree(subtree, indent + 1)</code></pre>
+
+
+<h2 id="pytunes">pyTunes</h2>
+
+
+<p>The CS 61A staff has created a music library called pyTunes. pyTunes organizes songs in folders that are labeled by category &mdash; in other words, in a tree! The <code>entry</code> at the root of the tree is your account name, which branches out into a hierarchy of categories: genres, artists, and albums, in that order. Songs (leaves in the tree) can be stored at any of these levels. A category cannot be empty (i.e. there will never be a node for a
+genre, artist, or album with no subtrees).</p>
+
+<h3 class="question" id="q1">Question 1: Create pyTunes</h3>
+
+<p>All pyTunes accounts come with the free songs below. Define the function <code>make_pytunes</code>, which takes in <code>username</code> and creates this tree:</p>
+
+<p><img class="img-responsive center-block" src="assets/pytunes.png" alt="pytunes tree"></p>
+
+<p>The doctest below shows the <code>print_tree</code> representation of a default pyTunes tree.</p>
+
+
+
+<pre><code>def make_pytunes(username):
+    &quot;&quot;&quot;Return a pyTunes tree as shown in the diagram.
+
+    &gt;&gt;&gt; pytunes = make_pytunes(&#x27;i_love_t_swift&#x27;)
+    &gt;&gt;&gt; print_tree(pytunes)
+    i_love_t_swift
+      pop
+        taylor swift
+          1989
+            bad blood
+        2015 pop mashup
+      hip hop
+        nicki minaj
+          anaconda
+    &quot;&quot;&quot;
+<div class="alt 0">    "*** YOUR CODE HERE ***"
+</div><div class="solution 0">&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x74;&#x72;&#x65;&#x65;&#x28;&#x75;&#x73;&#x65;&#x72;&#x6e;&#x61;&#x6d;&#x65;&#x2c;&#x20;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x5b;&#x74;&#x72;&#x65;&#x65;&#x28;&#x27;&#x70;&#x6f;&#x70;&#x27;&#x2c;&#x20;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x5b;&#x74;&#x72;&#x65;&#x65;&#x28;&#x27;&#x74;&#x61;&#x79;&#x6c;&#x6f;&#x72;&#x20;&#x73;&#x77;&#x69;&#x66;&#x74;&#x27;&#x2c;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x5b;&#x74;&#x72;&#x65;&#x65;&#x28;&#x27;&#x31;&#x39;&#x38;&#x39;&#x27;&#x2c;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x5b;&#x74;&#x72;&#x65;&#x65;&#x28;&#x27;&#x62;&#x61;&#x64;&#x20;&#x62;&#x6c;&#x6f;&#x6f;&#x64;&#x27;&#x29;&#x5d;&#x29;&#x5d;&#x29;&#x2c;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x74;&#x72;&#x65;&#x65;&#x28;&#x27;&#x32;&#x30;&#x31;&#x35;&#x20;&#x70;&#x6f;&#x70;&#x20;&#x6d;&#x61;&#x73;&#x68;&#x75;&#x70;&#x27;&#x29;&#x5d;&#x29;&#x2c;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x74;&#x72;&#x65;&#x65;&#x28;&#x27;&#x68;&#x69;&#x70;&#x20;&#x68;&#x6f;&#x70;&#x27;&#x2c;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x5b;&#x74;&#x72;&#x65;&#x65;&#x28;&#x27;&#x6e;&#x69;&#x63;&#x6b;&#x69;&#x20;&#x6d;&#x69;&#x6e;&#x61;&#x6a;&#x27;&#x2c;&#x20;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x5b;&#x74;&#x72;&#x65;&#x65;&#x28;&#x27;&#x61;&#x6e;&#x61;&#x63;&#x6f;&#x6e;&#x64;&#x61;&#x27;&#x29;&#x5d;&#x29;&#x5d;&#x29;&#x5d;&#x29;</div></code></pre>
+
+
+    <button id='0' class='toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+<p>Use OK to test your code:</p><pre><code>python3 ok -q make_pytunes</code></pre>
+
+<h3 class="question" id="q2">Question 2: Number of Songs</h3>
+
+<p>A pyPod can only hold 10 songs, and you need to find out whether or not all the songs in your pyTunes account will fit. Define the function <code>num_songs</code>, which takes in a pyTunes tree <code>t</code> and returns the number of songs in <code>t</code>. Recall that there are no empty directories in pyTunes, so all leaves in <code>t</code> are songs.</p>
+
+<p><strong>Hint:</strong> You can use <code>is_leaf</code> to check whether a given tree is a leaf.</p>
+
+<pre><code>&gt;&gt;&gt; no_subtrees = tree(1)
+&gt;&gt;&gt; is_leaf(no_subtrees)
+True
+&gt;&gt;&gt; is_leaf(tree(5, [tree(3), tree(4)]))
+False</code></pre>
+
+
+
+<pre><code>def num_songs(t):
+    &quot;&quot;&quot;Return the number of songs in the pyTunes tree.
+
+    &gt;&gt;&gt; pytunes = make_pytunes(&#x27;i_love_t_swift&#x27;)
+    &gt;&gt;&gt; num_songs(pytunes)
+    3
+    &quot;&quot;&quot;
+<div class="alt 1">    "*** YOUR CODE HERE ***"
+</div><div class="solution 1">&#x20;&#x20;&#x20;&#x20;&#x69;&#x66;&#x20;&#x28;&#x69;&#x73;&#x5f;&#x6c;&#x65;&#x61;&#x66;&#x28;&#x74;&#x29;&#x29;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x31;&#xa;&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x73;&#x75;&#x6d;&#x28;&#x5b;&#x6e;&#x75;&#x6d;&#x5f;&#x73;&#x6f;&#x6e;&#x67;&#x73;&#x28;&#x73;&#x29;&#x20;&#x66;&#x6f;&#x72;&#x20;&#x73;&#x20;&#x69;&#x6e;&#x20;&#x73;&#x75;&#x62;&#x74;&#x72;&#x65;&#x65;&#x73;&#x28;&#x74;&#x29;&#x5d;&#x29;&#xa;&#xa;&#x23;&#x20;&#x41;&#x6c;&#x74;&#x65;&#x72;&#x6e;&#x61;&#x74;&#x65;&#x20;&#x73;&#x6f;&#x6c;&#x75;&#x74;&#x69;&#x6f;&#x6e;&#xa;&#x64;&#x65;&#x66;&#x20;&#x6e;&#x75;&#x6d;&#x5f;&#x73;&#x6f;&#x6e;&#x67;&#x73;&#x28;&#x74;&#x29;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x69;&#x66;&#x20;&#x69;&#x73;&#x5f;&#x6c;&#x65;&#x61;&#x66;&#x28;&#x74;&#x29;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x31;&#xa;&#x20;&#x20;&#x20;&#x20;&#x6c;&#x65;&#x61;&#x76;&#x65;&#x73;&#x20;&#x3d;&#x20;&#x30;&#xa;&#x20;&#x20;&#x20;&#x20;&#x66;&#x6f;&#x72;&#x20;&#x73;&#x75;&#x62;&#x74;&#x72;&#x65;&#x65;&#x20;&#x69;&#x6e;&#x20;&#x73;&#x75;&#x62;&#x74;&#x72;&#x65;&#x65;&#x73;&#x28;&#x74;&#x29;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x6c;&#x65;&#x61;&#x76;&#x65;&#x73;&#x20;&#x2b;&#x3d;&#x20;&#x6e;&#x75;&#x6d;&#x5f;&#x73;&#x6f;&#x6e;&#x67;&#x73;&#x28;&#x73;&#x75;&#x62;&#x74;&#x72;&#x65;&#x65;&#x29;&#xa;&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x6c;&#x65;&#x61;&#x76;&#x65;&#x73;</div></code></pre>
+
+
+    <button id='1' class='toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+<p>Use OK to test your code:</p><pre><code>python3 ok -q num_songs</code></pre>
+
+<h3 class="question" id="q3">Question 3: Ctrl + F</h3>
+
+<p>In order to check if your pyTunes account contains a certain song or category, define the function <code>find</code>. It takes in a pyTunes tree <code>t</code> and returns <code>True</code> if <code>t</code> contains a either a song or a category called <code>target</code> and <code>False</code> otherwise.</p>
+
+
+
+<pre><code>def find(t, target):
+    &quot;&quot;&quot;Returns True if t contains a node with the value &#x27;target&#x27; and False otherwise.
+
+    &gt;&gt;&gt; my_account = tree(&#x27;kpop_king&#x27;,
+    ...                    [tree(&#x27;korean&#x27;,
+    ...                          [tree(&#x27;gangnam style&#x27;),
+    ...                           tree(&#x27;wedding dress&#x27;)]),
+    ...                     tree(&#x27;pop&#x27;,
+    ...                           [tree(&#x27;t&#x2d;swift&#x27;,
+    ...                                [tree(&#x27;blank space&#x27;)]),
+    ...                           tree(&#x27;uptownfunk&#x27;)])])
+    &gt;&gt;&gt; find(my_account, &#x27;korean&#x27;)
+    True
+    &gt;&gt;&gt; find(my_account, &#x27;blank space&#x27;)
+    True
+    &gt;&gt;&gt; find(my_account, &#x27;bad blood&#x27;)
+    False
+    &quot;&quot;&quot;
+<div class="alt 2">    "*** YOUR CODE HERE ***"
+</div><div class="solution 2">&#x20;&#x20;&#x20;&#x20;&#x69;&#x66;&#x20;&#x65;&#x6e;&#x74;&#x72;&#x79;&#x28;&#x74;&#x29;&#x20;&#x3d;&#x3d;&#x20;&#x74;&#x61;&#x72;&#x67;&#x65;&#x74;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x54;&#x72;&#x75;&#x65;&#xa;&#x20;&#x20;&#x20;&#x20;&#x69;&#x66;&#x20;&#x69;&#x73;&#x5f;&#x6c;&#x65;&#x61;&#x66;&#x28;&#x74;&#x29;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x46;&#x61;&#x6c;&#x73;&#x65;&#xa;&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x61;&#x6e;&#x79;&#x28;&#x5b;&#x66;&#x69;&#x6e;&#x64;&#x28;&#x73;&#x2c;&#x20;&#x74;&#x61;&#x72;&#x67;&#x65;&#x74;&#x29;&#x20;&#x66;&#x6f;&#x72;&#x20;&#x73;&#x20;&#x69;&#x6e;&#x20;&#x73;&#x75;&#x62;&#x74;&#x72;&#x65;&#x65;&#x73;&#x28;&#x74;&#x29;&#x5d;&#x29;&#xa;&#xa;&#x23;&#x20;&#x41;&#x6c;&#x74;&#x65;&#x72;&#x6e;&#x61;&#x74;&#x65;&#x20;&#x73;&#x6f;&#x6c;&#x75;&#x74;&#x69;&#x6f;&#x6e;&#xa;&#x64;&#x65;&#x66;&#x20;&#x66;&#x69;&#x6e;&#x64;&#x28;&#x74;&#x2c;&#x20;&#x74;&#x61;&#x72;&#x67;&#x65;&#x74;&#x29;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x69;&#x66;&#x20;&#x65;&#x6e;&#x74;&#x72;&#x79;&#x28;&#x74;&#x29;&#x20;&#x3d;&#x3d;&#x20;&#x74;&#x61;&#x72;&#x67;&#x65;&#x74;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x54;&#x72;&#x75;&#x65;&#xa;&#x20;&#x20;&#x20;&#x20;&#x66;&#x6f;&#x72;&#x20;&#x73;&#x75;&#x62;&#x74;&#x72;&#x65;&#x65;&#x20;&#x69;&#x6e;&#x20;&#x73;&#x75;&#x62;&#x74;&#x72;&#x65;&#x65;&#x73;&#x28;&#x74;&#x29;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x69;&#x66;&#x20;&#x66;&#x69;&#x6e;&#x64;&#x28;&#x73;&#x75;&#x62;&#x74;&#x72;&#x65;&#x65;&#x2c;&#x20;&#x74;&#x61;&#x72;&#x67;&#x65;&#x74;&#x29;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x54;&#x72;&#x75;&#x65;&#xa;&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x46;&#x61;&#x6c;&#x73;&#x65;</div></code></pre>
+
+
+    <button id='2' class='toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+<p>Use OK to test your code:</p><pre><code>python3 ok -q find</code></pre>
+
+<h3 class="question" id="q4">Question 4: Delete</h3>
+
+<p>You also want to be able to delete a song or category from your pyTunes. Define the function <code>delete</code>, which takes in a pyTunes tree <code>t</code> and returns a new tree that is the same as <code>t</code> except with <code>target</code> deleted. If <code>target</code> is a genre, artist, or album, delete everything inside of it. It should not be possible to delete the entire account or <code>root</code> of the tree.</p>
+
+
+
+<pre><code>def delete(t, target):
+    &quot;&quot;&quot;Returns the tree that results from deleting target from t. If target is a category, 
+    delete everything inside of it.
+
+    &gt;&gt;&gt; my_account = tree(&#x27;kpop_king&#x27;,
+    ...                    [tree(&#x27;korean&#x27;,
+    ...                          [tree(&#x27;gangnam style&#x27;),
+    ...                           tree(&#x27;wedding dress&#x27;)]),
+    ...                     tree(&#x27;pop&#x27;,
+    ...                           [tree(&#x27;t&#x2d;swift&#x27;,
+    ...                                [tree(&#x27;blank space&#x27;)]),
+    ...                           tree(&#x27;uptownfunk&#x27;)])])
+    &gt;&gt;&gt; new = delete(my_account, &#x27;pop&#x27;)
+    &gt;&gt;&gt; print_tree(new)
+    kpop_king
+      korean
+        gangnam style
+        wedding dress
+    &quot;&quot;&quot;
+<div class="alt 3">    "*** YOUR CODE HERE ***"
+</div><div class="solution 3">&#x20;&#x20;&#x20;&#x20;&#x6b;&#x65;&#x70;&#x74;&#x5f;&#x73;&#x75;&#x62;&#x74;&#x72;&#x65;&#x65;&#x73;&#x20;&#x3d;&#x20;&#x5b;&#x5d;&#xa;&#x20;&#x20;&#x20;&#x20;&#x66;&#x6f;&#x72;&#x20;&#x73;&#x75;&#x62;&#x74;&#x72;&#x65;&#x65;&#x20;&#x69;&#x6e;&#x20;&#x73;&#x75;&#x62;&#x74;&#x72;&#x65;&#x65;&#x73;&#x28;&#x74;&#x29;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x69;&#x66;&#x20;&#x65;&#x6e;&#x74;&#x72;&#x79;&#x28;&#x73;&#x75;&#x62;&#x74;&#x72;&#x65;&#x65;&#x29;&#x20;&#x21;&#x3d;&#x20;&#x74;&#x61;&#x72;&#x67;&#x65;&#x74;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x6b;&#x65;&#x70;&#x74;&#x5f;&#x73;&#x75;&#x62;&#x74;&#x72;&#x65;&#x65;&#x73;&#x20;&#x2b;&#x3d;&#x20;&#x5b;&#x64;&#x65;&#x6c;&#x65;&#x74;&#x65;&#x28;&#x73;&#x75;&#x62;&#x74;&#x72;&#x65;&#x65;&#x2c;&#x20;&#x74;&#x61;&#x72;&#x67;&#x65;&#x74;&#x29;&#x5d;&#xa;&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x74;&#x72;&#x65;&#x65;&#x28;&#x65;&#x6e;&#x74;&#x72;&#x79;&#x28;&#x74;&#x29;&#x2c;&#x20;&#x6b;&#x65;&#x70;&#x74;&#x5f;&#x73;&#x75;&#x62;&#x74;&#x72;&#x65;&#x65;&#x73;&#x29;&#xa;&#xa;&#x23;&#x20;&#x41;&#x6c;&#x74;&#x65;&#x72;&#x6e;&#x61;&#x74;&#x65;&#x20;&#x73;&#x6f;&#x6c;&#x75;&#x74;&#x69;&#x6f;&#x6e;&#xa;&#x64;&#x65;&#x66;&#x20;&#x64;&#x65;&#x6c;&#x65;&#x74;&#x65;&#x28;&#x74;&#x2c;&#x20;&#x74;&#x61;&#x72;&#x67;&#x65;&#x74;&#x29;&#x3a;&#x20;&#xa;&#x20;&#x20;&#x20;&#x20;&#x6b;&#x65;&#x70;&#x74;&#x5f;&#x73;&#x75;&#x62;&#x74;&#x72;&#x65;&#x65;&#x73;&#x20;&#x3d;&#x20;&#x5b;&#x64;&#x65;&#x6c;&#x65;&#x74;&#x65;&#x28;&#x73;&#x75;&#x62;&#x2c;&#x20;&#x74;&#x61;&#x72;&#x67;&#x65;&#x74;&#x29;&#x20;&#x66;&#x6f;&#x72;&#x20;&#x73;&#x75;&#x62;&#x20;&#x69;&#x6e;&#x20;&#x73;&#x75;&#x62;&#x74;&#x72;&#x65;&#x65;&#x73;&#x28;&#x74;&#x29;&#x20;&#x69;&#x66;&#x20;&#x65;&#x6e;&#x74;&#x72;&#x79;&#x28;&#x73;&#x75;&#x62;&#x29;&#x20;&#x21;&#x3d;&#x20;&#x74;&#x61;&#x72;&#x67;&#x65;&#x74;&#x5d;&#xa;&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x74;&#x72;&#x65;&#x65;&#x28;&#x65;&#x6e;&#x74;&#x72;&#x79;&#x28;&#x74;&#x29;&#x2c;&#x20;&#x6b;&#x65;&#x70;&#x74;&#x5f;&#x73;&#x75;&#x62;&#x74;&#x72;&#x65;&#x65;&#x73;&#x29;</div></code></pre>
+
+
+    <button id='3' class='toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+<p>Use OK to test your code:</p><pre><code>python3 ok -q delete</code></pre>
+
+
+<h2 id="extra-questions">Extra Questions</h2>
+
+
+<blockquote><p>The following questions are for <strong>extra practice</strong> &mdash; they can be found 
+in the the <a href="lab07_extra.py">lab07_extra.py</a> file. It is recommended
+that you complete these problems on your own time.</p></blockquote>
+
+<h3 class="question" id="q5">Question 5: Add Song</h3>
+
+<p>Of course, you should be able to add music to your pyTunes. Write <code>add_song</code> to add <code>song</code> to the given <code>category</code>. You should not be able to add a song under a song or to a category that doesn't exist. See the doctests for examples.</p>
+
+
+
+<pre><code>def add_song(t, song, category):
+    &quot;&quot;&quot; Returns a new tree with song added to category. Assume the category 
+        already exists.
+
+    &gt;&gt;&gt; indie_tunes = tree(&#x27;indie_tunes&#x27;, 
+    ...                  [tree(&#x27;indie&#x27;, 
+    ...                    [tree(&#x27;vance joy&#x27;,
+    ...                       [tree(&#x27;riptide&#x27;)])])])
+    &gt;&gt;&gt; new_indie = add_song(indie_tunes, &#x27;georgia&#x27;, &#x27;vance joy&#x27;)
+    &gt;&gt;&gt; print_tree(new_indie)
+    indie_tunes
+      indie
+        vance joy
+          riptide
+          georgia
+
+    &quot;&quot;&quot;
+<div class="alt 4">    "*** YOUR CODE HERE ***"
+</div><div class="solution 4">&#x20;&#x20;&#x20;&#x20;&#x69;&#x66;&#x20;&#x65;&#x6e;&#x74;&#x72;&#x79;&#x28;&#x74;&#x29;&#x20;&#x3d;&#x3d;&#x20;&#x63;&#x61;&#x74;&#x65;&#x67;&#x6f;&#x72;&#x79;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x74;&#x72;&#x65;&#x65;&#x28;&#x65;&#x6e;&#x74;&#x72;&#x79;&#x28;&#x74;&#x29;&#x2c;&#x20;&#x73;&#x75;&#x62;&#x74;&#x72;&#x65;&#x65;&#x73;&#x28;&#x74;&#x29;&#x20;&#x2b;&#x20;&#x5b;&#x74;&#x72;&#x65;&#x65;&#x28;&#x73;&#x6f;&#x6e;&#x67;&#x29;&#x5d;&#x29;&#xa;&#x20;&#x20;&#x20;&#x20;&#x6b;&#x65;&#x70;&#x74;&#x5f;&#x73;&#x75;&#x62;&#x74;&#x72;&#x65;&#x65;&#x73;&#x20;&#x3d;&#x20;&#x5b;&#x5d;&#xa;&#x20;&#x20;&#x20;&#x20;&#x66;&#x6f;&#x72;&#x20;&#x73;&#x75;&#x62;&#x20;&#x69;&#x6e;&#x20;&#x73;&#x75;&#x62;&#x74;&#x72;&#x65;&#x65;&#x73;&#x28;&#x74;&#x29;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x6b;&#x65;&#x70;&#x74;&#x5f;&#x73;&#x75;&#x62;&#x74;&#x72;&#x65;&#x65;&#x73;&#x20;&#x2b;&#x3d;&#x20;&#x5b;&#x61;&#x64;&#x64;&#x5f;&#x73;&#x6f;&#x6e;&#x67;&#x28;&#x73;&#x75;&#x62;&#x2c;&#x20;&#x73;&#x6f;&#x6e;&#x67;&#x2c;&#x20;&#x63;&#x61;&#x74;&#x65;&#x67;&#x6f;&#x72;&#x79;&#x29;&#x5d;&#xa;&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x74;&#x72;&#x65;&#x65;&#x28;&#x65;&#x6e;&#x74;&#x72;&#x79;&#x28;&#x74;&#x29;&#x2c;&#x20;&#x6b;&#x65;&#x70;&#x74;&#x5f;&#x73;&#x75;&#x62;&#x74;&#x72;&#x65;&#x65;&#x73;&#x29;&#xa;&#xa;&#x23;&#x20;&#x41;&#x6c;&#x74;&#x65;&#x72;&#x6e;&#x61;&#x74;&#x69;&#x76;&#x65;&#x20;&#x53;&#x6f;&#x6c;&#x75;&#x74;&#x69;&#x6f;&#x6e;&#xa;&#x64;&#x65;&#x66;&#x20;&#x61;&#x64;&#x64;&#x5f;&#x73;&#x6f;&#x6e;&#x67;&#x28;&#x74;&#x2c;&#x20;&#x73;&#x6f;&#x6e;&#x67;&#x2c;&#x20;&#x63;&#x61;&#x74;&#x65;&#x67;&#x6f;&#x72;&#x79;&#x29;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x69;&#x66;&#x20;&#x65;&#x6e;&#x74;&#x72;&#x79;&#x28;&#x74;&#x29;&#x20;&#x3d;&#x3d;&#x20;&#x63;&#x61;&#x74;&#x65;&#x67;&#x6f;&#x72;&#x79;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x74;&#x72;&#x65;&#x65;&#x28;&#x65;&#x6e;&#x74;&#x72;&#x79;&#x28;&#x74;&#x29;&#x2c;&#x20;&#x73;&#x75;&#x62;&#x74;&#x72;&#x65;&#x65;&#x73;&#x28;&#x74;&#x29;&#x20;&#x2b;&#x20;&#x5b;&#x74;&#x72;&#x65;&#x65;&#x28;&#x73;&#x6f;&#x6e;&#x67;&#x29;&#x5d;&#x29;&#xa;&#x20;&#x20;&#x20;&#x20;&#x61;&#x6c;&#x6c;&#x5f;&#x73;&#x75;&#x62;&#x74;&#x72;&#x65;&#x65;&#x73;&#x20;&#x3d;&#x20;&#x5b;&#x61;&#x64;&#x64;&#x5f;&#x73;&#x6f;&#x6e;&#x67;&#x28;&#x73;&#x75;&#x62;&#x2c;&#x20;&#x73;&#x6f;&#x6e;&#x67;&#x2c;&#x20;&#x63;&#x61;&#x74;&#x65;&#x67;&#x6f;&#x72;&#x79;&#x29;&#x20;&#x66;&#x6f;&#x72;&#x20;&#x73;&#x75;&#x62;&#x20;&#x69;&#x6e;&#x20;&#x73;&#x75;&#x62;&#x74;&#x72;&#x65;&#x65;&#x73;&#x28;&#x74;&#x29;&#x5d;&#xa;&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x74;&#x72;&#x65;&#x65;&#x28;&#x65;&#x6e;&#x74;&#x72;&#x79;&#x28;&#x74;&#x29;&#x2c;&#x20;&#x61;&#x6c;&#x6c;&#x5f;&#x73;&#x75;&#x62;&#x74;&#x72;&#x65;&#x65;&#x73;&#x29;</div></code></pre>
+
+
+    <button id='4' class='toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+<p>Use OK to test your code:</p><pre><code>python3 ok -q add_song</code></pre>
+
+
+  </div>
+
+  <div class='col-md-3'>
+    <nav class='hidden-print hidden-sm hidden-xs sidebar'>
+      <ul>
+  <li><a href="#trees">Trees</a></li>
+  <li><a href="#pytunes">pyTunes</a></li>
+  <ul>
+  <li><a href="#q1">Question 1: Create pyTunes</a></li>
+  <li><a href="#q2">Question 2: Number of Songs</a></li>
+  <li><a href="#q3">Question 3: Ctrl + F</a></li>
+  <li><a href="#q4">Question 4: Delete</a></li>
+</ul>
+
+  <li><a href="#extra-questions">Extra Questions</a></li>
+  <ul>
+  <li><a href="#q5">Question 5: Add Song</a></li>
+</ul>
+
+</ul>
+
+    </nav>
+  </div>
+
+</div>
+    </div>
+  </body>
+  <script>
+  $('.sidebar ul').addClass('nav nav-stacked');
+  $('body').scrollspy({
+    target: '.sidebar',
+    offset: 40
+  });
+</script>
+<script src="//code.jquery.com/jquery-latest.js"></script>
+<script>
+  $(function() {
+    if (false) {
+      $('.toggleButton').css('display', 'inline-block');
+      $('.toggleButton').click(function() {
+        var solution_id = $(this).attr('id');
+        $('div.' + solution_id).slideToggle(600);
+      });
+    }
+    // Always display these toggle buttons
+    $('.toggleButtonShow').click(function() {
+      var solution_id = $(this).attr('id');
+      $('div.' + solution_id).slideToggle(600);
+    });
+  });
+</script>
+</html>

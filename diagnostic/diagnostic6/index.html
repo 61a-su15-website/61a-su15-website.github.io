@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="description" content ="CS61A: Structure and Interpretation of Computer Programs" />
+    <meta name="keywords" content ="CS61A, Computer Science, CS, 61A, Programming, John DeNero, Berkeley, EECS" />
+    <meta name="author" content ="Albert Wu, Robert Huang, Alfonso Martinez, Cale Horeff, Chris Le, Colin Schoen, Derrick Lin, Jeffrey Lu, Jessica Gu, Rohit Lalchandani, Tammy Nguyen, Will Jiang, Yulin Zheng" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width">
+
+    <script src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
+    <link rel="icon" href="/assets/images/favicon.ico">
+
+    <link rel="stylesheet" href="/assets/css/mono-blue.css">
+    <script src="/assets/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    <link rel="stylesheet" type="text/css" href="/assets/css/resource.css" />
+<link rel="stylesheet" type="text/css" href="/assets/css/lab.css" />
+
+
+    <title>Diagnostic 6: Week 6 review | CS 61A Summer 2015</title>
+
+  </head>
+
+  <body id="index" class="home">
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-section">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">CS 61A</a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="navbar-collapse-section">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/">Calendar</a></li>
+            <li><a href="/office-hours.html">Office Hours</a></li>
+            <li><a href="/tutoring.html">Tutoring</a></li>
+
+            <li><a href="/articles/using-ok.html">Using OK</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Course Info <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="/articles/about.html">Syllabus</a></li>
+                <li><a href="/staff.html">Staff</a></li>
+                <li><a href="/weekly.html">Weekly Schedule</a></li>
+              </ul>
+            </li>
+
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div id="content" class="container">
+      <div class='row'>
+  <div class='col-md-9'>
+    <div class='page-header'>
+      <h1><span class="content-title-brand">Diagnostic 6</span>: Week
+6 review</h1>
+    </div>
+
+    Diagnostics are meant for you to check your understanding of the week's
+material. They are not worth any points and are not counted towards midterm
+recovery points; instead, diagnostics are solely for your benefit.
+
+If you find yourself struggling with the questions in this diagnostic, consider
+signing up for <a href="/tutoring.html">Tutoring</a>.
+
+    
+
+
+<h2 id="scheme">Scheme</h2>
+
+
+<h3 class="question" id="q1">Question 1</h3>
+
+<p>Implement <code>equal&#x2d;answer</code>, which takes two single-argument
+procedures <code>f1</code> and <code>f2</code> and returns a procedure that takes one argument <code>x</code>.
+This returned procedure will return <code>true</code> (<code>#t</code>) if <code>f1</code> and <code>f2</code> return equal
+values when called on argument <code>x</code> and <code>false</code> (<code>#f</code>) otherwise.</p>
+
+<p>Assume that the input procedures <code>f1</code> and <code>f2</code> always take and return numbers.
+Test for equality using the <code>=</code> procedure.</p>
+
+
+
+<pre><code>(define (equal&#x2d;answer f1 f2)
+<div class="alt 0">  'YOUR-CODE-HERE
+</div><div class="solution 0">&#x20;&#x20;&#x28;&#x6c;&#x61;&#x6d;&#x62;&#x64;&#x61;&#x20;&#x28;&#x78;&#x29;&#x20;&#x28;&#x3d;&#x20;&#x28;&#x66;&#x31;&#x20;&#x78;&#x29;&#x20;&#x28;&#x66;&#x32;&#x20;&#x78;&#x29;&#x29;&#x29;</div>)
+
+;;; Tests
+
+; (add&#x2d;two 2) evaluates to 4, (square 2) also evaluates to 4
+((equal&#x2d;answer add&#x2d;two square) 2)
+; expect True
+
+; (add&#x2d;two 3) evaluates to 5, (square 3) instead evaluates to 9
+((equal&#x2d;answer add&#x2d;two square) 3)
+; expect False
+
+<div class="solution 0">&#x28;&#x28;&#x65;&#x71;&#x75;&#x61;&#x6c;&#x2d;&#x61;&#x6e;&#x73;&#x77;&#x65;&#x72;&#x20;&#x28;&#x6c;&#x61;&#x6d;&#x62;&#x64;&#x61;&#x20;&#x28;&#x78;&#x29;&#x20;&#x28;&#x2a;&#x20;&#x35;&#x20;&#x78;&#x29;&#x29;&#x20;&#x73;&#x71;&#x75;&#x61;&#x72;&#x65;&#x29;&#x20;&#x35;&#x29;&#xa;&#x3b;&#x20;&#x65;&#x78;&#x70;&#x65;&#x63;&#x74;&#x20;&#x54;&#x72;&#x75;&#x65;&#xa;&#x28;&#x28;&#x65;&#x71;&#x75;&#x61;&#x6c;&#x2d;&#x61;&#x6e;&#x73;&#x77;&#x65;&#x72;&#x20;&#x28;&#x6c;&#x61;&#x6d;&#x62;&#x64;&#x61;&#x20;&#x28;&#x78;&#x29;&#x20;&#x28;&#x2a;&#x20;&#x35;&#x20;&#x78;&#x29;&#x29;&#x20;&#x73;&#x71;&#x75;&#x61;&#x72;&#x65;&#x29;&#x20;&#x31;&#x29;&#xa;&#x3b;&#x20;&#x65;&#x78;&#x70;&#x65;&#x63;&#x74;&#x20;&#x46;&#x61;&#x6c;&#x73;&#x65;&#xa;&#x28;&#x28;&#x65;&#x71;&#x75;&#x61;&#x6c;&#x2d;&#x61;&#x6e;&#x73;&#x77;&#x65;&#x72;&#x20;&#x28;&#x6c;&#x61;&#x6d;&#x62;&#x64;&#x61;&#x20;&#x28;&#x78;&#x29;&#x20;&#x78;&#x29;&#x20;&#x73;&#x71;&#x75;&#x61;&#x72;&#x65;&#x29;&#x20;&#x31;&#x29;&#xa;&#x3b;&#x20;&#x65;&#x78;&#x70;&#x65;&#x63;&#x74;&#x20;&#x54;&#x72;&#x75;&#x65;&#xa;&#x28;&#x28;&#x65;&#x71;&#x75;&#x61;&#x6c;&#x2d;&#x61;&#x6e;&#x73;&#x77;&#x65;&#x72;&#x20;&#x73;&#x71;&#x75;&#x61;&#x72;&#x65;&#x20;&#x28;&#x6c;&#x61;&#x6d;&#x62;&#x64;&#x61;&#x20;&#x28;&#x78;&#x29;&#x20;&#x78;&#x29;&#x29;&#x20;&#x31;&#x29;&#xa;&#x3b;&#x20;&#x65;&#x78;&#x70;&#x65;&#x63;&#x74;&#x20;&#x54;&#x72;&#x75;&#x65;&#xa;&#x28;&#x28;&#x65;&#x71;&#x75;&#x61;&#x6c;&#x2d;&#x61;&#x6e;&#x73;&#x77;&#x65;&#x72;&#x20;&#x28;&#x6c;&#x61;&#x6d;&#x62;&#x64;&#x61;&#x20;&#x28;&#x78;&#x29;&#x20;&#x78;&#x29;&#x20;&#x73;&#x71;&#x75;&#x61;&#x72;&#x65;&#x29;&#x20;&#x35;&#x29;&#xa;&#x3b;&#x20;&#x65;&#x78;&#x70;&#x65;&#x63;&#x74;&#x20;&#x46;&#x61;&#x6c;&#x73;&#x65;&#xa;&#x28;&#x28;&#x65;&#x71;&#x75;&#x61;&#x6c;&#x2d;&#x61;&#x6e;&#x73;&#x77;&#x65;&#x72;&#x20;&#x73;&#x71;&#x75;&#x61;&#x72;&#x65;&#x20;&#x28;&#x6c;&#x61;&#x6d;&#x62;&#x64;&#x61;&#x20;&#x28;&#x78;&#x29;&#x20;&#x78;&#x29;&#x29;&#x20;&#x35;&#x29;&#xa;&#x3b;&#x20;&#x65;&#x78;&#x70;&#x65;&#x63;&#x74;&#x20;&#x46;&#x61;&#x6c;&#x73;&#x65;&#xa;&#x28;&#x28;&#x65;&#x71;&#x75;&#x61;&#x6c;&#x2d;&#x61;&#x6e;&#x73;&#x77;&#x65;&#x72;&#x20;&#x28;&#x6c;&#x61;&#x6d;&#x62;&#x64;&#x61;&#x20;&#x28;&#x78;&#x29;&#x20;&#x28;&#x2f;&#x20;&#x78;&#x20;&#x31;&#x29;&#x29;&#x20;&#x28;&#x6c;&#x61;&#x6d;&#x62;&#x64;&#x61;&#x20;&#x28;&#x78;&#x29;&#x20;&#x78;&#x29;&#x29;&#x20;&#x2d;&#x31;&#x29;&#xa;&#x3b;&#x20;&#x65;&#x78;&#x70;&#x65;&#x63;&#x74;&#x20;&#x54;&#x72;&#x75;&#x65;</div></code></pre>
+
+
+    <button id='0' class='toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+<h3 class="question" id="q2">Question 2: all-satisfies</h3>
+
+<p>Implement a function <code>(all&#x2d;satisfies lst pred)</code> that returns <code>True</code> if all of
+the elements in <code>lst</code> satisfy <code>pred</code>.</p>
+
+
+
+<pre><code>(define (all&#x2d;satisfies lst pred)
+<div class="alt 1">  'YOUR-CODE-HERE
+</div><div class="solution 1">&#x20;&#x20;&#x28;&#x69;&#x66;&#x20;&#x28;&#x6e;&#x75;&#x6c;&#x6c;&#x3f;&#x20;&#x6c;&#x73;&#x74;&#x29;&#xa;&#x20;&#x20;&#x20;&#x20;&#x54;&#x72;&#x75;&#x65;&#xa;&#x20;&#x20;&#x20;&#x20;&#x28;&#x61;&#x6e;&#x64;&#x20;&#x28;&#x70;&#x72;&#x65;&#x64;&#x20;&#x28;&#x63;&#x61;&#x72;&#x20;&#x6c;&#x73;&#x74;&#x29;&#x29;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x28;&#x61;&#x6c;&#x6c;&#x2d;&#x73;&#x61;&#x74;&#x69;&#x73;&#x66;&#x69;&#x65;&#x73;&#x20;&#x28;&#x63;&#x64;&#x72;&#x20;&#x6c;&#x73;&#x74;&#x29;&#x20;&#x70;&#x72;&#x65;&#x64;&#x29;&#x29;&#x29;</div>)
+
+;;; Tests
+
+(all&#x2d;satisfies nil even?)
+; expect True
+(all&#x2d;satisfies &#x27;(2 4 6) even?)
+; expect True
+(all&#x2d;satisfies &#x27;(2 3 6) even?)
+; expect False
+(all&#x2d;satisfies &#x27;((1 2) (3 4 5) (6)) pair?)
+; expect True</code></pre>
+
+
+    <button id='1' class='toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+<h3 class="question" id="q3">Question 3: Remove</h3>
+
+<p>Implement a function <code>remove</code> that takes in a list and
+returns a new list with <em>all</em> instances of <code>item</code> removed from <code>lst</code>.</p>
+
+
+
+<pre><code>(define (remove item lst)
+<div class="alt 2">  'YOUR-CODE-HERE
+</div><div class="solution 2">&#x20;&#x20;&#x28;&#x63;&#x6f;&#x6e;&#x64;&#x20;&#x28;&#x28;&#x6e;&#x75;&#x6c;&#x6c;&#x3f;&#x20;&#x6c;&#x73;&#x74;&#x29;&#x20;&#x27;&#x28;&#x29;&#x29;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x28;&#x28;&#x65;&#x71;&#x75;&#x61;&#x6c;&#x3f;&#x20;&#x69;&#x74;&#x65;&#x6d;&#x20;&#x28;&#x63;&#x61;&#x72;&#x20;&#x6c;&#x73;&#x74;&#x29;&#x29;&#x20;&#x28;&#x72;&#x65;&#x6d;&#x6f;&#x76;&#x65;&#x20;&#x69;&#x74;&#x65;&#x6d;&#x20;&#x28;&#x63;&#x64;&#x72;&#x20;&#x6c;&#x73;&#x74;&#x29;&#x29;&#x29;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x28;&#x65;&#x6c;&#x73;&#x65;&#x20;&#x28;&#x63;&#x6f;&#x6e;&#x73;&#x20;&#x28;&#x63;&#x61;&#x72;&#x20;&#x6c;&#x73;&#x74;&#x29;&#x20;&#x28;&#x72;&#x65;&#x6d;&#x6f;&#x76;&#x65;&#x20;&#x69;&#x74;&#x65;&#x6d;&#x20;&#x28;&#x63;&#x64;&#x72;&#x20;&#x6c;&#x73;&#x74;&#x29;&#x29;&#x29;&#x29;&#x29;</div>)
+
+;;; Tests
+
+(remove 3 nil)
+; expect ()
+(remove 3 &#x27;(1 3 5))
+; expect (1 5)
+(remove 5 &#x27;(5 3 5 5 1 4 5 4))
+; expect (3 1 4 4)</code></pre>
+
+
+    <button id='2' class='toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+<ok:unlock remove>
+
+<h3 class="question" id="q4">Question 4</h3>
+
+<p>Implement <code>num&#x2d;adjacent&#x2d;matches</code>, which takes as input a list of
+numbers <code>s</code> and returns the number of adjacent elements that are equal.</p>
+
+
+
+<pre><code>(define (num&#x2d;adjacent&#x2d;matches s)
+<div class="alt 3">  'YOUR-CODE-HERE
+</div><div class="solution 3">&#x20;&#x20;&#x28;&#x69;&#x66;&#x20;&#x28;&#x6f;&#x72;&#x20;&#x28;&#x6e;&#x75;&#x6c;&#x6c;&#x3f;&#x20;&#x73;&#x29;&#x20;&#x28;&#x6e;&#x75;&#x6c;&#x6c;&#x3f;&#x20;&#x28;&#x63;&#x64;&#x72;&#x20;&#x73;&#x29;&#x29;&#x29;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x30;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x28;&#x2b;&#x20;&#x28;&#x6e;&#x75;&#x6d;&#x2d;&#x61;&#x64;&#x6a;&#x61;&#x63;&#x65;&#x6e;&#x74;&#x2d;&#x6d;&#x61;&#x74;&#x63;&#x68;&#x65;&#x73;&#x20;&#x28;&#x63;&#x64;&#x72;&#x20;&#x73;&#x29;&#x29;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x28;&#x69;&#x66;&#x20;&#x28;&#x3d;&#x20;&#x28;&#x63;&#x61;&#x72;&#x20;&#x73;&#x29;&#x20;&#x28;&#x63;&#x61;&#x64;&#x72;&#x20;&#x73;&#x29;&#x29;&#x20;&#x31;&#x20;&#x30;&#x29;&#x29;&#x29;</div>)
+
+;;; Tests
+
+; no pairs
+(num&#x2d;adjacent&#x2d;matches &#x27;(1 2 3 4))
+; expect 0
+
+; one pair of 1&#x27;s
+(num&#x2d;adjacent&#x2d;matches &#x27;(1 1 2 3))
+; expect 1
+
+; one pair of 1&#x27;s, one pair of 2&#x27;s
+(num&#x2d;adjacent&#x2d;matches &#x27;(1 1 2 2))
+; expect 2
+
+; three pairs of 1&#x27;s
+(num&#x2d;adjacent&#x2d;matches &#x27;(1 1 1 1))
+; expect 3
+
+(num&#x2d;adjacent&#x2d;matches &#x27;(6 6 6 1 6 1))
+; expect 2
+
+<div class="solution 3">&#x28;&#x6e;&#x75;&#x6d;&#x2d;&#x61;&#x64;&#x6a;&#x61;&#x63;&#x65;&#x6e;&#x74;&#x2d;&#x6d;&#x61;&#x74;&#x63;&#x68;&#x65;&#x73;&#x20;&#x27;&#x28;&#x36;&#x29;&#x29;&#xa;&#x3b;&#x20;&#x65;&#x78;&#x70;&#x65;&#x63;&#x74;&#x20;&#x30;&#xa;&#x28;&#x6e;&#x75;&#x6d;&#x2d;&#x61;&#x64;&#x6a;&#x61;&#x63;&#x65;&#x6e;&#x74;&#x2d;&#x6d;&#x61;&#x74;&#x63;&#x68;&#x65;&#x73;&#x20;&#x27;&#x28;&#x36;&#x20;&#x31;&#x29;&#x29;&#xa;&#x3b;&#x20;&#x65;&#x78;&#x70;&#x65;&#x63;&#x74;&#x20;&#x30;&#xa;&#x28;&#x6e;&#x75;&#x6d;&#x2d;&#x61;&#x64;&#x6a;&#x61;&#x63;&#x65;&#x6e;&#x74;&#x2d;&#x6d;&#x61;&#x74;&#x63;&#x68;&#x65;&#x73;&#x20;&#x27;&#x28;&#x36;&#x20;&#x31;&#x20;&#x36;&#x20;&#x31;&#x20;&#x36;&#x20;&#x31;&#x29;&#x29;&#xa;&#x3b;&#x20;&#x65;&#x78;&#x70;&#x65;&#x63;&#x74;&#x20;&#x30;&#xa;&#x28;&#x6e;&#x75;&#x6d;&#x2d;&#x61;&#x64;&#x6a;&#x61;&#x63;&#x65;&#x6e;&#x74;&#x2d;&#x6d;&#x61;&#x74;&#x63;&#x68;&#x65;&#x73;&#x20;&#x27;&#x28;&#x36;&#x20;&#x36;&#x29;&#x29;&#xa;&#x3b;&#x20;&#x65;&#x78;&#x70;&#x65;&#x63;&#x74;&#x20;&#x31;&#xa;&#x28;&#x6e;&#x75;&#x6d;&#x2d;&#x61;&#x64;&#x6a;&#x61;&#x63;&#x65;&#x6e;&#x74;&#x2d;&#x6d;&#x61;&#x74;&#x63;&#x68;&#x65;&#x73;&#x20;&#x27;&#x28;&#x36;&#x20;&#x36;&#x20;&#x36;&#x20;&#x31;&#x20;&#x36;&#x20;&#x31;&#x29;&#x29;&#xa;&#x3b;&#x20;&#x65;&#x78;&#x70;&#x65;&#x63;&#x74;&#x20;&#x32;&#xa;&#x28;&#x6e;&#x75;&#x6d;&#x2d;&#x61;&#x64;&#x6a;&#x61;&#x63;&#x65;&#x6e;&#x74;&#x2d;&#x6d;&#x61;&#x74;&#x63;&#x68;&#x65;&#x73;&#x20;&#x27;&#x28;&#x30;&#x20;&#x31;&#x20;&#x36;&#x20;&#x36;&#x20;&#x36;&#x20;&#x31;&#x29;&#x29;&#xa;&#x3b;&#x20;&#x65;&#x78;&#x70;&#x65;&#x63;&#x74;&#x20;&#x32;&#xa;&#x28;&#x6e;&#x75;&#x6d;&#x2d;&#x61;&#x64;&#x6a;&#x61;&#x63;&#x65;&#x6e;&#x74;&#x2d;&#x6d;&#x61;&#x74;&#x63;&#x68;&#x65;&#x73;&#x20;&#x27;&#x28;&#x34;&#x20;&#x34;&#x20;&#x33;&#x20;&#x33;&#x20;&#x32;&#x20;&#x32;&#x20;&#x31;&#x20;&#x31;&#x29;&#x29;&#xa;&#x3b;&#x20;&#x65;&#x78;&#x70;&#x65;&#x63;&#x74;&#x20;&#x34;</div></code></pre>
+
+
+    <button id='3' class='toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+<explanation>
+
+<p>Our base cases are when our input list <code>s</code> is too short to have any adjacent
+matches. We call <code>num&#x2d;adjacent&#x2d;matches</code> recursively on <code>(cdr s)</code> to count the
+adjacent matches in the rest of the list <code>s</code>, then add 0 or 1 depending on
+whether the first and second elements of <code>s</code> are equal.</p>
+
+</explanation>
+
+<h3 class="question" id="q5">Question 5</h3>
+
+<p>Implement <code>how&#x2d;many&#x2d;dots</code>, which takes in a nested scheme list <code>s</code> and returns
+the number of dots that appear when it is displayed by the interpreter (not
+counting decimal points). You may assume that <code>s</code> is a nested list that
+contains only numbers.</p>
+
+<p><em>Hints</em>: A dot appears when the second element of a pair is not a well formed
+list. The procedures <code>pair?</code>, <code>null?</code>, and <code>number?</code> test whether a value is a pair, <code>nil</code>, or a number, respectively.</p>
+
+
+
+<pre><code>(define (how&#x2d;many&#x2d;dots s)
+<div class="alt 4">  'YOUR-CODE-HERE
+</div><div class="solution 4">&#x20;&#x20;&#x28;&#x69;&#x66;&#x20;&#x28;&#x6e;&#x6f;&#x74;&#x20;&#x28;&#x70;&#x61;&#x69;&#x72;&#x3f;&#x20;&#x73;&#x29;&#x29;&#xa;&#x20;&#x20;&#x20;&#x20;&#x30;&#xa;&#x20;&#x20;&#x20;&#x20;&#x28;&#x2b;&#x20;&#x28;&#x69;&#x66;&#x20;&#x28;&#x61;&#x6e;&#x64;&#x20;&#x28;&#x6e;&#x6f;&#x74;&#x20;&#x28;&#x70;&#x61;&#x69;&#x72;&#x3f;&#x20;&#x28;&#x63;&#x64;&#x72;&#x20;&#x73;&#x29;&#x29;&#x29;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x28;&#x6e;&#x6f;&#x74;&#x20;&#x28;&#x6e;&#x75;&#x6c;&#x6c;&#x3f;&#x20;&#x28;&#x63;&#x64;&#x72;&#x20;&#x73;&#x29;&#x29;&#x29;&#x29;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x31;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x30;&#x29;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x28;&#x68;&#x6f;&#x77;&#x2d;&#x6d;&#x61;&#x6e;&#x79;&#x2d;&#x64;&#x6f;&#x74;&#x73;&#x20;&#x28;&#x63;&#x61;&#x72;&#x20;&#x73;&#x29;&#x29;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x28;&#x68;&#x6f;&#x77;&#x2d;&#x6d;&#x61;&#x6e;&#x79;&#x2d;&#x64;&#x6f;&#x74;&#x73;&#x20;&#x28;&#x63;&#x64;&#x72;&#x20;&#x73;&#x29;&#x29;&#x29;</div>)
+
+;;; Tests
+
+(how&#x2d;many&#x2d;dots &#x27;(1 2 3))
+; expect 0
+(how&#x2d;many&#x2d;dots &#x27;(1 2 . 3))
+; expect 1
+(how&#x2d;many&#x2d;dots &#x27;((1 . 2) 3 . 4))
+; expect 2
+(how&#x2d;many&#x2d;dots &#x27;((((((1 . 2) . 3) . 4) . 5) . 6) . 7))
+; expect 6
+(how&#x2d;many&#x2d;dots &#x27;(1 . (2 . (3 . (4 . (5 . (6 . (7)))))))
+; expect 0</code></pre>
+
+
+    <button id='4' class='toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+<ok:unlock how-many-dots>
+
+<h3 class="question" id="q6">Question 6</h3>
+
+<p>Write a procedure <code>substitute</code> that takes three arguments: a list <code>s</code>, an <code>old</code>
+word, and a <code>new</code> word. It returns a list with the elements of <code>s</code>, but with
+every occurrence of <code>old</code> replaced by <code>new</code>, even within sub-lists.</p>
+
+
+
+<pre><code>(define (substitute s old new)
+<div class="alt 5">  'YOUR-CODE-HERE
+</div><div class="solution 5">&#x20;&#x20;&#x28;&#x63;&#x6f;&#x6e;&#x64;&#x20;&#x28;&#x28;&#x6e;&#x75;&#x6c;&#x6c;&#x3f;&#x20;&#x73;&#x29;&#x20;&#x6e;&#x69;&#x6c;&#x29;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x28;&#x28;&#x70;&#x61;&#x69;&#x72;&#x3f;&#x20;&#x28;&#x63;&#x61;&#x72;&#x20;&#x73;&#x29;&#x29;&#x20;&#x28;&#x63;&#x6f;&#x6e;&#x73;&#x20;&#x28;&#x73;&#x75;&#x62;&#x73;&#x74;&#x69;&#x74;&#x75;&#x74;&#x65;&#x20;&#x28;&#x63;&#x61;&#x72;&#x20;&#x73;&#x29;&#x20;&#x6f;&#x6c;&#x64;&#x20;&#x6e;&#x65;&#x77;&#x29;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x28;&#x73;&#x75;&#x62;&#x73;&#x74;&#x69;&#x74;&#x75;&#x74;&#x65;&#x20;&#x28;&#x63;&#x64;&#x72;&#x20;&#x73;&#x29;&#x20;&#x6f;&#x6c;&#x64;&#x20;&#x6e;&#x65;&#x77;&#x29;&#x29;&#x29;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x28;&#x28;&#x3d;&#x20;&#x28;&#x63;&#x61;&#x72;&#x20;&#x73;&#x29;&#x20;&#x6f;&#x6c;&#x64;&#x29;&#x20;&#x28;&#x63;&#x6f;&#x6e;&#x73;&#x20;&#x6e;&#x65;&#x77;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x28;&#x73;&#x75;&#x62;&#x73;&#x74;&#x69;&#x74;&#x75;&#x74;&#x65;&#x20;&#x28;&#x63;&#x64;&#x72;&#x20;&#x73;&#x29;&#x20;&#x6f;&#x6c;&#x64;&#x20;&#x6e;&#x65;&#x77;&#x29;&#x29;&#x29;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x28;&#x65;&#x6c;&#x73;&#x65;&#x20;&#x28;&#x63;&#x6f;&#x6e;&#x73;&#x20;&#x28;&#x63;&#x61;&#x72;&#x20;&#x73;&#x29;&#x20;&#x28;&#x73;&#x75;&#x62;&#x73;&#x74;&#x69;&#x74;&#x75;&#x74;&#x65;&#x20;&#x28;&#x63;&#x64;&#x72;&#x20;&#x73;&#x29;&#x20;&#x6f;&#x6c;&#x64;&#x20;&#x6e;&#x65;&#x77;&#x29;&#x29;&#x29;&#x29;</div>)
+
+;;; Tests
+
+(substitute &#x27;(romeo romeo wherefore art thou romeo) &#x27;romeo &#x27;paris)
+; expect (paris paris wherefore art thou paris)
+(substitute &#x27;((to be) or not (to (be))) &#x27;be &#x27;eat)
+; expect ((to eat) or not (to (eat)))
+(substitute &#x27;(a b (c) d e) &#x27;foo &#x27;bar)
+; expect (a b (c) d e)</code></pre>
+
+
+    <button id='5' class='toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+<ok:unlock substitute>
+
+
+<h2 id="interpreters">Interpreters</h2>
+
+
+<p>See the <a href="/proj/scheme/">Scheme project</a>!</p>
+
+
+  </div>
+
+  <div class='col-md-3'>
+    <nav class='hidden-print hidden-sm hidden-xs sidebar'>
+      <ul>
+  <li><a href="#scheme">Scheme</a></li>
+  <ul>
+  <li><a href="#q1">Question 1</a></li>
+  <li><a href="#q2">Question 2: all-satisfies</a></li>
+  <li><a href="#q3">Question 3: Remove</a></li>
+  <li><a href="#q4">Question 4</a></li>
+  <li><a href="#q5">Question 5</a></li>
+  <li><a href="#q6">Question 6</a></li>
+</ul>
+
+  <li><a href="#interpreters">Interpreters</a></li>
+</ul>
+
+    </nav>
+  </div>
+
+</div>
+    </div>
+  </body>
+  <script>
+  $('.sidebar ul').addClass('nav nav-stacked');
+  $('body').scrollspy({
+    target: '.sidebar',
+    offset: 40
+  });
+</script>
+<script src="//code.jquery.com/jquery-latest.js"></script>
+<script>
+  $(function() {
+    $('.toggleButton').css('display', 'inline-block');
+    $('.toggleButton').click(function() {
+      var solution_id = $(this).attr('id');
+      $('div.' + solution_id).slideToggle(600);
+    });
+    // Always display these toggle buttons
+    $('.toggleButtonShow').click(function() {
+      alert('Solutions have been removed.');
+    });
+  });
+</script>
+</html>

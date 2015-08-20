@@ -1,0 +1,127 @@
+;;; Food chain
+
+(fact (food-chain ?creature1 ?creature2)
+      (eats ?creature1 ?creature3)
+      (eats ?creature3 ?creature2))
+
+(fact (eats shark big-fish))
+(fact (eats big-fish small-fish))
+(fact (eats domo kitten))
+(fact (eats kitten small-fish))
+(fact (eats zombie brain))
+
+(query (eats zombie brain))
+; expect Succcess!
+
+(query (eats domo zombie))
+; expect Failed.
+
+(query (eats zombie ?what))
+; expect Success! ; what: brain
+
+(query (?what zombie brain))
+; expect Success! ; what: eats
+
+
+;;; Append
+
+(fact (append () ?b ?b ))
+(fact (append (?a . ?r) ?y (?a . ?z))
+      (append ?r ?y ?z))
+
+
+;;; Last element
+
+; YOUR CODE HERE
+
+(query (last-element (a b c) c))
+; expect Success!
+
+(query (last-element (3) ?x))
+; expect Success! ; x: 3
+
+(query (last-element (1 2 3) ?x))
+; expect Success! ; x: 3
+
+(query (last-element (2 ?x) 3))
+; expect Success! ; x: 3
+
+
+
+;;; Firsts
+
+; YOUR CODE HERE
+
+(query (firsts ((1 2 3 4) (2 3 4 5) (1 2 3 4) (1 2 3 2)) ?x))
+; expect Success! ; x: (1 2 1 1)
+
+(query (firsts ((2 3 4) (3 4 5) (2 3 4) (2 3 2)) ?y))
+; expect Success! ; y: (2 3 2 2)
+
+
+
+;;; Rests
+
+; YOUR CODE HERE
+
+(query (rests ((1 2 3 4) (2 3 4 5) (1 2 3 4) (1 2 3 2)) ?x))
+; Success! ; x: ((2 3 4) (3 4 5) (2 3 4) (2 3 2))
+
+(query (rests ((2 3 4) (3 4 5) (2 3 4) (2 3 2)) ?y))
+; Success! ; y: ((3 4) (4 5) (3 4) (3 2))
+
+
+;;; Sudoku
+
+(fact (insert ?a ?r (?a . ?r)))
+(fact (insert ?a (?b . ?r) (?b . ?s)) (insert ?a ?r ?s))
+
+(fact (anagram () ()))
+(fact (anagram (?a . ?r) ?b) (insert ?a ?s ?b) (anagram ?r ?s))
+
+    (fact (boxes ((?a ?b ?c ?d)
+                 (?e ?f ?g ?h)
+                 (?i ?j ?k ?l)
+                 (?m ?n ?o ?p)))
+        (anagram (?a ?b ?e ?f) (1 2 3 4))
+        ; YOUR CODE HERE
+                                        )
+
+(fact (rows ()))
+(fact (rows (?x . ?xs))
+      ; YOUR CODE HERE
+      )
+
+(query (rows (( 1  2  4 ?a)
+              (?b  3  2  1)
+              (?c  4  3  2)
+              ( 2  4  3 ?d))))
+; expect Success! ; a: 3 ; b: 4 ; c: 1 ; d: 1
+
+(fact (cols (() () () ())))
+; YOUR CODE HERE
+
+(query (cols (( 1 ?b  4 ?d)
+              ( 3  3  2  1)
+              (?a  1 ?c  2)
+              ( 2  4  3  4))))
+; expect Success! ; a: 4 ; b: 2 ; c: 1 ; d: 3
+
+(fact (solve ?grid)
+      ; YOUR CODE HERE
+      )
+
+; Template for solving Sudoku, don't run this without
+; replacing some variables with numbers!
+
+; (query (solve ((?a ?b ?c ?d)
+;                (?e ?f ?g ?h)
+;                (?i ?j ?k ?l)
+;                (?m ?n ?o ?p))))
+
+(query (solve (( 1 ?b  4 ?d)
+               (?e  3 ?g  1)
+               (?i  4 ?k  2)
+               ( 2 ?n  3 ?p))))
+; expect Success! ; b: 2 ; d: 3 ; e: 4 ; g: 2 ; i: 3 ; k: 1 n: 1 ; p: 4
+

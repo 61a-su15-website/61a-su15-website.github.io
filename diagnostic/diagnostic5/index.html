@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="description" content ="CS61A: Structure and Interpretation of Computer Programs" />
+    <meta name="keywords" content ="CS61A, Computer Science, CS, 61A, Programming, John DeNero, Berkeley, EECS" />
+    <meta name="author" content ="Albert Wu, Robert Huang, Alfonso Martinez, Cale Horeff, Chris Le, Colin Schoen, Derrick Lin, Jeffrey Lu, Jessica Gu, Rohit Lalchandani, Tammy Nguyen, Will Jiang, Yulin Zheng" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width">
+
+    <script src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
+    <link rel="icon" href="/assets/images/favicon.ico">
+
+    <link rel="stylesheet" href="/assets/css/mono-blue.css">
+    <script src="/assets/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    <link rel="stylesheet" type="text/css" href="/assets/css/resource.css" />
+<link rel="stylesheet" type="text/css" href="/assets/css/lab.css" />
+
+
+    <title>Diagnostic 5: Week 5 review | CS 61A Summer 2015</title>
+
+  </head>
+
+  <body id="index" class="home">
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-section">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">CS 61A</a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="navbar-collapse-section">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/">Calendar</a></li>
+            <li><a href="/office-hours.html">Office Hours</a></li>
+            <li><a href="/tutoring.html">Tutoring</a></li>
+
+            <li><a href="/articles/using-ok.html">Using OK</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Course Info <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="/articles/about.html">Syllabus</a></li>
+                <li><a href="/staff.html">Staff</a></li>
+                <li><a href="/weekly.html">Weekly Schedule</a></li>
+              </ul>
+            </li>
+
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div id="content" class="container">
+      <div class='row'>
+  <div class='col-md-9'>
+    <div class='page-header'>
+      <h1><span class="content-title-brand">Diagnostic 5</span>: Week
+5 review</h1>
+    </div>
+
+    Diagnostics are meant for you to check your understanding of the week's
+material. They are not worth any points and are not counted towards midterm
+recovery points; instead, diagnostics are solely for your benefit.
+
+If you find yourself struggling with the questions in this diagnostic, consider
+signing up for <a href="/tutoring.html">Tutoring</a>.
+
+    
+
+
+<h2 id="mutable-linked-lists">Mutable Linked Lists</h2>
+
+
+<h3 class="question" id="q1">Question 1: Slice</h3>
+
+<p>Implement a function <code>slice_link</code> that slices a given <code>link</code>. <code>slice_link</code>
+should slice the <code>link</code> starting at <code>start</code> and ending one element before 
+<code>end</code>, as with a normal Python list.</p>
+
+
+
+<pre><code>def slice_link(link, start, end):
+    &quot;&quot;&quot;Slices a Link from start to end (as with a normal Python list).
+
+    &gt;&gt;&gt; link = Link(3, Link(1, Link(4, Link(1, Link(5, Link(9))))))
+    &gt;&gt;&gt; new = slice_link(link, 1, 4)
+    &gt;&gt;&gt; print_link(new)
+    &lt;1 4 1&gt;
+    &quot;&quot;&quot;
+<div class="alt 0">    "*** YOUR CODE HERE ***"
+</div><div class="solution 0">&#x20;&#x20;&#x20;&#x20;&#x69;&#x66;&#x20;&#x65;&#x6e;&#x64;&#x20;&#x3d;&#x3d;&#x20;&#x30;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x4c;&#x69;&#x6e;&#x6b;&#x2e;&#x65;&#x6d;&#x70;&#x74;&#x79;&#xa;&#x20;&#x20;&#x20;&#x20;&#x65;&#x6c;&#x69;&#x66;&#x20;&#x73;&#x74;&#x61;&#x72;&#x74;&#x20;&#x3d;&#x3d;&#x20;&#x30;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x4c;&#x69;&#x6e;&#x6b;&#x28;&#x6c;&#x69;&#x6e;&#x6b;&#x2e;&#x66;&#x69;&#x72;&#x73;&#x74;&#x2c;&#x20;&#x73;&#x6c;&#x69;&#x63;&#x65;&#x5f;&#x6c;&#x69;&#x6e;&#x6b;&#x28;&#x6c;&#x69;&#x6e;&#x6b;&#x2e;&#x72;&#x65;&#x73;&#x74;&#x2c;&#x20;&#x30;&#x2c;&#x20;&#x65;&#x6e;&#x64;&#x2d;&#x31;&#x29;&#x29;&#xa;&#x20;&#x20;&#x20;&#x20;&#x65;&#x6c;&#x73;&#x65;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x73;&#x6c;&#x69;&#x63;&#x65;&#x5f;&#x6c;&#x69;&#x6e;&#x6b;&#x28;&#x6c;&#x69;&#x6e;&#x6b;&#x2e;&#x72;&#x65;&#x73;&#x74;&#x2c;&#x20;&#x73;&#x74;&#x61;&#x72;&#x74;&#x2d;&#x31;&#x2c;&#x20;&#x65;&#x6e;&#x64;&#x2d;&#x31;&#x29;</div></code></pre>
+
+
+    <button id='0' class='toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+<ok slice_link>
+
+<blockquote><p><em>Note</em>: This was an extra question in <a href="/lab/lab09/#q8">Lab 9</a>.</p></blockquote>
+
+<h3 class="question" id="q2">Question 2: Add Links</h3>
+
+<p>Let's implement a method in order to add together items of <code>link1</code> and <code>link2</code>. 
+Do not assume that the links are the same length.</p>
+
+
+
+<pre><code>def add_links(link1, link2):
+    &quot;&quot;&quot;Adds two Links, returning a new Link
+
+    &gt;&gt;&gt; l1 = Link(1, Link(2))  
+    &gt;&gt;&gt; l2 = Link(3, Link(4, Link(5)))
+    &gt;&gt;&gt; new = add_links(l1,l2)
+    &gt;&gt;&gt; print_link(new)
+    &lt;1 2 3 4 5&gt;
+    &quot;&quot;&quot;
+<div class="alt 1">    "*** YOUR CODE HERE ***"
+</div><div class="solution 1">&#x20;&#x20;&#x20;&#x20;&#x69;&#x66;&#x20;&#x6c;&#x69;&#x6e;&#x6b;&#x31;&#x20;&#x69;&#x73;&#x20;&#x6e;&#x6f;&#x74;&#x20;&#x4c;&#x69;&#x6e;&#x6b;&#x2e;&#x65;&#x6d;&#x70;&#x74;&#x79;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x4c;&#x69;&#x6e;&#x6b;&#x28;&#x6c;&#x69;&#x6e;&#x6b;&#x31;&#x2e;&#x66;&#x69;&#x72;&#x73;&#x74;&#x2c;&#x20;&#x61;&#x64;&#x64;&#x5f;&#x6c;&#x69;&#x6e;&#x6b;&#x73;&#x28;&#x6c;&#x69;&#x6e;&#x6b;&#x31;&#x2e;&#x72;&#x65;&#x73;&#x74;&#x2c;&#x20;&#x6c;&#x69;&#x6e;&#x6b;&#x32;&#x29;&#x29;&#xa;&#x20;&#x20;&#x20;&#x20;&#x65;&#x6c;&#x69;&#x66;&#x20;&#x6c;&#x69;&#x6e;&#x6b;&#x32;&#x20;&#x69;&#x73;&#x20;&#x6e;&#x6f;&#x74;&#x20;&#x4c;&#x69;&#x6e;&#x6b;&#x2e;&#x65;&#x6d;&#x70;&#x74;&#x79;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x4c;&#x69;&#x6e;&#x6b;&#x28;&#x6c;&#x69;&#x6e;&#x6b;&#x32;&#x2e;&#x66;&#x69;&#x72;&#x73;&#x74;&#x2c;&#x20;&#x61;&#x64;&#x64;&#x5f;&#x6c;&#x69;&#x6e;&#x6b;&#x73;&#x28;&#x6c;&#x69;&#x6e;&#x6b;&#x31;&#x2c;&#x20;&#x6c;&#x69;&#x6e;&#x6b;&#x32;&#x2e;&#x72;&#x65;&#x73;&#x74;&#x29;&#x29;&#xa;&#x20;&#x20;&#x20;&#x20;&#x65;&#x6c;&#x73;&#x65;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x4c;&#x69;&#x6e;&#x6b;&#x2e;&#x65;&#x6d;&#x70;&#x74;&#x79;&#xa;&#xa;&#x23;&#x20;&#x49;&#x74;&#x65;&#x72;&#x61;&#x74;&#x69;&#x76;&#x65;&#x20;&#x76;&#x65;&#x72;&#x73;&#x69;&#x6f;&#x6e;&#x20;&#x28;&#x75;&#x73;&#x69;&#x6e;&#x67;&#x20;&#x72;&#x65;&#x76;&#x65;&#x72;&#x73;&#x65;&#x29;&#xa;&#x64;&#x65;&#x66;&#x20;&#x61;&#x64;&#x64;&#x5f;&#x6c;&#x69;&#x6e;&#x6b;&#x73;&#x28;&#x6c;&#x69;&#x6e;&#x6b;&#x31;&#x2c;&#x20;&#x6c;&#x69;&#x6e;&#x6b;&#x32;&#x29;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x73;&#x75;&#x6c;&#x74;&#x20;&#x3d;&#x20;&#x4c;&#x69;&#x6e;&#x6b;&#x2e;&#x65;&#x6d;&#x70;&#x74;&#x79;&#xa;&#x20;&#x20;&#x20;&#x20;&#x77;&#x68;&#x69;&#x6c;&#x65;&#x20;&#x6c;&#x69;&#x6e;&#x6b;&#x31;&#x20;&#x69;&#x73;&#x20;&#x6e;&#x6f;&#x74;&#x20;&#x4c;&#x69;&#x6e;&#x6b;&#x2e;&#x65;&#x6d;&#x70;&#x74;&#x79;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x73;&#x75;&#x6c;&#x74;&#x20;&#x3d;&#x20;&#x4c;&#x69;&#x6e;&#x6b;&#x28;&#x6c;&#x69;&#x6e;&#x6b;&#x31;&#x2e;&#x66;&#x69;&#x72;&#x73;&#x74;&#x2c;&#x20;&#x72;&#x65;&#x73;&#x75;&#x6c;&#x74;&#x29;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x6c;&#x69;&#x6e;&#x6b;&#x31;&#x20;&#x3d;&#x20;&#x6c;&#x69;&#x6e;&#x6b;&#x31;&#x2e;&#x72;&#x65;&#x73;&#x74;&#xa;&#x20;&#x20;&#x20;&#x20;&#x77;&#x68;&#x69;&#x6c;&#x65;&#x20;&#x6c;&#x69;&#x6e;&#x6b;&#x32;&#x20;&#x69;&#x73;&#x20;&#x6e;&#x6f;&#x74;&#x20;&#x4c;&#x69;&#x6e;&#x6b;&#x2e;&#x65;&#x6d;&#x70;&#x74;&#x79;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x73;&#x75;&#x6c;&#x74;&#x20;&#x3d;&#x20;&#x4c;&#x69;&#x6e;&#x6b;&#x28;&#x6c;&#x69;&#x6e;&#x6b;&#x32;&#x2e;&#x66;&#x69;&#x72;&#x73;&#x74;&#x2c;&#x20;&#x72;&#x65;&#x73;&#x75;&#x6c;&#x74;&#x29;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x6c;&#x69;&#x6e;&#x6b;&#x32;&#x20;&#x3d;&#x20;&#x6c;&#x69;&#x6e;&#x6b;&#x32;&#x2e;&#x72;&#x65;&#x73;&#x74;&#xa;&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x72;&#x65;&#x76;&#x65;&#x72;&#x73;&#x65;&#x28;&#x72;&#x65;&#x73;&#x75;&#x6c;&#x74;&#x29;</div></code></pre>
+
+
+    <button id='1' class='toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+<ok add_links>
+
+<blockquote><p><em>Note</em>: This was an extra question in <a href="/lab/lab09/#q7">Lab 9</a>.</p></blockquote>
+
+<p>Implement <code>mutate_reverse</code>, a recursive mutating version of <code>reverse</code>. Have it
+mutate the original <code>Link</code> so that its elements are reversed.</p>
+
+
+
+<pre><code>def mutate_reverse(link):
+    &quot;&quot;&quot;Mutates the Link so that its elements are reversed.
+
+    &gt;&gt;&gt; link = Link(1)
+    &gt;&gt;&gt; mutate_reverse(link)
+    &gt;&gt;&gt; link
+    Link(1)
+
+    &gt;&gt;&gt; link = Link(1, Link(2, Link(3)))
+    &gt;&gt;&gt; mutate_reverse(link)
+    &gt;&gt;&gt; link
+    Link(3, Link(2, Link(1)))
+    &quot;&quot;&quot;
+<div class="alt 2">    "*** YOUR CODE HERE ***"
+</div><div class="solution 2">&#x20;&#x20;&#x20;&#x20;&#x69;&#x66;&#x20;&#x6c;&#x69;&#x6e;&#x6b;&#x20;&#x69;&#x73;&#x20;&#x4c;&#x69;&#x6e;&#x6b;&#x2e;&#x65;&#x6d;&#x70;&#x74;&#x79;&#x20;&#x6f;&#x72;&#x20;&#x6c;&#x69;&#x6e;&#x6b;&#x2e;&#x72;&#x65;&#x73;&#x74;&#x20;&#x69;&#x73;&#x20;&#x4c;&#x69;&#x6e;&#x6b;&#x2e;&#x65;&#x6d;&#x70;&#x74;&#x79;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#xa;&#x20;&#x20;&#x20;&#x20;&#x6d;&#x75;&#x74;&#x61;&#x74;&#x65;&#x5f;&#x72;&#x65;&#x76;&#x65;&#x72;&#x73;&#x65;&#x28;&#x6c;&#x69;&#x6e;&#x6b;&#x2e;&#x72;&#x65;&#x73;&#x74;&#x29;&#xa;&#x20;&#x20;&#x20;&#x20;&#x77;&#x68;&#x69;&#x6c;&#x65;&#x20;&#x6c;&#x69;&#x6e;&#x6b;&#x2e;&#x72;&#x65;&#x73;&#x74;&#x20;&#x69;&#x73;&#x20;&#x6e;&#x6f;&#x74;&#x20;&#x4c;&#x69;&#x6e;&#x6b;&#x2e;&#x65;&#x6d;&#x70;&#x74;&#x79;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x6c;&#x69;&#x6e;&#x6b;&#x2e;&#x66;&#x69;&#x72;&#x73;&#x74;&#x2c;&#x20;&#x6c;&#x69;&#x6e;&#x6b;&#x2e;&#x72;&#x65;&#x73;&#x74;&#x2e;&#x66;&#x69;&#x72;&#x73;&#x74;&#x20;&#x3d;&#x20;&#x6c;&#x69;&#x6e;&#x6b;&#x2e;&#x72;&#x65;&#x73;&#x74;&#x2e;&#x66;&#x69;&#x72;&#x73;&#x74;&#x2c;&#x20;&#x6c;&#x69;&#x6e;&#x6b;&#x2e;&#x66;&#x69;&#x72;&#x73;&#x74;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x6c;&#x69;&#x6e;&#x6b;&#x20;&#x3d;&#x20;&#x6c;&#x69;&#x6e;&#x6b;&#x2e;&#x72;&#x65;&#x73;&#x74;&#xa;&#xa;&#x23;&#x20;&#x4f;&#x28;&#x6e;&#x29;&#x20;&#x73;&#x6f;&#x6c;&#x75;&#x74;&#x69;&#x6f;&#x6e;&#xa;&#x64;&#x65;&#x66;&#x20;&#x6d;&#x75;&#x74;&#x61;&#x74;&#x65;&#x5f;&#x72;&#x65;&#x76;&#x65;&#x72;&#x73;&#x65;&#x28;&#x6c;&#x69;&#x6e;&#x6b;&#x29;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x22;&#x22;&#x22;&#x4d;&#x75;&#x74;&#x61;&#x74;&#x65;&#x73;&#x20;&#x74;&#x68;&#x65;&#x20;&#x4c;&#x69;&#x6e;&#x6b;&#x20;&#x73;&#x6f;&#x20;&#x74;&#x68;&#x61;&#x74;&#x20;&#x69;&#x74;&#x73;&#x20;&#x65;&#x6c;&#x65;&#x6d;&#x65;&#x6e;&#x74;&#x73;&#x20;&#x61;&#x72;&#x65;&#x20;&#x72;&#x65;&#x76;&#x65;&#x72;&#x73;&#x65;&#x64;&#x2e;&#xa;&#xa;&#x20;&#x20;&#x20;&#x20;&#x3e;&#x3e;&#x3e;&#x20;&#x6c;&#x69;&#x6e;&#x6b;&#x20;&#x3d;&#x20;&#x4c;&#x69;&#x6e;&#x6b;&#x28;&#x31;&#x29;&#xa;&#x20;&#x20;&#x20;&#x20;&#x3e;&#x3e;&#x3e;&#x20;&#x6d;&#x75;&#x74;&#x61;&#x74;&#x65;&#x5f;&#x72;&#x65;&#x76;&#x65;&#x72;&#x73;&#x65;&#x28;&#x6c;&#x69;&#x6e;&#x6b;&#x29;&#xa;&#x20;&#x20;&#x20;&#x20;&#x3e;&#x3e;&#x3e;&#x20;&#x6c;&#x69;&#x6e;&#x6b;&#xa;&#x20;&#x20;&#x20;&#x20;&#x4c;&#x69;&#x6e;&#x6b;&#x28;&#x31;&#x29;&#xa;&#xa;&#x20;&#x20;&#x20;&#x20;&#x3e;&#x3e;&#x3e;&#x20;&#x6c;&#x69;&#x6e;&#x6b;&#x20;&#x3d;&#x20;&#x4c;&#x69;&#x6e;&#x6b;&#x28;&#x31;&#x2c;&#x20;&#x4c;&#x69;&#x6e;&#x6b;&#x28;&#x32;&#x2c;&#x20;&#x4c;&#x69;&#x6e;&#x6b;&#x28;&#x33;&#x29;&#x29;&#x29;&#xa;&#x20;&#x20;&#x20;&#x20;&#x3e;&#x3e;&#x3e;&#x20;&#x6d;&#x75;&#x74;&#x61;&#x74;&#x65;&#x5f;&#x72;&#x65;&#x76;&#x65;&#x72;&#x73;&#x65;&#x28;&#x6c;&#x69;&#x6e;&#x6b;&#x29;&#xa;&#x20;&#x20;&#x20;&#x20;&#x3e;&#x3e;&#x3e;&#x20;&#x6c;&#x69;&#x6e;&#x6b;&#xa;&#x20;&#x20;&#x20;&#x20;&#x4c;&#x69;&#x6e;&#x6b;&#x28;&#x33;&#x2c;&#x20;&#x4c;&#x69;&#x6e;&#x6b;&#x28;&#x32;&#x2c;&#x20;&#x4c;&#x69;&#x6e;&#x6b;&#x28;&#x31;&#x29;&#x29;&#x29;&#xa;&#x20;&#x20;&#x20;&#x20;&#x22;&#x22;&#x22;&#xa;&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x76;&#x65;&#x72;&#x73;&#x65;&#x5f;&#x68;&#x65;&#x6c;&#x70;&#x65;&#x72;&#x28;&#x6c;&#x69;&#x6e;&#x6b;&#x29;&#xa;&#xa;&#x64;&#x65;&#x66;&#x20;&#x72;&#x65;&#x76;&#x65;&#x72;&#x73;&#x65;&#x5f;&#x68;&#x65;&#x6c;&#x70;&#x65;&#x72;&#x28;&#x6c;&#x69;&#x6e;&#x6b;&#x29;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x69;&#x66;&#x20;&#x6c;&#x69;&#x6e;&#x6b;&#x2e;&#x72;&#x65;&#x73;&#x74;&#x20;&#x69;&#x73;&#x20;&#x6e;&#x6f;&#x74;&#x20;&#x4c;&#x69;&#x6e;&#x6b;&#x2e;&#x65;&#x6d;&#x70;&#x74;&#x79;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x73;&#x65;&#x63;&#x6f;&#x6e;&#x64;&#x2c;&#x20;&#x6c;&#x61;&#x73;&#x74;&#x20;&#x3d;&#x20;&#x6c;&#x69;&#x6e;&#x6b;&#x2e;&#x72;&#x65;&#x73;&#x74;&#x2c;&#x20;&#x6c;&#x69;&#x6e;&#x6b;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x6c;&#x69;&#x6e;&#x6b;&#x20;&#x3d;&#x20;&#x72;&#x65;&#x76;&#x65;&#x72;&#x73;&#x65;&#x5f;&#x68;&#x65;&#x6c;&#x70;&#x65;&#x72;&#x28;&#x73;&#x65;&#x63;&#x6f;&#x6e;&#x64;&#x29;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x73;&#x65;&#x63;&#x6f;&#x6e;&#x64;&#x2e;&#x72;&#x65;&#x73;&#x74;&#x2c;&#x20;&#x6c;&#x61;&#x73;&#x74;&#x2e;&#x72;&#x65;&#x73;&#x74;&#x20;&#x3d;&#x20;&#x6c;&#x61;&#x73;&#x74;&#x2c;&#x20;&#x6c;&#x69;&#x6e;&#x6b;&#x2e;&#x65;&#x6d;&#x70;&#x74;&#x79;&#xa;&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x6c;&#x69;&#x6e;&#x6b;</div></code></pre>
+
+
+    <button id='2' class='toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+
+<h2 id="mutable-trees">Mutable Trees</h2>
+
+
+<h3 class="question" id="q3">Question 3: Cumulative sum</h3>
+
+<p>Write a function <code>cumulative_sum</code> that returns a new <code>Tree</code>, where each entry is the sum of all entries in the corresponding subtree of the old <code>Tree</code>.</p>
+
+
+
+<pre><code>def cumulative_sum(t):
+    &quot;&quot;&quot;Return a new Tree, where each entry is the sum of all entries in the
+    corresponding subtree of t.
+
+    &gt;&gt;&gt; t = Tree(1, [Tree(3, [Tree(5)]), Tree(7)])
+    &gt;&gt;&gt; cumulative = cumulative_sum(t)
+    &gt;&gt;&gt; t
+    Tree(1, [Tree(3, [Tree(5)]), Tree(7)])
+    &gt;&gt;&gt; cumulative
+    Tree(16, [Tree(8, [Tree(5)]), Tree(7)])
+    &gt;&gt;&gt; cumulative_sum(Tree(1))
+    Tree(1)
+    &quot;&quot;&quot;
+<div class="alt 3">    "*** YOUR CODE HERE ***"
+</div><div class="solution 3">&#x20;&#x20;&#x20;&#x20;&#x73;&#x75;&#x62;&#x74;&#x72;&#x65;&#x65;&#x73;&#x20;&#x3d;&#x20;&#x5b;&#x63;&#x75;&#x6d;&#x75;&#x6c;&#x61;&#x74;&#x69;&#x76;&#x65;&#x5f;&#x73;&#x75;&#x6d;&#x28;&#x73;&#x74;&#x29;&#x20;&#x66;&#x6f;&#x72;&#x20;&#x73;&#x74;&#x20;&#x69;&#x6e;&#x20;&#x74;&#x2e;&#x73;&#x75;&#x62;&#x74;&#x72;&#x65;&#x65;&#x73;&#x5d;&#xa;&#x20;&#x20;&#x20;&#x20;&#x6e;&#x65;&#x77;&#x5f;&#x65;&#x6e;&#x74;&#x72;&#x79;&#x20;&#x3d;&#x20;&#x73;&#x75;&#x6d;&#x28;&#x73;&#x74;&#x2e;&#x65;&#x6e;&#x74;&#x72;&#x79;&#x20;&#x66;&#x6f;&#x72;&#x20;&#x73;&#x74;&#x20;&#x69;&#x6e;&#x20;&#x73;&#x75;&#x62;&#x74;&#x72;&#x65;&#x65;&#x73;&#x29;&#x20;&#x2b;&#x20;&#x74;&#x2e;&#x65;&#x6e;&#x74;&#x72;&#x79;&#xa;&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x54;&#x72;&#x65;&#x65;&#x28;&#x6e;&#x65;&#x77;&#x5f;&#x65;&#x6e;&#x74;&#x72;&#x79;&#x2c;&#x20;&#x73;&#x75;&#x62;&#x74;&#x72;&#x65;&#x65;&#x73;&#x29;</div></code></pre>
+
+
+    <button id='3' class='toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+<h3 class="question" id="q4">Question 4: Leaves</h3>
+
+<p>Write a function <code>leaves</code> that returns a list of all the entries of the leaf
+nodes of a <code>Tree</code>.</p>
+
+
+
+<pre><code>def leaves(t):
+    &quot;&quot;&quot;Returns a list of all the entries of the leaf nodes of the Tree t.
+
+    &gt;&gt;&gt; leaves(Tree(1))
+    [1]
+    &gt;&gt;&gt; leaves(Tree(1, [Tree(2, [Tree(3)]), Tree(4)]))
+    [3, 4]
+    &quot;&quot;&quot;
+<div class="alt 4">    "*** YOUR CODE HERE ***"
+</div><div class="solution 4">&#x20;&#x20;&#x20;&#x20;&#x69;&#x66;&#x20;&#x74;&#x2e;&#x69;&#x73;&#x5f;&#x6c;&#x65;&#x61;&#x66;&#x28;&#x29;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x5b;&#x74;&#x2e;&#x65;&#x6e;&#x74;&#x72;&#x79;&#x5d;&#xa;&#x20;&#x20;&#x20;&#x20;&#x61;&#x6c;&#x6c;&#x5f;&#x6c;&#x65;&#x61;&#x76;&#x65;&#x73;&#x20;&#x3d;&#x20;&#x5b;&#x5d;&#xa;&#x20;&#x20;&#x20;&#x20;&#x66;&#x6f;&#x72;&#x20;&#x62;&#x20;&#x69;&#x6e;&#x20;&#x74;&#x2e;&#x73;&#x75;&#x62;&#x74;&#x72;&#x65;&#x65;&#x73;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x61;&#x6c;&#x6c;&#x5f;&#x6c;&#x65;&#x61;&#x76;&#x65;&#x73;&#x20;&#x2b;&#x3d;&#x20;&#x6c;&#x65;&#x61;&#x76;&#x65;&#x73;&#x28;&#x62;&#x29;&#xa;&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x61;&#x6c;&#x6c;&#x5f;&#x6c;&#x65;&#x61;&#x76;&#x65;&#x73;</div></code></pre>
+
+
+    <button id='4' class='toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+
+<h2 id="binary-trees-and-binary-search-trees">Binary Trees and Binary Search Trees</h2>
+
+
+<h3 class="question" id="q5">Question 5: Size</h3>
+
+<p>Define the function <code>size</code> which takes in a <code>BinaryTree</code> as an argument and
+returns the number of entries in the tree.</p>
+
+
+
+<pre><code>def size(b):
+    r&quot;&quot;&quot; Return the number of entries in the binary tree b.
+
+    &gt;&gt;&gt; b = BinaryTree(4,
+    ...         BinaryTree(2,
+    ...             BinaryTree(1)),
+    ...         BinaryTree(6,
+    ...             BinaryTree(5)))
+    &gt;&gt;&gt; size(b)
+    5
+    &quot;&quot;&quot;
+<div class="alt 5">    "*** YOUR CODE HERE ***"
+</div><div class="solution 5">&#x20;&#x20;&#x20;&#x20;&#x69;&#x66;&#x20;&#x62;&#x20;&#x69;&#x73;&#x20;&#x42;&#x69;&#x6e;&#x61;&#x72;&#x79;&#x54;&#x72;&#x65;&#x65;&#x2e;&#x65;&#x6d;&#x70;&#x74;&#x79;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x30;&#xa;&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x31;&#x20;&#x2b;&#x20;&#x73;&#x69;&#x7a;&#x65;&#x28;&#x74;&#x72;&#x65;&#x65;&#x2e;&#x6c;&#x65;&#x66;&#x74;&#x29;&#x20;&#x2b;&#x20;&#x73;&#x69;&#x7a;&#x65;&#x28;&#x74;&#x72;&#x65;&#x65;&#x2e;&#x72;&#x69;&#x67;&#x68;&#x74;&#x29;</div></code></pre>
+
+
+    <button id='5' class='toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+<h3 class="question" id="q6">Question 6: Max</h3>
+
+<p>Define the function <code>bst_max</code> which takes in a binary search tree and returns
+the max of all of the values of each node in the tree. Be sure to take
+advantage of the properties of the binary search tree to get an efficient
+solution.</p>
+
+<p>You may assume the input is a non-empty <code>BinaryTree</code>.</p>
+
+
+
+<pre><code>def bst_max(b):
+    r&quot;&quot;&quot; Returns the max of all the values of each node in b.
+
+    Calling bst_max on the following tree should return 6:
+
+            4
+           / \
+          2   6
+         /   /
+        1   5
+
+    &gt;&gt;&gt; b = BinaryTree(4,
+    ...         BinaryTree(2,
+    ...             BinaryTree(1)),
+    ...         BinaryTree(6,
+    ...             BinaryTree(5)))
+    &gt;&gt;&gt; bst_max(t)
+    6
+    &quot;&quot;&quot;
+<div class="alt 6">    "*** YOUR CODE HERE ***"
+</div><div class="solution 6">&#x20;&#x20;&#x20;&#x20;&#x69;&#x66;&#x20;&#x62;&#x2e;&#x72;&#x69;&#x67;&#x68;&#x74;&#x20;&#x69;&#x73;&#x20;&#x42;&#x69;&#x6e;&#x61;&#x72;&#x79;&#x54;&#x72;&#x65;&#x65;&#x2e;&#x65;&#x6d;&#x70;&#x74;&#x79;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x62;&#x2e;&#x65;&#x6e;&#x74;&#x72;&#x79;&#xa;&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x62;&#x73;&#x74;&#x5f;&#x6d;&#x61;&#x78;&#x28;&#x62;&#x2e;&#x72;&#x69;&#x67;&#x68;&#x74;&#x29;</div></code></pre>
+
+
+    <button id='6' class='toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+<h3 class="question" id="q7">Question 7: Min</h3>
+
+<p>Define the function <code>bst_min</code> which takes in a binary search tree and returns
+the min of all of the values of each node in the tree. Be sure to take
+advantage of the properties of the binary search tree to get an efficient
+solution.</p>
+
+<p>You may assume the input is a non-empty <code>BinaryTree</code>.</p>
+
+
+
+<pre><code>def bst_min(b):
+    r&quot;&quot;&quot; Returns the min of all the values of each node in b.
+
+    Calling bst_min on the following tree should return 1:
+
+            4
+           / \
+          2   6
+         /   /
+        1   5
+
+    &gt;&gt;&gt; b = BinaryTree(4,
+    ...         BinaryTree(2,
+    ...             BinaryTree(1)),
+    ...         BinaryTree(6,
+    ...             BinaryTree(5)))
+    &gt;&gt;&gt; bst_min(t)
+    1
+    &quot;&quot;&quot;
+<div class="alt 7">    "*** YOUR CODE HERE ***"
+</div><div class="solution 7">&#x20;&#x20;&#x20;&#x20;&#x69;&#x66;&#x20;&#x62;&#x2e;&#x6c;&#x65;&#x66;&#x74;&#x20;&#x69;&#x73;&#x20;&#x42;&#x69;&#x6e;&#x61;&#x72;&#x79;&#x54;&#x72;&#x65;&#x65;&#x2e;&#x65;&#x6d;&#x70;&#x74;&#x79;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x62;&#x2e;&#x65;&#x6e;&#x74;&#x72;&#x79;&#xa;&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x62;&#x73;&#x74;&#x5f;&#x6d;&#x69;&#x6e;&#x28;&#x62;&#x2e;&#x6c;&#x65;&#x66;&#x74;&#x29;</div></code></pre>
+
+
+    <button id='7' class='toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+
+<h2 id="interfaces">Interfaces</h2>
+
+
+<p>For the following interface questions, you'll be implementing magic methods for
+the following <code>Rational</code> class, which represents a rational number. A rational
+number consists of a numerator and a denominator, both of which are integers.</p>
+
+<pre><code>from fractions import gcd
+
+class Rational:
+    def __init__(self, numer, denom):
+        factor = gcd(numer, denom)
+        self.numer = numer // factor
+        self.denom = denom // factor</code></pre>
+
+<h3 class="question" id="q8">Question 8: Repr</h3>
+
+<p>Implement the <code>__repr__</code> method for the <code>Rational</code> class. See the
+doctests for expected behavior.</p>
+
+
+
+<pre><code>def __repr__(self):
+    &quot;&quot;&quot;
+    &gt;&gt;&gt; r = Rational(4, 6)
+    &gt;&gt;&gt; r
+    Rational(2, 3)
+    &gt;&gt;&gt; repr(r)
+    &#x27;Rational(2, 3)&#x27;
+    &quot;&quot;&quot;
+<div class="alt 8">    "*** YOUR CODE HERE ***"
+</div><div class="solution 8">&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x27;&#x52;&#x61;&#x74;&#x69;&#x6f;&#x6e;&#x61;&#x6c;&#x28;&#x7b;&#x30;&#x7d;&#x2c;&#x20;&#x7b;&#x31;&#x7d;&#x29;&#x27;&#x2e;&#x66;&#x6f;&#x72;&#x6d;&#x61;&#x74;&#x28;&#x73;&#x65;&#x6c;&#x66;&#x2e;&#x6e;&#x75;&#x6d;&#x65;&#x72;&#x2c;&#x20;&#x73;&#x65;&#x6c;&#x66;&#x2e;&#x64;&#x65;&#x6e;&#x6f;&#x6d;&#x29;</div></code></pre>
+
+
+    <button id='8' class='toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+<h3 class="question" id="q9">Question 9: Str</h3>
+
+<p>Implement the <code>__str__</code> method for the <code>Rational</code> class. See the
+doctests for expected behavior.</p>
+
+
+
+<pre><code>def __str__(self):
+    &quot;&quot;&quot;
+    &gt;&gt;&gt; r = Rational(4, 6)
+    &gt;&gt;&gt; print(r)
+    2 / 3
+    &gt;&gt;&gt; str(r)
+    &#x27;2 / 3&#x27;
+    &quot;&quot;&quot;
+<div class="alt 9">    "*** YOUR CODE HERE ***"
+</div><div class="solution 9">&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x27;&#x7b;&#x30;&#x7d;&#x20;&#x2f;&#x20;&#x7b;&#x31;&#x7d;&#x27;&#x2e;&#x66;&#x6f;&#x72;&#x6d;&#x61;&#x74;&#x28;&#x73;&#x65;&#x6c;&#x66;&#x2e;&#x6e;&#x75;&#x6d;&#x65;&#x72;&#x2c;&#x20;&#x73;&#x65;&#x6c;&#x66;&#x2e;&#x64;&#x65;&#x6e;&#x6f;&#x6d;&#x29;</div></code></pre>
+
+
+    <button id='9' class='toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+<h3 class="question" id="q10">Question 10: Add</h3>
+
+<p>Implement the <code>__add__</code> method for the <code>Rational</code> class. See the
+doctests for expected behavior.</p>
+
+
+
+<pre><code>def __add__(self, other):
+    &quot;&quot;&quot;
+    &gt;&gt;&gt; r1 = Rational(2, 3)
+    &gt;&gt;&gt; r2 = Rational(4, 5)
+    &gt;&gt;&gt; r1 + r2
+    Rational(22, 15)
+    &gt;&gt;&gt; r1 + 6
+    Rational(20, 3)
+    &quot;&quot;&quot;
+<div class="alt 10">    "*** YOUR CODE HERE ***"
+</div><div class="solution 10">&#x20;&#x20;&#x20;&#x20;&#x69;&#x66;&#x20;&#x69;&#x73;&#x69;&#x6e;&#x73;&#x74;&#x61;&#x6e;&#x63;&#x65;&#x28;&#x6f;&#x74;&#x68;&#x65;&#x72;&#x2c;&#x20;&#x52;&#x61;&#x74;&#x69;&#x6f;&#x6e;&#x61;&#x6c;&#x29;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x52;&#x61;&#x74;&#x69;&#x6f;&#x6e;&#x61;&#x6c;&#x28;&#x73;&#x65;&#x6c;&#x66;&#x2e;&#x6e;&#x75;&#x6d;&#x65;&#x72;&#x20;&#x2a;&#x20;&#x6f;&#x74;&#x68;&#x65;&#x72;&#x2e;&#x64;&#x65;&#x6e;&#x6f;&#x6d;&#x20;&#x2b;&#x20;&#x73;&#x65;&#x6c;&#x66;&#x2e;&#x64;&#x65;&#x6e;&#x6f;&#x6d;&#x20;&#x2a;&#x20;&#x6f;&#x74;&#x68;&#x65;&#x72;&#x2e;&#x6e;&#x75;&#x6d;&#x65;&#x72;&#x2c;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x73;&#x65;&#x6c;&#x66;&#x2e;&#x64;&#x65;&#x6e;&#x6f;&#x6d;&#x20;&#x2a;&#x20;&#x6f;&#x74;&#x68;&#x65;&#x72;&#x2e;&#x64;&#x65;&#x6e;&#x6f;&#x6d;&#x29;&#xa;&#x20;&#x20;&#x20;&#x20;&#x65;&#x6c;&#x69;&#x66;&#x20;&#x69;&#x73;&#x69;&#x6e;&#x73;&#x74;&#x61;&#x6e;&#x63;&#x65;&#x28;&#x6f;&#x74;&#x68;&#x65;&#x72;&#x2c;&#x20;&#x69;&#x6e;&#x74;&#x29;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x52;&#x61;&#x74;&#x69;&#x6f;&#x6e;&#x61;&#x6c;&#x28;&#x73;&#x65;&#x6c;&#x66;&#x2e;&#x6e;&#x75;&#x6d;&#x65;&#x72;&#x20;&#x2b;&#x20;&#x73;&#x65;&#x6c;&#x66;&#x2e;&#x64;&#x65;&#x6e;&#x6f;&#x6d;&#x20;&#x2a;&#x20;&#x6f;&#x74;&#x68;&#x65;&#x72;&#x2c;&#x20;&#x73;&#x65;&#x6c;&#x66;&#x2e;&#x64;&#x65;&#x6e;&#x6f;&#x6d;&#x29;</div></code></pre>
+
+
+    <button id='10' class='toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+<h3 class="question" id="q11">Question 11: Neg</h3>
+
+<p>Implement the <code>__neg__</code> method for the <code>Rational</code> class. See the
+doctests for expected behavior.</p>
+
+
+
+<pre><code>def __neg__(self):
+    &quot;&quot;&quot;
+    &gt;&gt;&gt; r = Rational(2, 3)
+    &gt;&gt;&gt; &#x2d;r
+    Rational(&#x2d;2, 3)
+    &quot;&quot;&quot;
+<div class="alt 11">    "*** YOUR CODE HERE ***"
+</div><div class="solution 11">&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x52;&#x61;&#x74;&#x69;&#x6f;&#x6e;&#x61;&#x6c;&#x28;&#x2d;&#x73;&#x65;&#x6c;&#x66;&#x2e;&#x6e;&#x75;&#x6d;&#x65;&#x72;&#x2c;&#x20;&#x73;&#x65;&#x6c;&#x66;&#x2e;&#x64;&#x65;&#x6e;&#x6f;&#x6d;&#x29;</div></code></pre>
+
+
+    <button id='11' class='toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+<h3 class="question" id="q12">Question 12: Sub</h3>
+
+<p>Implement the <code>__sub__</code> method for the <code>Rational</code> class. See the
+doctests for expected behavior.</p>
+
+
+
+<pre><code>def __sub__(self, other):
+    &quot;&quot;&quot;
+    &gt;&gt;&gt; r1 = Rational(2, 3)
+    &gt;&gt;&gt; r2 = Rational(4, 5)
+    &gt;&gt;&gt; r1 &#x2d; r2
+    Rational(&#x2d;2, 15)
+    &gt;&gt;&gt; r1 &#x2d; 1
+    Rational(&#x2d;1, 3)
+    &quot;&quot;&quot;
+<div class="alt 12">    "*** YOUR CODE HERE ***"
+</div><div class="solution 12">&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x73;&#x65;&#x6c;&#x66;&#x20;&#x2b;&#x20;&#x28;&#x2d;&#x6f;&#x74;&#x68;&#x65;&#x72;&#x29;</div></code></pre>
+
+
+    <button id='12' class='toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+<h3 class="question" id="q13">Question 13: Mul</h3>
+
+<p>Implement the <code>__mul__</code> method for the <code>Rational</code> class. See the
+doctests for expected behavior.</p>
+
+
+
+<pre><code>def __mul__(self, other):
+    &quot;&quot;&quot;
+    &gt;&gt;&gt; r1 = Rational(2, 3)
+    &gt;&gt;&gt; r2 = Rational(9, 5)
+    &gt;&gt;&gt; r1 * r2
+    Rational(6, 5)
+    &gt;&gt;&gt; r1 * 5
+    Rational(10, 3)
+    &quot;&quot;&quot;
+<div class="alt 13">    "*** YOUR CODE HERE ***"
+</div><div class="solution 13">&#x20;&#x20;&#x20;&#x20;&#x69;&#x66;&#x20;&#x69;&#x73;&#x69;&#x6e;&#x73;&#x74;&#x61;&#x6e;&#x63;&#x65;&#x28;&#x6f;&#x74;&#x68;&#x65;&#x72;&#x2c;&#x20;&#x52;&#x61;&#x74;&#x69;&#x6f;&#x6e;&#x61;&#x6c;&#x29;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x52;&#x61;&#x74;&#x69;&#x6f;&#x6e;&#x61;&#x6c;&#x28;&#x73;&#x65;&#x6c;&#x66;&#x2e;&#x6e;&#x75;&#x6d;&#x65;&#x72;&#x20;&#x2a;&#x20;&#x6f;&#x74;&#x68;&#x65;&#x72;&#x2e;&#x6e;&#x75;&#x6d;&#x65;&#x72;&#x2c;&#x20;&#x73;&#x65;&#x6c;&#x66;&#x2e;&#x64;&#x65;&#x6e;&#x6f;&#x6d;&#x20;&#x2a;&#x20;&#x6f;&#x74;&#x68;&#x65;&#x72;&#x2e;&#x64;&#x65;&#x6e;&#x6f;&#x6d;&#x29;&#xa;&#x20;&#x20;&#x20;&#x20;&#x65;&#x6c;&#x69;&#x66;&#x20;&#x69;&#x73;&#x69;&#x6e;&#x73;&#x74;&#x61;&#x6e;&#x63;&#x65;&#x28;&#x6f;&#x74;&#x68;&#x65;&#x72;&#x2c;&#x20;&#x69;&#x6e;&#x74;&#x29;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x52;&#x61;&#x74;&#x69;&#x6f;&#x6e;&#x61;&#x6c;&#x28;&#x73;&#x65;&#x6c;&#x66;&#x2e;&#x6e;&#x75;&#x6d;&#x65;&#x72;&#x20;&#x2a;&#x20;&#x6f;&#x74;&#x68;&#x65;&#x72;&#x2c;&#x20;&#x73;&#x65;&#x6c;&#x66;&#x2e;&#x64;&#x65;&#x6e;&#x6f;&#x6d;&#x29;</div></code></pre>
+
+
+    <button id='13' class='toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+
+<h2 id="iterators-and-generators">Iterators and Generators</h2>
+
+
+<h3 class="question" id="q14">Question 14: Does it work?</h3>
+
+<p>Consider the following iterators. Which ones work and which ones don't? Why?</p>
+
+<pre><code>class IteratorA:
+    def __init__(self):
+        self.start = 5
+
+    def __next__(self):
+        if self.start == 100:
+            raise StopIteration
+        self.start += 5
+        return self.start
+
+    def __iter__(self):
+        return self</code></pre>
+
+
+    <button id='20' class='toggleButtonShow'>
+    Toggle Explanation<noscript> (enable JavaScript)</noscript>
+    </button>
+    <div class="solution 20">
+
+<p>No problem, this is a beautiful iterator.</p>
+
+</div>
+
+<pre><code>class IteratorB:
+    def __init__(self):
+        self.start = 5
+
+    def __iter__(self):
+        return self</code></pre>
+
+
+    <button id='21' class='toggleButtonShow'>
+    Toggle Explanation<noscript> (enable JavaScript)</noscript>
+    </button>
+    <div class="solution 21">
+
+<p>Oh no!  Where is <code>__next__</code>?  This fails to implement the iterator
+interface because calling <code>__iter__</code> doesn't return something that has
+a <code>__next__</code> method.</p>
+
+</div>
+
+<pre><code>class IteratorC:
+    def __init__(self):
+        self.start = 5
+
+    def __next__(self):
+        if self.start == 10:
+            raise StopIteration
+        self.start += 1
+        return self.start</code></pre>
+
+
+    <button id='22' class='toggleButtonShow'>
+    Toggle Explanation<noscript> (enable JavaScript)</noscript>
+    </button>
+    <div class="solution 22">
+
+<p>This also fails to implement the iterator interface.  Without the
+<code>__iter__</code> method, the <code>for</code> loop will error.  The <code>for</code> loop needs to
+call <code>__iter__</code> first because some objects might not implement the
+<code>__next__</code> method themselves, but calling <code>__iter__</code> will return an
+object that does.</p>
+
+</div>
+
+<pre><code>class IteratorD:
+    def __init__(self):
+        self.start = 1
+
+    def __next__(self):
+        self.start += 1
+        return self.start
+
+    def __iter__(self):
+        return self</code></pre>
+
+
+    <button id='23' class='toggleButtonShow'>
+    Toggle Explanation<noscript> (enable JavaScript)</noscript>
+    </button>
+    <div class="solution 23">
+
+<p>This is technically an iterator, because it implements both <code>__iter__</code> and
+<code>__next__</code>. Notice that it's an infinite sequence!  Sequences like these are
+the reason iterators are useful.  Because iterators delay computation, we can
+use a finite amount of memory to represent an infinitely long sequence.</p>
+
+</div>
+
+<h3 class="question" id="q15">Question 15: Str</h3>
+
+<p>Write an iterator that takes a string as input:</p>
+
+
+
+<div class="solution 14">
+
+<pre><code>class Str:
+    def __init__(self, str):
+        self.str = str
+    def __iter__(self):
+        return self.str.__iter__()</code></pre>
+
+<p>That works (why?), but just kidding.</p>
+
+</div>
+
+<pre><code>class Str:
+    &quot;&quot;&quot;
+    &gt;&gt;&gt; s = Str(&quot;hello&quot;)
+    &gt;&gt;&gt; for char in s:
+    ...     print(char)
+    ...
+    h
+    e
+    l
+    l
+    o
+    &quot;&quot;&quot;
+    def __init__(self, str):
+<div class="alt 14">        "*** YOUR CODE HERE ***"
+</div><div class="solution 14">&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x73;&#x65;&#x6c;&#x66;&#x2e;&#x73;&#x74;&#x72;&#x20;&#x3d;&#x20;&#x73;&#x74;&#x72;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x73;&#x65;&#x6c;&#x66;&#x2e;&#x69;&#x20;&#x3d;&#x20;&#x2d;&#x31;</div>
+    def __iter__(self):
+<div class="alt 14">        "*** YOUR CODE HERE ***"
+</div><div class="solution 14">&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x73;&#x65;&#x6c;&#x66;&#xa;&#xa;&#x20;&#x20;&#x20;&#x20;&#x64;&#x65;&#x66;&#x20;&#x5f;&#x5f;&#x6e;&#x65;&#x78;&#x74;&#x5f;&#x5f;&#x28;&#x73;&#x65;&#x6c;&#x66;&#x29;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x73;&#x65;&#x6c;&#x66;&#x2e;&#x69;&#x20;&#x2b;&#x3d;&#x20;&#x31;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x69;&#x66;&#x20;&#x73;&#x65;&#x6c;&#x66;&#x2e;&#x69;&#x20;&#x3e;&#x3d;&#x20;&#x6c;&#x65;&#x6e;&#x28;&#x73;&#x65;&#x6c;&#x66;&#x2e;&#x73;&#x74;&#x72;&#x29;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x72;&#x61;&#x69;&#x73;&#x65;&#x20;&#x53;&#x74;&#x6f;&#x70;&#x49;&#x74;&#x65;&#x72;&#x61;&#x74;&#x69;&#x6f;&#x6e;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x73;&#x65;&#x6c;&#x66;&#x2e;&#x73;&#x74;&#x72;&#x5b;&#x73;&#x65;&#x6c;&#x66;&#x2e;&#x69;&#x5d;</div></code></pre>
+
+
+    <button id='14' class='toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+<h3 class="question" id="q16">Question 16: Countdown</h3>
+
+<p>Write a generator that counts down to 0.</p>
+
+<p>Write it in both ways: using a generator function on its own, and
+within the <code>__iter__</code> method of a class.</p>
+
+
+
+<pre><code>def countdown(n):
+    &quot;&quot;&quot;
+    &gt;&gt;&gt; for number in countdown(5):
+    ...     print(number)
+    ...
+    5
+    4
+    3
+    2
+    1
+    0
+    &quot;&quot;&quot;
+<div class="alt 15">    "*** YOUR CODE HERE ***"
+</div><div class="solution 15">&#x20;&#x20;&#x20;&#x20;&#x77;&#x68;&#x69;&#x6c;&#x65;&#x20;&#x6e;&#x20;&#x3e;&#x3d;&#x20;&#x30;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x79;&#x69;&#x65;&#x6c;&#x64;&#x20;&#x6e;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x6e;&#x20;&#x3d;&#x20;&#x6e;&#x20;&#x2d;&#x20;&#x31;</div></code></pre>
+
+
+    <button id='15' class='toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+
+
+<pre><code>class Countdown:
+    &quot;&quot;&quot;
+    &gt;&gt;&gt; for number in Countdown(5):
+    ...     print(number)
+    ...
+    5
+    4
+    3
+    2
+    1
+    0
+    &quot;&quot;&quot;
+<div class="alt 16">    "*** YOUR CODE HERE ***"
+</div><div class="solution 16">&#x20;&#x20;&#x20;&#x20;&#x64;&#x65;&#x66;&#x20;&#x5f;&#x5f;&#x69;&#x6e;&#x69;&#x74;&#x5f;&#x5f;&#x28;&#x73;&#x65;&#x6c;&#x66;&#x2c;&#x20;&#x63;&#x75;&#x72;&#x29;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x73;&#x65;&#x6c;&#x66;&#x2e;&#x63;&#x75;&#x72;&#x20;&#x3d;&#x20;&#x63;&#x75;&#x72;&#xa;&#xa;&#x20;&#x20;&#x20;&#x20;&#x64;&#x65;&#x66;&#x20;&#x5f;&#x5f;&#x69;&#x74;&#x65;&#x72;&#x5f;&#x5f;&#x28;&#x73;&#x65;&#x6c;&#x66;&#x29;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x73;&#x65;&#x6c;&#x66;&#xa;&#xa;&#x20;&#x20;&#x20;&#x20;&#x64;&#x65;&#x66;&#x20;&#x5f;&#x5f;&#x6e;&#x65;&#x78;&#x74;&#x5f;&#x5f;&#x28;&#x73;&#x65;&#x6c;&#x66;&#x29;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x73;&#x75;&#x6c;&#x74;&#x20;&#x3d;&#x20;&#x73;&#x65;&#x6c;&#x66;&#x2e;&#x63;&#x75;&#x72;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x69;&#x66;&#x20;&#x72;&#x65;&#x73;&#x75;&#x6c;&#x74;&#x20;&#x3c;&#x20;&#x30;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x72;&#x61;&#x69;&#x73;&#x65;&#x20;&#x53;&#x74;&#x6f;&#x70;&#x49;&#x74;&#x65;&#x72;&#x61;&#x74;&#x69;&#x6f;&#x6e;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x73;&#x65;&#x6c;&#x66;&#x2e;&#x63;&#x75;&#x72;&#x20;&#x2d;&#x3d;&#x20;&#x31;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x72;&#x65;&#x73;&#x75;&#x6c;&#x74;&#xa;&#xa;&#x23;&#x20;&#x41;&#x6c;&#x74;&#x65;&#x72;&#x6e;&#x61;&#x74;&#x65;&#x20;&#x73;&#x6f;&#x6c;&#x75;&#x74;&#x69;&#x6f;&#x6e;&#x20;&#x74;&#x68;&#x61;&#x74;&#x20;&#x6d;&#x61;&#x6b;&#x65;&#x73;&#x20;&#x5f;&#x5f;&#x69;&#x74;&#x65;&#x72;&#x5f;&#x5f;&#x20;&#x61;&#x20;&#x67;&#x65;&#x6e;&#x65;&#x72;&#x61;&#x74;&#x6f;&#x72;&#x20;&#x66;&#x75;&#x6e;&#x63;&#x74;&#x69;&#x6f;&#x6e;&#x3a;&#xa;&#x63;&#x6c;&#x61;&#x73;&#x73;&#x20;&#x43;&#x6f;&#x75;&#x6e;&#x74;&#x64;&#x6f;&#x77;&#x6e;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x64;&#x65;&#x66;&#x20;&#x5f;&#x5f;&#x69;&#x6e;&#x69;&#x74;&#x5f;&#x5f;&#x28;&#x73;&#x65;&#x6c;&#x66;&#x2c;&#x20;&#x63;&#x75;&#x72;&#x29;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x73;&#x65;&#x6c;&#x66;&#x2e;&#x63;&#x75;&#x72;&#x20;&#x3d;&#x20;&#x63;&#x75;&#x72;&#xa;&#xa;&#x20;&#x20;&#x20;&#x20;&#x64;&#x65;&#x66;&#x20;&#x5f;&#x5f;&#x69;&#x74;&#x65;&#x72;&#x5f;&#x5f;&#x28;&#x73;&#x65;&#x6c;&#x66;&#x29;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x77;&#x68;&#x69;&#x6c;&#x65;&#x20;&#x73;&#x65;&#x6c;&#x66;&#x2e;&#x63;&#x75;&#x72;&#x20;&#x3e;&#x3d;&#x20;&#x30;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x79;&#x69;&#x65;&#x6c;&#x64;&#x20;&#x73;&#x65;&#x6c;&#x66;&#x2e;&#x63;&#x75;&#x72;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x73;&#x65;&#x6c;&#x66;&#x2e;&#x63;&#x75;&#x72;&#x20;&#x2d;&#x3d;&#x20;&#x31;</div></code></pre>
+
+
+    <button id='16' class='toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+<h3 class="question" id="q17">Question 17: Hailstone</h3>
+
+<p>Write a generator that outputs the hailstone sequence from homework 1.</p>
+
+
+
+<pre><code>def hailstone(n):
+    &quot;&quot;&quot;
+    &gt;&gt;&gt; for num in hailstone(10):
+    ...     print(num)
+    ...
+    10
+    5
+    16
+    8
+    4
+    2
+    1
+    &quot;&quot;&quot;
+<div class="alt 17">    "*** YOUR CODE HERE ***"
+</div><div class="solution 17">&#x20;&#x20;&#x20;&#x20;&#x69;&#x20;&#x3d;&#x20;&#x6e;&#xa;&#x20;&#x20;&#x20;&#x20;&#x77;&#x68;&#x69;&#x6c;&#x65;&#x20;&#x69;&#x20;&#x3e;&#x20;&#x31;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x79;&#x69;&#x65;&#x6c;&#x64;&#x20;&#x69;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x69;&#x66;&#x20;&#x69;&#x20;&#x25;&#x20;&#x32;&#x20;&#x3d;&#x3d;&#x20;&#x30;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x69;&#x20;&#x2f;&#x2f;&#x3d;&#x20;&#x32;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x65;&#x6c;&#x73;&#x65;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x69;&#x20;&#x3d;&#x20;&#x69;&#x20;&#x2a;&#x20;&#x33;&#x20;&#x2b;&#x20;&#x31;&#xa;&#x20;&#x20;&#x20;&#x20;&#x79;&#x69;&#x65;&#x6c;&#x64;&#x20;&#x69;</div></code></pre>
+
+
+    <button id='17' class='toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+<h3 class="question" id="q18">Question 18: Pairs (generator)</h3>
+
+<p>Write a generator function <code>pairs</code> that takes a list and yields all the
+possible pairs of elements from that list.</p>
+
+<p>Note that this means that you should be yielding a <em>tuple</em>.</p>
+
+
+
+<pre><code>def pairs(lst):
+    &quot;&quot;&quot;
+    &gt;&gt;&gt; type(pairs([3, 4, 5]))
+    &lt;class &#x27;generator&#x27;&gt;
+    &gt;&gt;&gt; for x, y in pairs([3, 4, 5]):
+    ...     print(x, y)
+    ...
+    3 3
+    3 4
+    3 5
+    4 3
+    4 4
+    4 5
+    5 3
+    5 4
+    5 5
+    &quot;&quot;&quot;
+<div class="alt 18">    "*** YOUR CODE HERE ***"
+</div><div class="solution 18">&#x20;&#x20;&#x20;&#x20;&#x66;&#x6f;&#x72;&#x20;&#x69;&#x20;&#x69;&#x6e;&#x20;&#x6c;&#x73;&#x74;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x66;&#x6f;&#x72;&#x20;&#x6a;&#x20;&#x69;&#x6e;&#x20;&#x6c;&#x73;&#x74;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x79;&#x69;&#x65;&#x6c;&#x64;&#x20;&#x69;&#x2c;&#x20;&#x6a;</div></code></pre>
+
+
+    <button id='18' class='toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+<h3 class="question" id="q19">Question 19: Pairs (iterator)</h3>
+
+<p>Now write an iterator that does the same thing. You are only allowed
+to use a linear amount of space - so computing a list of all of the
+possible pairs is not a valid answer. Notice how much harder it is -
+this is why generators are useful.</p>
+
+
+
+<pre><code>class PairsIterator:
+    &quot;&quot;&quot;
+    &gt;&gt;&gt; for x, y in PairsIterator([3, 4, 5]):
+    ...     print(x, y)
+    ...
+    3 3
+    3 4
+    3 5
+    4 3
+    4 4
+    4 5
+    5 3
+    5 4
+    5 5
+    &quot;&quot;&quot;
+    def __init__(self, lst):
+<div class="alt 19">        "*** YOUR CODE HERE ***"
+</div><div class="solution 19">&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x73;&#x65;&#x6c;&#x66;&#x2e;&#x6c;&#x73;&#x74;&#x20;&#x3d;&#x20;&#x6c;&#x73;&#x74;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x73;&#x65;&#x6c;&#x66;&#x2e;&#x69;&#x20;&#x3d;&#x20;&#x30;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x73;&#x65;&#x6c;&#x66;&#x2e;&#x6a;&#x20;&#x3d;&#x20;&#x30;</div>
+    def __next__(self):
+<div class="alt 19">        "*** YOUR CODE HERE ***"
+</div><div class="solution 19">&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x69;&#x66;&#x20;&#x73;&#x65;&#x6c;&#x66;&#x2e;&#x69;&#x20;&#x3d;&#x3d;&#x20;&#x6c;&#x65;&#x6e;&#x28;&#x73;&#x65;&#x6c;&#x66;&#x2e;&#x6c;&#x73;&#x74;&#x29;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x72;&#x61;&#x69;&#x73;&#x65;&#x20;&#x53;&#x74;&#x6f;&#x70;&#x49;&#x74;&#x65;&#x72;&#x61;&#x74;&#x69;&#x6f;&#x6e;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x73;&#x75;&#x6c;&#x74;&#x20;&#x3d;&#x20;&#x28;&#x73;&#x65;&#x6c;&#x66;&#x2e;&#x6c;&#x73;&#x74;&#x5b;&#x73;&#x65;&#x6c;&#x66;&#x2e;&#x69;&#x5d;&#x2c;&#x20;&#x73;&#x65;&#x6c;&#x66;&#x2e;&#x6c;&#x73;&#x74;&#x5b;&#x73;&#x65;&#x6c;&#x66;&#x2e;&#x6a;&#x5d;&#x29;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x69;&#x66;&#x20;&#x73;&#x65;&#x6c;&#x66;&#x2e;&#x6a;&#x20;&#x3d;&#x3d;&#x20;&#x6c;&#x65;&#x6e;&#x28;&#x73;&#x65;&#x6c;&#x66;&#x2e;&#x6c;&#x73;&#x74;&#x29;&#x20;&#x2d;&#x20;&#x31;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x73;&#x65;&#x6c;&#x66;&#x2e;&#x69;&#x20;&#x2b;&#x3d;&#x20;&#x31;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x73;&#x65;&#x6c;&#x66;&#x2e;&#x6a;&#x20;&#x3d;&#x20;&#x30;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x65;&#x6c;&#x73;&#x65;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x73;&#x65;&#x6c;&#x66;&#x2e;&#x6a;&#x20;&#x2b;&#x3d;&#x20;&#x31;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x72;&#x65;&#x73;&#x75;&#x6c;&#x74;</div>
+    def __iter__(self):
+<div class="alt 19">        "*** YOUR CODE HERE ***"
+</div><div class="solution 19">&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x73;&#x65;&#x6c;&#x66;</div></code></pre>
+
+
+    <button id='19' class='toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+
+  </div>
+
+  <div class='col-md-3'>
+    <nav class='hidden-print hidden-sm hidden-xs sidebar'>
+      <ul>
+  <li><a href="#mutable-linked-lists">Mutable Linked Lists</a></li>
+  <ul>
+  <li><a href="#q1">Question 1: Slice</a></li>
+  <li><a href="#q2">Question 2: Add Links</a></li>
+</ul>
+
+  <li><a href="#mutable-trees">Mutable Trees</a></li>
+  <ul>
+  <li><a href="#q3">Question 3: Cumulative sum</a></li>
+  <li><a href="#q4">Question 4: Leaves</a></li>
+</ul>
+
+  <li><a href="#binary-trees-and-binary-search-trees">Binary Trees and Binary Search Trees</a></li>
+  <ul>
+  <li><a href="#q5">Question 5: Size</a></li>
+  <li><a href="#q6">Question 6: Max</a></li>
+  <li><a href="#q7">Question 7: Min</a></li>
+</ul>
+
+  <li><a href="#interfaces">Interfaces</a></li>
+  <ul>
+  <li><a href="#q8">Question 8: Repr</a></li>
+  <li><a href="#q9">Question 9: Str</a></li>
+  <li><a href="#q10">Question 10: Add</a></li>
+  <li><a href="#q11">Question 11: Neg</a></li>
+  <li><a href="#q12">Question 12: Sub</a></li>
+  <li><a href="#q13">Question 13: Mul</a></li>
+</ul>
+
+  <li><a href="#iterators-and-generators">Iterators and Generators</a></li>
+  <ul>
+  <li><a href="#q14">Question 14: Does it work?</a></li>
+  <li><a href="#q15">Question 15: Str</a></li>
+  <li><a href="#q16">Question 16: Countdown</a></li>
+  <li><a href="#q17">Question 17: Hailstone</a></li>
+  <li><a href="#q18">Question 18: Pairs (generator)</a></li>
+  <li><a href="#q19">Question 19: Pairs (iterator)</a></li>
+</ul>
+
+</ul>
+
+    </nav>
+  </div>
+
+</div>
+    </div>
+  </body>
+  <script>
+  $('.sidebar ul').addClass('nav nav-stacked');
+  $('body').scrollspy({
+    target: '.sidebar',
+    offset: 40
+  });
+</script>
+<script src="//code.jquery.com/jquery-latest.js"></script>
+<script>
+  $(function() {
+    $('.toggleButton').css('display', 'inline-block');
+    $('.toggleButton').click(function() {
+      var solution_id = $(this).attr('id');
+      $('div.' + solution_id).slideToggle(600);
+    });
+    // Always display these toggle buttons
+    $('.toggleButtonShow').click(function() {
+      alert('Solutions have been removed.');
+    });
+  });
+</script>
+</html>

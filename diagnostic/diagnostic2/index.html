@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="description" content ="CS61A: Structure and Interpretation of Computer Programs" />
+    <meta name="keywords" content ="CS61A, Computer Science, CS, 61A, Programming, John DeNero, Berkeley, EECS" />
+    <meta name="author" content ="Albert Wu, Robert Huang, Alfonso Martinez, Cale Horeff, Chris Le, Colin Schoen, Derrick Lin, Jeffrey Lu, Jessica Gu, Rohit Lalchandani, Tammy Nguyen, Will Jiang, Yulin Zheng" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width">
+
+    <script src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
+    <link rel="icon" href="/assets/images/favicon.ico">
+
+    <link rel="stylesheet" href="/assets/css/mono-blue.css">
+    <script src="/assets/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    <link rel="stylesheet" type="text/css" href="/assets/css/resource.css" />
+<link rel="stylesheet" type="text/css" href="/assets/css/lab.css" />
+
+
+    <title>Diagnostic 2: Week 2 review | CS 61A Summer 2015</title>
+
+  </head>
+
+  <body id="index" class="home">
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-section">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">CS 61A</a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="navbar-collapse-section">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/">Calendar</a></li>
+            <li><a href="/office-hours.html">Office Hours</a></li>
+            <li><a href="/tutoring.html">Tutoring</a></li>
+
+            <li><a href="/articles/using-ok.html">Using OK</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Course Info <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="/articles/about.html">Syllabus</a></li>
+                <li><a href="/staff.html">Staff</a></li>
+                <li><a href="/weekly.html">Weekly Schedule</a></li>
+              </ul>
+            </li>
+
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div id="content" class="container">
+      <div class='row'>
+  <div class='col-md-9'>
+    <div class='page-header'>
+      <h1><span class="content-title-brand">Diagnostic 2</span>: Week
+2 review</h1>
+    </div>
+
+    Diagnostics are meant for you to check your understanding of the week's
+material. They are not worth any points and are not counted towards midterm
+recovery points; instead, diagnostics are solely for your benefit.
+
+If you find yourself struggling with the questions in this diagnostic, consider
+signing up for <a href="/tutoring.html">Tutoring</a>.
+
+    
+
+
+<h2 id="recursion">Recursion</h2>
+
+
+<h3 class="question" id="q1">Question 1: In summation...</h3>
+
+<p>Write the recursive version of <code>summation</code>, which takes two arguments,
+a number <code>n</code> and a function <code>term</code>, applies <code>term</code> to every number
+between <code>1</code> and <code>n</code> inclusive, and returns the sum of those results.</p>
+
+
+
+<pre><code>def summation(n, term):
+    &quot;&quot;&quot;Return the sum of the 0th to nth terms in the sequence defined
+    by term.
+    Should be implemented using recursion.
+
+    &gt;&gt;&gt; summation(5, lambda x: x * x * x)
+    225
+    &gt;&gt;&gt; summation(9, lambda x: x + 1)
+    55
+    &gt;&gt;&gt; summation(5, lambda x: 2**x)
+    63
+    &quot;&quot;&quot;
+<div class="alt 0">    "*** YOUR CODE HERE ***"
+</div><div class="solution 0">&#x20;&#x20;&#x20;&#x20;&#x69;&#x66;&#x20;&#x6e;&#x20;&#x3d;&#x3d;&#x20;&#x30;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x74;&#x65;&#x72;&#x6d;&#x28;&#x30;&#x29;&#xa;&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x74;&#x65;&#x72;&#x6d;&#x28;&#x6e;&#x29;&#x20;&#x2b;&#x20;&#x73;&#x75;&#x6d;&#x6d;&#x61;&#x74;&#x69;&#x6f;&#x6e;&#x28;&#x6e;&#x20;&#x2d;&#x20;&#x31;&#x2c;&#x20;&#x74;&#x65;&#x72;&#x6d;&#x29;</div></code></pre>
+
+
+    <button id='0' class='toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+<h3 class="question" id="q2">Question 2</h3>
+
+<p>Write a function <code>has_seven</code> that takes a positive integer <code>n</code> and
+returns whether <code>n</code> contains the digit 7.  <em>Do not use any assignment
+statements - use recursion instead</em>:</p>
+
+
+
+<pre><code>def has_seven(k):
+    &quot;&quot;&quot;Returns True if at least one of the digits of k is a 7, False otherwise.
+
+    &gt;&gt;&gt; has_seven(3)
+    False
+    &gt;&gt;&gt; has_seven(7)
+    True
+    &gt;&gt;&gt; has_seven(2734)
+    True
+    &gt;&gt;&gt; has_seven(2634)
+    False
+    &gt;&gt;&gt; has_seven(734)
+    True
+    &gt;&gt;&gt; has_seven(7777)
+    True
+    &quot;&quot;&quot;
+<div class="alt 1">    "*** YOUR CODE HERE ***"
+</div><div class="solution 1">&#x20;&#x20;&#x20;&#x20;&#x69;&#x66;&#x20;&#x6b;&#x20;&#x25;&#x20;&#x31;&#x30;&#x20;&#x3d;&#x3d;&#x20;&#x37;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x54;&#x72;&#x75;&#x65;&#xa;&#x20;&#x20;&#x20;&#x20;&#x65;&#x6c;&#x69;&#x66;&#x20;&#x6b;&#x20;&#x3c;&#x20;&#x31;&#x30;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x46;&#x61;&#x6c;&#x73;&#x65;&#xa;&#x20;&#x20;&#x20;&#x20;&#x65;&#x6c;&#x73;&#x65;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x68;&#x61;&#x73;&#x5f;&#x73;&#x65;&#x76;&#x65;&#x6e;&#x28;&#x6b;&#x20;&#x2f;&#x2f;&#x20;&#x31;&#x30;&#x29;</div></code></pre>
+
+
+    <button id='1' class='toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+<h3 class="question" id="q3">Question 3</h3>
+
+<p>An infinite continued fraction is an expression of the form:</p>
+
+<p><img class="img-responsive center-block" src="assets/inf_cont_frac.gif" alt="Infinite continued fraction"></p>
+
+<p>As an example, one can show that the inverse of the golden ratio can be
+computed by setting all of the terms to 1. A way to approximate the
+value of an infinite continued fraction is to compute the value of
+truncating after a given number of terms. This truncation, called the
+<code>k</code>-term finite continued fraction, has the form:</p>
+
+<p><img class="img-responsive center-block" src="assets/cont_frac.gif" alt="Continued fraction"></p>
+
+<p>Write a function <code>iterative_continued_frac</code>, which takes two functions
+<code>n_term</code> and <code>d_term</code>, which each produce the <code>ith</code> <code>N</code> and <code>D</code> term
+respectively, and a number <code>k</code> and returns the <code>k</code>-term finite
+continued fraction. Use iteration to perform the computation.</p>
+
+
+
+<pre><code>def iterative_continued_frac(n_term, d_term, k):
+    &quot;&quot;&quot;Returns the k&#x2d;term continued fraction with numerators defined by n_term
+    and denominators defined by d_term.
+
+    &gt;&gt;&gt; # golden ratio
+    ... round(iterative_continued_frac(lambda x: 1, lambda x: 1, 8), 3)
+    0.618
+    &gt;&gt;&gt; # 1 / (1 + (2 / (2 + (3 / (3 + (4 / 4))))))
+    ... round(iterative_continued_frac(lambda x: x, lambda x: x, 4), 6)
+    0.578947
+    &quot;&quot;&quot;
+<div class="alt 2">    "*** YOUR CODE HERE ***"
+</div><div class="solution 2">&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x73;&#x75;&#x6c;&#x74;&#x2c;&#x20;&#x69;&#x20;&#x3d;&#x20;&#x30;&#x2c;&#x20;&#x6b;&#xa;&#x20;&#x20;&#x20;&#x20;&#x77;&#x68;&#x69;&#x6c;&#x65;&#x20;&#x69;&#x20;&#x3e;&#x3d;&#x20;&#x31;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x73;&#x75;&#x6c;&#x74;&#x2c;&#x20;&#x69;&#x20;&#x3d;&#x20;&#x6e;&#x5f;&#x74;&#x65;&#x72;&#x6d;&#x28;&#x69;&#x29;&#x20;&#x2f;&#x20;&#x28;&#x64;&#x5f;&#x74;&#x65;&#x72;&#x6d;&#x28;&#x69;&#x29;&#x20;&#x2b;&#x20;&#x72;&#x65;&#x73;&#x75;&#x6c;&#x74;&#x29;&#x2c;&#x20;&#x69;&#x2d;&#x31;&#xa;&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x72;&#x65;&#x73;&#x75;&#x6c;&#x74;</div></code></pre>
+
+
+    <button id='2' class='toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+<p>Now write a function <code>recursive_continued_frac</code> that uses recursion to
+compute the <code>k</code>-term finite continued fraction. <em>Hint:</em> try writing a
+recursive helper function to do most of the work, rather than trying to
+do the recursion with <code>recursive_continued_frac</code> directly.</p>
+
+
+
+<pre><code>def recursive_continued_frac(n_term, d_term, k):
+    &quot;&quot;&quot;Returns the k&#x2d;term continued fraction with numerators defined by n_term
+    and denominators defined by d_term.
+
+    &gt;&gt;&gt; # golden ratio
+    ... round(recursive_continued_frac(lambda x: 1, lambda x: 1, 8), 3)
+    0.618
+    &gt;&gt;&gt; # 1 / (1 + (2 / (2 + (3 / (3 + (4 / 4))))))
+    ... round(recursive_continued_frac(lambda x: x, lambda x: x, 4), 6)
+    0.578947
+    &quot;&quot;&quot;
+<div class="alt 3">    "*** YOUR CODE HERE ***"
+</div><div class="solution 3">&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x72;&#x65;&#x63;&#x75;&#x72;&#x73;&#x69;&#x76;&#x65;&#x5f;&#x63;&#x6f;&#x6e;&#x74;&#x69;&#x6e;&#x75;&#x65;&#x64;&#x5f;&#x66;&#x72;&#x61;&#x63;&#x5f;&#x68;&#x65;&#x6c;&#x70;&#x65;&#x72;&#x28;&#x6e;&#x5f;&#x74;&#x65;&#x72;&#x6d;&#x2c;&#x20;&#x64;&#x5f;&#x74;&#x65;&#x72;&#x6d;&#x2c;&#x20;&#x6b;&#x2c;&#x20;&#x31;&#x29;&#xa;&#xa;&#x64;&#x65;&#x66;&#x20;&#x72;&#x65;&#x63;&#x75;&#x72;&#x73;&#x69;&#x76;&#x65;&#x5f;&#x63;&#x6f;&#x6e;&#x74;&#x69;&#x6e;&#x75;&#x65;&#x64;&#x5f;&#x66;&#x72;&#x61;&#x63;&#x5f;&#x68;&#x65;&#x6c;&#x70;&#x65;&#x72;&#x28;&#x6e;&#x5f;&#x74;&#x65;&#x72;&#x6d;&#x2c;&#x20;&#x64;&#x5f;&#x74;&#x65;&#x72;&#x6d;&#x2c;&#x20;&#x6b;&#x2c;&#x20;&#x69;&#x29;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x64;&#x65;&#x6e;&#x6f;&#x6d;&#x20;&#x3d;&#x20;&#x64;&#x5f;&#x74;&#x65;&#x72;&#x6d;&#x28;&#x69;&#x29;&#xa;&#x20;&#x20;&#x20;&#x20;&#x69;&#x66;&#x20;&#x69;&#x20;&#x3c;&#x20;&#x6b;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x64;&#x65;&#x6e;&#x6f;&#x6d;&#x20;&#x2b;&#x3d;&#x20;&#x72;&#x65;&#x63;&#x75;&#x72;&#x73;&#x69;&#x76;&#x65;&#x5f;&#x63;&#x6f;&#x6e;&#x74;&#x69;&#x6e;&#x75;&#x65;&#x64;&#x5f;&#x66;&#x72;&#x61;&#x63;&#x5f;&#x68;&#x65;&#x6c;&#x70;&#x65;&#x72;&#x28;&#x6e;&#x5f;&#x74;&#x65;&#x72;&#x6d;&#x2c;&#x20;&#x64;&#x5f;&#x74;&#x65;&#x72;&#x6d;&#x2c;&#x20;&#x6b;&#x2c;&#x20;&#x69;&#x2b;&#x31;&#x29;&#xa;&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x6e;&#x5f;&#x74;&#x65;&#x72;&#x6d;&#x28;&#x69;&#x29;&#x20;&#x2f;&#x20;&#x64;&#x65;&#x6e;&#x6f;&#x6d;</div></code></pre>
+
+
+    <button id='3' class='toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+
+<h2 id="tree-recursion">Tree recursion</h2>
+
+
+<h3 class="question" id="q4">Question 4: Partition</h3>
+
+<p>The number of partitions of a positive integer <code>n</code> is the number of
+ways in which <code>n</code> can be expressed as the sum of positive integers in
+increasing order. For example, the number <code>5</code> has <code>7</code> partitions.</p>
+
+<pre><code>5 = 5
+5 = 1 + 4
+5 = 2 + 3
+5 = 1 + 1 + 3
+5 = 1 + 2 + 2
+5 = 1 + 1 + 1 + 2
+5 = 1 + 1 + 1 + 1 + 1</code></pre>
+
+<p>Write a tree-recursive function <code>part(n)</code> that returns the number of
+partitions of <code>n</code>.</p>
+
+<p>Hint: Introduce a helper function that computes partitions of <code>n</code> using
+only a subset of the integers less than or equal to <code>n</code>. Once you have
+done so, you can use very similar logic to the <code>count_change</code> function
+from the lecture notes:</p>
+
+
+
+<pre><code>def part(n):
+    &quot;&quot;&quot;Return the number of partitions of positive integer n.
+
+    &gt;&gt;&gt; part(5)
+    7
+    &gt;&gt;&gt; part(10)
+    42
+    &gt;&gt;&gt; part(15)
+    176
+    &gt;&gt;&gt; part(20)
+    627
+    &quot;&quot;&quot;
+<div class="alt 4">    "*** YOUR CODE HERE ***"
+</div><div class="solution 4">&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x70;&#x61;&#x72;&#x74;&#x5f;&#x6d;&#x61;&#x78;&#x28;&#x6e;&#x2c;&#x20;&#x6e;&#x29;&#xa;&#xa;&#x64;&#x65;&#x66;&#x20;&#x70;&#x61;&#x72;&#x74;&#x5f;&#x6d;&#x61;&#x78;&#x28;&#x6e;&#x2c;&#x20;&#x6d;&#x29;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x22;&#x22;&#x22;&#x52;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x74;&#x68;&#x65;&#x20;&#x6e;&#x75;&#x6d;&#x62;&#x65;&#x72;&#x20;&#x6f;&#x66;&#x20;&#x70;&#x61;&#x72;&#x74;&#x69;&#x74;&#x69;&#x6f;&#x6e;&#x73;&#x20;&#x6f;&#x66;&#x20;&#x6e;&#x20;&#x75;&#x73;&#x69;&#x6e;&#x67;&#x20;&#x69;&#x6e;&#x74;&#x65;&#x67;&#x65;&#x72;&#x73;&#x20;&#x75;&#x70;&#x20;&#x74;&#x6f;&#x20;&#x6d;&#x2e;&#xa;&#xa;&#x20;&#x20;&#x20;&#x20;&#x3e;&#x3e;&#x3e;&#x20;&#x70;&#x61;&#x72;&#x74;&#x5f;&#x6d;&#x61;&#x78;&#x28;&#x35;&#x2c;&#x20;&#x33;&#x29;&#xa;&#x20;&#x20;&#x20;&#x20;&#x35;&#xa;&#x20;&#x20;&#x20;&#x20;&#x22;&#x22;&#x22;&#x20;&#xa;&#x20;&#x20;&#x20;&#x20;&#x69;&#x66;&#x20;&#x6e;&#x20;&#x3c;&#x20;&#x30;&#x20;&#x6f;&#x72;&#x20;&#x6d;&#x20;&#x3c;&#x3d;&#x20;&#x30;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x30;&#xa;&#x20;&#x20;&#x20;&#x20;&#x69;&#x66;&#x20;&#x6e;&#x20;&#x3d;&#x3d;&#x20;&#x30;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x31;&#xa;&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x70;&#x61;&#x72;&#x74;&#x5f;&#x6d;&#x61;&#x78;&#x28;&#x6e;&#x2d;&#x6d;&#x2c;&#x20;&#x6d;&#x29;&#x20;&#x2b;&#x20;&#x70;&#x61;&#x72;&#x74;&#x5f;&#x6d;&#x61;&#x78;&#x28;&#x6e;&#x2c;&#x20;&#x6d;&#x2d;&#x31;&#x29;</div></code></pre>
+
+
+    <button id='4' class='toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+<ok partition>
+
+<h3 class="question" id="q5">Question 5</h3>
+
+<p>Write a function that takes a positive integer <code>n</code> and returns the
+number of ten-pairs it contains.  A ten-pair is a pairs of digits
+within <code>n</code> that sum to 10.   <em>Do not use any assignment statements.</em></p>
+
+<p>The number 7,823,952 has 3 ten-pairs. The first and fourth digits sum
+to 7+3=10, the second and third digits sum to 8+2=10, and the second
+and last digit sum to 8+2=10:</p>
+
+
+
+<pre><code>def ten_pairs(n):
+    &quot;&quot;&quot;Return the number of ten&#x2d;pairs within positive integer n.
+
+    &gt;&gt;&gt; ten_pairs(7823952)
+    3
+    &gt;&gt;&gt; ten_pairs(55055)
+    6
+    &gt;&gt;&gt; ten_pairs(9641469)
+    6
+    &quot;&quot;&quot;
+<div class="alt 5">    "*** YOUR CODE HERE ***"
+</div><div class="solution 5">&#x20;&#x20;&#x20;&#x20;&#x69;&#x66;&#x20;&#x6e;&#x20;&#x3c;&#x20;&#x31;&#x30;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x30;&#xa;&#x20;&#x20;&#x20;&#x20;&#x65;&#x6c;&#x73;&#x65;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x74;&#x65;&#x6e;&#x5f;&#x70;&#x61;&#x69;&#x72;&#x73;&#x28;&#x6e;&#x2f;&#x2f;&#x31;&#x30;&#x29;&#x20;&#x2b;&#x20;&#x63;&#x6f;&#x75;&#x6e;&#x74;&#x5f;&#x64;&#x69;&#x67;&#x69;&#x74;&#x28;&#x6e;&#x2f;&#x2f;&#x31;&#x30;&#x2c;&#x20;&#x31;&#x30;&#x20;&#x2d;&#x20;&#x6e;&#x25;&#x31;&#x30;&#x29;&#xa;&#xa;&#x64;&#x65;&#x66;&#x20;&#x63;&#x6f;&#x75;&#x6e;&#x74;&#x5f;&#x64;&#x69;&#x67;&#x69;&#x74;&#x28;&#x6e;&#x2c;&#x20;&#x64;&#x69;&#x67;&#x69;&#x74;&#x29;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x22;&#x22;&#x22;&#x52;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x68;&#x6f;&#x77;&#x20;&#x6d;&#x61;&#x6e;&#x79;&#x20;&#x74;&#x69;&#x6d;&#x65;&#x73;&#x20;&#x64;&#x69;&#x67;&#x69;&#x74;&#x20;&#x61;&#x70;&#x70;&#x65;&#x61;&#x72;&#x73;&#x20;&#x69;&#x6e;&#x20;&#x6e;&#x2e;&#xa;&#xa;&#x20;&#x20;&#x20;&#x20;&#x3e;&#x3e;&#x3e;&#x20;&#x63;&#x6f;&#x75;&#x6e;&#x74;&#x5f;&#x64;&#x69;&#x67;&#x69;&#x74;&#x28;&#x35;&#x35;&#x30;&#x35;&#x35;&#x2c;&#x20;&#x35;&#x29;&#xa;&#x20;&#x20;&#x20;&#x20;&#x34;&#xa;&#x20;&#x20;&#x20;&#x20;&#x22;&#x22;&#x22;&#xa;&#x20;&#x20;&#x20;&#x20;&#x69;&#x66;&#x20;&#x6e;&#x20;&#x3d;&#x3d;&#x20;&#x30;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x30;&#xa;&#x20;&#x20;&#x20;&#x20;&#x65;&#x6c;&#x73;&#x65;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x69;&#x66;&#x20;&#x6e;&#x25;&#x31;&#x30;&#x20;&#x3d;&#x3d;&#x20;&#x64;&#x69;&#x67;&#x69;&#x74;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x63;&#x6f;&#x75;&#x6e;&#x74;&#x5f;&#x64;&#x69;&#x67;&#x69;&#x74;&#x28;&#x6e;&#x2f;&#x2f;&#x31;&#x30;&#x2c;&#x20;&#x64;&#x69;&#x67;&#x69;&#x74;&#x29;&#x20;&#x2b;&#x20;&#x31;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x65;&#x6c;&#x73;&#x65;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x63;&#x6f;&#x75;&#x6e;&#x74;&#x5f;&#x64;&#x69;&#x67;&#x69;&#x74;&#x28;&#x6e;&#x2f;&#x2f;&#x31;&#x30;&#x2c;&#x20;&#x64;&#x69;&#x67;&#x69;&#x74;&#x29;</div></code></pre>
+
+
+    <button id='5' class='toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+
+<h2 id="orders-of-growth">Orders of Growth</h2>
+
+
+<h3 class="question" id="q6">Question 6</h3>
+
+<pre><code>def bar(n):
+    i, sum = 1, 0
+    while i &lt;= n:
+        sum += biz(n)
+        i += 1
+    return sum
+
+def biz(n):
+    i, sum = 1, 0
+    while i &lt;= n:
+        sum += i**3
+        i += 1
+    return sum</code></pre>
+
+<div class="solution 6">
+
+<p>O(<em>n</em><sup>2</sup>)</p>
+
+</div>
+    <button id='6' class='toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+<h3 class="question" id="q7">Question 7</h3>
+
+<pre><code>def bonk(n):
+    sum = 0
+    while n &gt;= 2:
+        sum += n
+        n = n / 2
+    return sum</code></pre>
+
+<div class="solution 7">
+
+<p>O(log(<em>n</em>))</p>
+
+</div>
+    <button id='7' class='toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+
+  </div>
+
+  <div class='col-md-3'>
+    <nav class='hidden-print hidden-sm hidden-xs sidebar'>
+      <ul>
+  <li><a href="#recursion">Recursion</a></li>
+  <ul>
+  <li><a href="#q1">Question 1: In summation...</a></li>
+  <li><a href="#q2">Question 2</a></li>
+  <li><a href="#q3">Question 3</a></li>
+</ul>
+
+  <li><a href="#tree-recursion">Tree recursion</a></li>
+  <ul>
+  <li><a href="#q4">Question 4: Partition</a></li>
+  <li><a href="#q5">Question 5</a></li>
+</ul>
+
+  <li><a href="#orders-of-growth">Orders of Growth</a></li>
+  <ul>
+  <li><a href="#q6">Question 6</a></li>
+  <li><a href="#q7">Question 7</a></li>
+</ul>
+
+</ul>
+
+    </nav>
+  </div>
+
+</div>
+    </div>
+  </body>
+  <script>
+  $('.sidebar ul').addClass('nav nav-stacked');
+  $('body').scrollspy({
+    target: '.sidebar',
+    offset: 40
+  });
+</script>
+<script src="//code.jquery.com/jquery-latest.js"></script>
+<script>
+  $(function() {
+    $('.toggleButton').css('display', 'inline-block');
+    $('.toggleButton').click(function() {
+      alert('Solutions have been removed.');
+    });
+  });
+</script>
+</html>

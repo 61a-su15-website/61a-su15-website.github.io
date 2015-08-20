@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="description" content ="CS61A: Structure and Interpretation of Computer Programs" />
+    <meta name="keywords" content ="CS61A, Computer Science, CS, 61A, Programming, John DeNero, Berkeley, EECS" />
+    <meta name="author" content ="Albert Wu, Robert Huang, Alfonso Martinez, Cale Horeff, Chris Le, Colin Schoen, Derrick Lin, Jeffrey Lu, Jessica Gu, Rohit Lalchandani, Tammy Nguyen, Will Jiang, Yulin Zheng" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width">
+
+    <script src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
+    <link rel="icon" href="/assets/images/favicon.ico">
+
+    <link rel="stylesheet" href="/assets/css/mono-blue.css">
+    <script src="/assets/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    <link rel="stylesheet" type="text/css" href="/assets/css/resource.css" />
+<link href="../../assets/css/project.css" rel="stylesheet" type="text/css">
+
+    <title>Optional Contest: Scheme Art | CS 61A Summer 2015</title>
+
+  </head>
+
+  <body id="index" class="home">
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-section">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">CS 61A</a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="navbar-collapse-section">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/">Calendar</a></li>
+            <li><a href="/office-hours.html">Office Hours</a></li>
+            <li><a href="/tutoring.html">Tutoring</a></li>
+
+            <li><a href="/articles/using-ok.html">Using OK</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Course Info <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="/articles/about.html">Syllabus</a></li>
+                <li><a href="/staff.html">Staff</a></li>
+                <li><a href="/weekly.html">Weekly Schedule</a></li>
+              </ul>
+            </li>
+
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div id="content" class="container">
+      <div class='row'>
+  <div class='col-md-9'>
+    <div class='page-header'>
+      <h1><span class="content-title-brand">Optional Contest</span>: Scheme Art</h1>
+    </div>
+
+    <div id="haiku">
+  
+<blockquote><cite>
+The output is art,<br>
+But what about its source code?<br>
+It's just as abstract.
+
+</cite></blockquote>
+
+</div>
+
+    
+<blockquote><p>Take a look at our <a href="scheme-gallery.html">Scheme Art Gallery!</a></p></blockquote>
+
+
+<h2 id="instructions">Instructions</h2>
+
+
+<blockquote><p>This contest is completely optional!</p></blockquote>
+
+<p>Entries are due at 11:59pm on Tuesday, 8/11 at 11:59 p.m.</p>
+
+<p>Enter the contest by</p>
+
+<ol>
+  <li>downloading <a href="scheme_contest.zip">scheme_contest.zip</a> and placing <code>contest.scm</code> with the rest
+  of your Scheme project.</li>
+  <li>completing the <code>contest.scm</code> file (you can render your drawing with <code>python3
+  scheme.py contest.scm</code>)</li>
+  <li>taking a screenshot of the "Scheme Turtles" window containing your final
+  artwork and saving the image as <code>contest.png</code> (<code>contest.jpg</code>, <code>contest.gif</code>,
+  etc. are also fine)</li>
+  <li>Emailing the following files to Albert at albert12132@berkeley.edu:</li>
+</ol>
+
+<ul>
+  <li><code>contest.scm</code> (your source code)</li>
+  <li><code>contest.png</code> (your rendered image)</li>
+  <li><code>scheme_primitives.py</code> (if you added any primitive procedures to help you
+   draw; if you didn't, you don't need to provide this file).</li>
+</ul>
+
+<p>In <code>contest.scm</code>, the <code>draw</code> procedure should draw your entry and then exit
+on click. Place your haiku description in the comments at the top of the file.</p>
+
+<p>All entries, including their source code, will be distributed to your fellow
+students for voting. Please do not include personal info in your submission.</p>
+
+
+<h2 id="contest-description">Contest description</h2>
+
+
+<p>Create a visualization of an iterative or recursive process of your choosing,
+using turtle graphics. Your implementation must be written entirely in Scheme
+using the interpreter you have built. However, you may add primitive procedures
+to interface with Python's <code>turtle</code> or <code>math</code> modules. Other than that, <em>all
+computation must be done in Scheme</em>. If you do add new primitives, then make
+sure to submit <code>scheme_primitives.py</code> in addition to <code>contest.scm</code>.</p>
+
+<p>We will have two categories of submissions:</p>
+
+<ul>
+  <li><em>Featherweight</em>: Fewer than 256 Scheme tokens</li>
+  <li><em>Heavyweight</em>: Fewer than 2048 Scheme tokens</li>
+</ul>
+
+<p><strong>Extra credit</strong> will be awarded as follows:</p>
+
+<ul>
+  <li>3 points to 1st place in each category</li>
+  <li>2 points to 2nd place in each category</li>
+  <li>1 points to 3rd place in each category</li>
+</ul>
+
+<p>You can check the number of tokens in a Scheme file called <code>contest.scm</code> by
+running the command</p>
+
+<pre><code>python3 scheme_tokens.py contest.scm</code></pre>
+
+<p>Entries (code and images) will be posted online, and winners will be selected
+by popular vote as part of a future homework.</p>
+
+<p>To improve your chance of success, you are welcome to include a title and
+descriptive <a href="http://en.wikipedia.org/wiki/Haiku">haiku</a> in the comments of your
+entry, which will be included in the voting.</p>
+
+<p>Entries that do not construct an image iteratively or recursively may be
+disqualified. Please don't just draw a preexisting image, even if the
+drawing function is iterative or recursive. If you're unsure, just ask.</p>
+
+
+<h2 id="past-entries">Past Entries</h2>
+
+
+<p>For inspiration, you can peruse these galleries of past entries.</p>
+
+<ul>
+  <li><a href="http://inst.eecs.berkeley.edu/~cs61a/sp14/proj/scheme_contest/scheme_contest.html">Spring 2014</a></li>
+  <li><a href="http://inst.eecs.berkeley.edu/~cs61a/fa13/proj/scheme_contest_gallery/scheme_contest_gallery.html">Fall 2013</a></li>
+  <li><a href="http://inst.eecs.berkeley.edu/~cs61a/sp13/projects/scheme_contest_gallery/scheme_contest.html">Spring 2013</a></li>
+  <li><a href="http://inst.eecs.berkeley.edu/~cs61a/fa12/projects/scheme_contest.html">Fall 2012</a></li>
+</ul>
+
+  </div>
+
+  <div class='col-md-3'>
+    <nav class='hidden-print hidden-sm hidden-xs sidebar'>
+      <ul>
+  <li><a href="#instructions">Instructions</a></li>
+  <li><a href="#contest-description">Contest description</a></li>
+  <li><a href="#past-entries">Past Entries</a></li>
+</ul>
+
+    </nav>
+  </div>
+
+</div>
+    </div>
+  </body>
+  <script>
+  $('.sidebar ul').addClass('nav nav-stacked');
+  $('body').scrollspy({
+    target: '.sidebar',
+    offset: 40
+  });
+</script>
+
+</html>

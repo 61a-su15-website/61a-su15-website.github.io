@@ -1,0 +1,2146 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="description" content ="CS61A: Structure and Interpretation of Computer Programs" />
+    <meta name="keywords" content ="CS61A, Computer Science, CS, 61A, Programming, John DeNero, Berkeley, EECS" />
+    <meta name="author" content ="Albert Wu, Robert Huang, Alfonso Martinez, Cale Horeff, Chris Le, Colin Schoen, Derrick Lin, Jeffrey Lu, Jessica Gu, Rohit Lalchandani, Tammy Nguyen, Will Jiang, Yulin Zheng" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width">
+
+    <script src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
+    <link rel="icon" href="/assets/images/favicon.ico">
+
+    <link rel="stylesheet" href="/assets/css/mono-blue.css">
+    <script src="/assets/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    
+
+    <title> CS 61A Summer 2015</title>
+
+  </head>
+
+  <body id="index" class="home">
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-section">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">CS 61A</a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="navbar-collapse-section">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/">Calendar</a></li>
+            <li><a href="/office-hours.html">Office Hours</a></li>
+            <li><a href="/tutoring.html">Tutoring</a></li>
+
+            <li><a href="/articles/using-ok.html">Using OK</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Course Info <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="/articles/about.html">Syllabus</a></li>
+                <li><a href="/staff.html">Staff</a></li>
+                <li><a href="/weekly.html">Weekly Schedule</a></li>
+              </ul>
+            </li>
+
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div id="content" class="container">
+      <div class='page-header'>
+  <h1><span class="content-title-brand">CS 61A</span>:
+  The Structure and Interpretation of Computer Programs</h1>
+
+  Summer 2015<br/>
+  Instructors: Albert Wu, Robert Huang<br/>
+  MTWTh 11-12:30 in 2050 VLSB
+
+</div>
+
+
+<h2>Announcements</h2>
+
+<div id="assignment-quick-list">
+</div>
+
+<div id='announcements'>
+  
+    <div class="announcement" id='announcement-0'>
+        
+        <ul class="pager">
+            <li class='announcement-btn-newer'>
+                <a>
+                    <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
+                    newer
+                </a>
+            </li>
+            <li>
+                <span class="announcement-date">Saturday, 08/15</span>
+            </li>
+            <li class='announcement-btn-older'>
+                <a>
+                    older
+                    <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+                </a>
+            </li>
+        </ul>
+        
+        <p>Congratulations to the following winners of the <a href="/proj/scheme_contest/scheme-gallery.html">Scheme Art
+Contest</a>!</p>
+
+<ul>
+  <li><p>Featherweight:</p>
+
+  <ol>
+    <li>Submission 5: Waking with the Stars, by Anson Tsai (59.4% of votes)</li>
+    <li>Submission 12: The All Seeing All Knowing Eye of Albert Wu, by Anish Prabhu (8.8% of votes)</li>
+    <li>Submission 16: THE SCHEMING TREE, by Daniela Koch and Catherine Ashley (7.6% of votes)</li>
+  </ol></li>
+  <li><p>Heavyweight:</p>
+
+  <ol>
+    <li>Submission 0: A Pair of Snowflakes, by James Lin (20.9% of votes)</li>
+    <li>Submission 7: Cat Hiding in Circles, by Jianing Wang (20.1% of votes)</li>
+    <li>Submission 13: Sunrise or Sundown, by Boyuan Yu (18.9% of votes)</li>
+  </ol></li>
+</ul>
+
+<p>Final scores have been released! If you have a regrade request, please
+submit it by Sunday, 11:59pm.</p>
+
+<ul>
+  <li><a href="assets/pdfs/61a-su15-final.pdf">Blank midterm</a></li>
+  <li><a href="assets/pdfs/61a-su15-final-sol.pdf">Midterm solutions</a></li>
+</ul>
+    </div>
+    
+
+    <div class="announcement" id='announcement-1'>
+        
+        <ul class="pager">
+            <li class='announcement-btn-newer'>
+                <a>
+                    <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
+                    newer
+                </a>
+            </li>
+            <li>
+                <span class="announcement-date">Thursday, 08/13</span>
+            </li>
+            <li class='announcement-btn-older'>
+                <a>
+                    older
+                    <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+                </a>
+            </li>
+        </ul>
+        
+        <p>The <a href="/exams/final.html">Final information page</a> has been released.</p>
+
+<p>Congratulations to the following winners of the <a href="/proj/scheme_contest/scheme-gallery.html">Scheme Art
+Contest</a>!</p>
+
+<ul>
+  <li><p>Featherweight:</p>
+
+  <ol>
+    <li>Submission 5: Waking with the Stars, by Anson Tsai (59.4% of votes)</li>
+    <li>Submission 12: The All Seeing All Knowing Eye of Albert Wu, by Anish Prabhu (8.8% of votes)</li>
+    <li>Submission 16: THE SCHEMING TREE, by Daniela Koch and Catherine Ashley (7.6% of votes)</li>
+  </ol></li>
+  <li><p>Heavyweight:</p>
+
+  <ol>
+    <li>Submission 0: A Pair of Snowflakes, by James Lin (20.9% of votes)</li>
+    <li>Submission 7: Cat Hiding in Circles, by Jianing Wang (20.1% of votes)</li>
+    <li>Submission 13: Sunrise or Sundown, by Boyuan Yu (18.9% of votes)</li>
+  </ol></li>
+</ul>
+    </div>
+    
+
+    <div class="announcement" id='announcement-2'>
+        
+        <ul class="pager">
+            <li class='announcement-btn-newer'>
+                <a>
+                    <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
+                    newer
+                </a>
+            </li>
+            <li>
+                <span class="announcement-date">Wednesday, 08/12</span>
+            </li>
+            <li class='announcement-btn-older'>
+                <a>
+                    older
+                    <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+                </a>
+            </li>
+        </ul>
+        
+        <p>The <a href="/exams/final.html">Final information page</a> has been released.</p>
+
+<p>Vote for your favorite <a href="/proj/scheme_contest/scheme-gallery.html">Scheme Art
+entries</a>! Voting is due on Wednesday,
+8/12 at 11:59 p.m.</p>
+
+<p><strong>Tutoring feedback</strong>: Whenever you finish a tutoring session, please fill out
+the <a href="http://goo.gl/forms/Y7JnRFdGvX">feedback survey</a>.</p>
+    </div>
+    
+
+    <div class="announcement" id='announcement-3'>
+        
+        <ul class="pager">
+            <li class='announcement-btn-newer'>
+                <a>
+                    <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
+                    newer
+                </a>
+            </li>
+            <li>
+                <span class="announcement-date">Friday, 08/07</span>
+            </li>
+            <li class='announcement-btn-older'>
+                <a>
+                    older
+                    <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+                </a>
+            </li>
+        </ul>
+        
+        <p>The <a href="/exams/final.html">Final information page</a> has been released.</p>
+
+<p>Participate in the <a href="/proj/scheme_contest.html">Scheme Art Contest</a>! Entries are
+due on Tuesday, 8/11 at 11:59 p.m.</p>
+
+<p><strong>Tutoring feedback</strong>: Whenever you finish a tutoring session, please fill out
+the <a href="http://goo.gl/forms/Y7JnRFdGvX">feedback survey</a>.</p>
+    </div>
+    
+
+    <div class="announcement" id='announcement-4'>
+        
+        <ul class="pager">
+            <li class='announcement-btn-newer'>
+                <a>
+                    <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
+                    newer
+                </a>
+            </li>
+            <li>
+                <span class="announcement-date">Tuesday, 08/04</span>
+            </li>
+            <li class='announcement-btn-older'>
+                <a>
+                    older
+                    <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+                </a>
+            </li>
+        </ul>
+        
+        <p>Midterm 2 scores have been released! If you have a regrade request, please
+submit it by Saturday.</p>
+
+<ul>
+  <li><a href="assets/pdfs/61a-su15-mt2.pdf">Blank midterm</a></li>
+  <li><a href="assets/pdfs/61a-su15-mt2-sol.pdf">Midterm solutions</a></li>
+</ul>
+
+<p><strong>Tutoring feedback</strong>: Whenever you finish a tutoring session, please fill out
+the <a href="http://goo.gl/forms/Y7JnRFdGvX">feedback survey</a>.</p>
+    </div>
+    
+
+    <div class="announcement" id='announcement-5'>
+        
+        <ul class="pager">
+            <li class='announcement-btn-newer'>
+                <a>
+                    <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
+                    newer
+                </a>
+            </li>
+            <li>
+                <span class="announcement-date">Friday, 07/24</span>
+            </li>
+            <li class='announcement-btn-older'>
+                <a>
+                    older
+                    <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+                </a>
+            </li>
+        </ul>
+        
+        <p>The <a href="/exams/midterm2.html">Midterm 2 information page</a> has been released.</p>
+
+<p><strong>Tutoring feedback</strong>: Whenever you finish a tutoring session, please fill out
+the <a href="http://goo.gl/forms/Y7JnRFdGvX">feedback survey</a>.</p>
+
+<p>You can makeup labs 7 to 10: see <a href="/lab/labMakeup/">Lab Makeup</a> for more details.</p>
+    </div>
+    
+
+    <div class="announcement" id='announcement-6'>
+        
+        <ul class="pager">
+            <li class='announcement-btn-newer'>
+                <a>
+                    <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
+                    newer
+                </a>
+            </li>
+            <li>
+                <span class="announcement-date">Thursday, 07/23</span>
+            </li>
+            <li class='announcement-btn-older'>
+                <a>
+                    older
+                    <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+                </a>
+            </li>
+        </ul>
+        
+        <p>The <a href="/exams/midterm2.html">Midterm 2 information page</a> has been released.</p>
+
+<p><strong>Tutoring feedback</strong>: Whenever you finish a tutoring session, please fill out
+the <a href="http://goo.gl/forms/Y7JnRFdGvX">feedback survey</a>.</p>
+    </div>
+    
+
+    <div class="announcement" id='announcement-7'>
+        
+        <ul class="pager">
+            <li class='announcement-btn-newer'>
+                <a>
+                    <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
+                    newer
+                </a>
+            </li>
+            <li>
+                <span class="announcement-date">Tuesday, 07/14</span>
+            </li>
+            <li class='announcement-btn-older'>
+                <a>
+                    older
+                    <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+                </a>
+            </li>
+        </ul>
+        
+        <p>Midterm 1 scores have been released! If you have a regrade request, please
+submit it by Tuesday.</p>
+
+<ul>
+  <li><a href="assets/pdfs/61a-su15-mt1.pdf">Blank midterm</a></li>
+  <li><a href="assets/pdfs/61a-su15-mt1-sol.pdf">Midterm solutions</a></li>
+</ul>
+
+<p>Please fill out the <a href="http://goo.gl/forms/7rFn77XrrF">mid-semester survey</a>. We
+appreciate any feedback that you have for us; we want to know what works for
+you in this class and what doesn't.</p>
+
+<p><strong>Tutoring feedback</strong>: Whenever you finish a tutoring session, please fill out
+the <a href="http://goo.gl/forms/Y7JnRFdGvX">feedback survey</a>.</p>
+    </div>
+    
+
+    <div class="announcement" id='announcement-8'>
+        
+        <ul class="pager">
+            <li class='announcement-btn-newer'>
+                <a>
+                    <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
+                    newer
+                </a>
+            </li>
+            <li>
+                <span class="announcement-date">Monday, 07/13</span>
+            </li>
+            <li class='announcement-btn-older'>
+                <a>
+                    older
+                    <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+                </a>
+            </li>
+        </ul>
+        
+        <p>Please fill out the <a href="http://goo.gl/forms/7rFn77XrrF">mid-semester survey</a>. We
+appreciate any feedback that you have for us; we want to know what works for
+you in this class and what doesn't.</p>
+
+<p><strong>Tutoring feedback</strong>: Whenever you finish a tutoring session, please fill out
+the <a href="http://goo.gl/forms/Y7JnRFdGvX">feedback survey</a>.</p>
+    </div>
+    
+
+    <div class="announcement" id='announcement-9'>
+        
+        <ul class="pager">
+            <li class='announcement-btn-newer'>
+                <a>
+                    <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
+                    newer
+                </a>
+            </li>
+            <li>
+                <span class="announcement-date">Thursday, 07/02</span>
+            </li>
+            <li class='announcement-btn-older'>
+                <a>
+                    older
+                    <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+                </a>
+            </li>
+        </ul>
+        
+        <p>The <a href="/exams/midterm1.html">Midterm 1 information page</a> has been released.</p>
+
+<p><strong>Sign up for tutoring!</strong> If you would like more time review Week 2
+materials, <a href="/tutoring.html">sign up for tutoring</a>.</p>
+
+<p>Whenever you finish a tutoring session, please fill out the <a href="http://goo.gl/forms/Y7JnRFdGvX">feedback
+survey</a>.</p>
+    </div>
+    
+
+    <div class="announcement" id='announcement-10'>
+        
+        <ul class="pager">
+            <li class='announcement-btn-newer'>
+                <a>
+                    <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
+                    newer
+                </a>
+            </li>
+            <li>
+                <span class="announcement-date">Monday, 06/29</span>
+            </li>
+            <li class='announcement-btn-older'>
+                <a>
+                    older
+                    <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+                </a>
+            </li>
+        </ul>
+        
+        <p><strong>Sign up for tutoring!</strong> If you would like more time review Week 1
+materials, <a href="/tutoring.html">sign up for tutoring</a>.</p>
+
+<p>Office hours this week:</p>
+
+<ul>
+  <li>Wednesday, 7/1 office hours from 1 - 5 pm will be in Wozniak Lounge</li>
+  <li>Thursday, 7/2 office hours from 2 - 5 pm will be in Wozniak Lounge</li>
+</ul>
+    </div>
+    
+
+    <div class="announcement" id='announcement-11'>
+        
+        <ul class="pager">
+            <li class='announcement-btn-newer'>
+                <a>
+                    <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
+                    newer
+                </a>
+            </li>
+            <li>
+                <span class="announcement-date">Thursday, 06/25</span>
+            </li>
+            <li class='announcement-btn-older'>
+                <a>
+                    older
+                    <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+                </a>
+            </li>
+        </ul>
+        
+        <p>Lab 1:</p>
+
+<ul>
+  <li>Please fill out the <a href="http://goo.gl/forms/36osndVtUf">OK Issues</a> survey, even
+  if you were able to submit Lab 1 successfully.</li>
+  <li>Everyone will get credit for Lab 1 (counting towards midterm recovery points)</li>
+</ul>
+
+<p><strong>Tutoring starts this Saturday!</strong> If you would like more time review Week 1
+materials, <a href="/tutoring.html">sign up for tutoring</a>.</p>
+    </div>
+    
+
+    <div class="announcement" id='announcement-12'>
+        
+        <ul class="pager">
+            <li class='announcement-btn-newer'>
+                <a>
+                    <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
+                    newer
+                </a>
+            </li>
+            <li>
+                <span class="announcement-date">Wednesday, 06/24</span>
+            </li>
+            <li class='announcement-btn-older'>
+                <a>
+                    older
+                    <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+                </a>
+            </li>
+        </ul>
+        
+        <p>Here are the exam dates:</p>
+
+<ul>
+  <li>Midterm 1: Thursday 7/9 from 6 - 8 pm</li>
+  <li>Midterm 2: Thursday 7/30 from 6 - 8 pm</li>
+  <li>Final: Thursday 8/13 from 3 - 6 pm</li>
+</ul>
+
+<p>Lab 1:</p>
+
+<ul>
+  <li>Please fill out the <a href="http://goo.gl/forms/36osndVtUf">OK Issues</a> survey, even
+  if you were able to submit Lab 1 successfully.</li>
+  <li>Everyone will get credit for Lab 1 (counting towards midterm recovery points)</li>
+</ul>
+    </div>
+    
+
+    <div class="announcement" id='announcement-13'>
+        
+        <ul class="pager">
+            <li class='announcement-btn-newer'>
+                <a>
+                    <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
+                    newer
+                </a>
+            </li>
+            <li>
+                <span class="announcement-date">Monday, 06/22</span>
+            </li>
+            <li class='announcement-btn-older'>
+                <a>
+                    older
+                    <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+                </a>
+            </li>
+        </ul>
+        
+        <p>Welcome to CS 61A! Our syllabus can be found <a href="articles/about.html">here</a>.</p>
+
+<p>Here are the exam dates:</p>
+
+<ul>
+  <li>Midterm 1: Thursday 7/9 from 6 - 8 pm</li>
+  <li>Midterm 2: Thursday 7/30 from 6 - 8 pm</li>
+  <li>Final: Thursday 8/13 from 3 - 6 pm</li>
+</ul>
+
+<p>You may attend any lab and discussion section you want.</p>
+
+<p>Please bring your laptop to the first lab!</p>
+    </div>
+    
+
+    <div class="announcement" id='announcement-14'>
+        
+        <ul class="pager">
+            <li class='announcement-btn-newer'>
+                <a>
+                    <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
+                    newer
+                </a>
+            </li>
+            <li>
+                <span class="announcement-date">Sunday, 06/14</span>
+            </li>
+            <li class='announcement-btn-older'>
+                <a>
+                    older
+                    <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+                </a>
+            </li>
+        </ul>
+        
+        <p>Welcome to CS 61A! This site is still under construction.
+Our tentative syllabus can be found <a href="articles/about.html">here</a>.</p>
+
+<p>Here are the exam dates:</p>
+
+<ul>
+  <li>Midterm 1: Thursday 7/9 from 6 - 8 pm</li>
+  <li>Midterm 2: Thursday 7/30 from 6 - 8 pm</li>
+  <li>Final: Thursday 8/13 from 3 - 6 pm</li>
+</ul>
+    </div>
+    
+</div>
+
+<hr/>
+
+<div id='resources'>
+  <div id='resources-description'>
+    Looking for resources?<br/>
+    <small>Search for terms like "recursion", "homework 3", or "practice"</small>
+  </div>
+
+  <div id='resources-input'>
+    <input type='text' id='resources-search-box' class='search' placeholder='Search for resources'>
+  </div>
+
+  <div id='resources-display'>
+    
+    <table id='resource-table' class="table table-hover">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Tags</th>
+            </tr>
+        </thead>
+        <tbody class="list">
+            
+        <tr>
+            <td class='resource-name'><a href="exams/midterm1.html">Midterm 1</a></td>
+            <td class='resource-type'>Exam</td>
+            <td class='resource-tags'></td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="exams/midterm2.html">Midterm 2</a></td>
+            <td class='resource-type'>Exam</td>
+            <td class='resource-tags'></td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="exams/final.html">Final</a></td>
+            <td class='resource-type'>Exam</td>
+            <td class='resource-tags'></td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'>Lecture 1: <a href="https://docs.google.com/presentation/d/1F1VV8g48V2FeRWBQgOmIB7QaTGSpxPUGwNmSn7GXEGc/edit?usp=sharing">Introduction and Basics</a>
+(<a href="slides/01.py">01.py</a>)</td>
+            <td class='resource-type'>Lecture</td>
+            <td class='resource-tags'>Functions</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="http://composingprograms.com/pages/11-getting-started.html">Readings: section 1.1</a></td>
+            <td class='resource-type'>Reading</td>
+            <td class='resource-tags'>Functions</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="http://composingprograms.com/pages/12-elements-of-programming.html">Readings: section 1.2</a></td>
+            <td class='resource-type'>Reading</td>
+            <td class='resource-tags'>Functions</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'>Lecture 2: <a href="https://docs.google.com/presentation/d/1p6rgyp4_lPLT6mtOdyKQ1VsuZOuiqaUIVYSm2c7CCu8/edit?usp=sharing">Functions and Control Structures</a>
+(<a href="slides/02.py">02.py</a>)</td>
+            <td class='resource-type'>Lecture</td>
+            <td class='resource-tags'>Functions, Control Structures</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="http://composingprograms.com/pages/13-defining-new-functions.html">Readings: section 1.3</a></td>
+            <td class='resource-type'>Reading</td>
+            <td class='resource-tags'>Functions, Control Structures</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="http://composingprograms.com/pages/14-designing-functions.html">Readings: section 1.4</a></td>
+            <td class='resource-type'>Reading</td>
+            <td class='resource-tags'>Functions, Control Structures</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="http://composingprograms.com/pages/15-control.html">Readings: section 1.5</a></td>
+            <td class='resource-type'>Reading</td>
+            <td class='resource-tags'>Functions, Control Structures</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'>Lecture 3: <a href="https://docs.google.com/presentation/d/1RijXoFtQxe2zdl6dYzwn0KMTW8gXiP7MMQgKd-MHXBo/edit?usp=sharing">Higher Order Functions</a>
+(<a href="slides/03.py">03.py</a>)</td>
+            <td class='resource-type'>Lecture</td>
+            <td class='resource-tags'>Higher Order Functions</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="http://composingprograms.com/pages/16-higher-order-functions.html">Readings: section 1.6</a></td>
+            <td class='resource-type'>Reading</td>
+            <td class='resource-tags'>Higher Order Functions</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'>Lecture 4: <a href="https://docs.google.com/presentation/d/1K4a54Qp716fWcGaTLDAyAYv-CCBy4p6P66M97eTAFgI/edit?usp=sharing">Higher Order Functions</a>
+(<a href="slides/04.py">04.py</a>)</td>
+            <td class='resource-type'>Lecture</td>
+            <td class='resource-tags'>Higher Order Functions</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="http://composingprograms.com/pages/16-higher-order-functions.html">Readings: section 1.6</a></td>
+            <td class='resource-type'>Reading</td>
+            <td class='resource-tags'>Higher Order Functions</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'>Lecture 5: <a href="https://docs.google.com/presentation/d/11-75T8zaVP1V2rwADDDtyt77hX-LKIeUu1hPMmfGXME/edit?usp=sharing">Week 1 Review</a>
+(<a href="slides/05.py">05.py</a>)</td>
+            <td class='resource-type'>Lecture</td>
+            <td class='resource-tags'>Functions, Control Structures, Higher Order Functions</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'>Lecture 6: <a href="https://docs.google.com/presentation/d/10GYJwCNS0N41pTcUWxNpLlBpFpCxzBG3OVSKjkHLopQ/edit?usp=sharing">Recursion</a>
+(<a href="slides/06.py">06.py</a>)</td>
+            <td class='resource-type'>Lecture</td>
+            <td class='resource-tags'>Recursion</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="http://composingprograms.com/pages/17-recursive-functions.html">Readings: section 1.7</a></td>
+            <td class='resource-type'>Reading</td>
+            <td class='resource-tags'>Recursion</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'>Lecture 7: <a href="https://docs.google.com/presentation/d/1PgyLb9WUgGpnjX_--cjtNHO3iXT-aHQW8O2RKGPc_IE/edit?usp=sharing">Tree Recursion</a>
+(<a href="slides/07.py">07.py</a>)</td>
+            <td class='resource-type'>Lecture</td>
+            <td class='resource-tags'>Recursion, Tree Recursion</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="http://composingprograms.com/pages/17-recursive-functions.html">Readings: section 1.7</a></td>
+            <td class='resource-type'>Reading</td>
+            <td class='resource-tags'>Recursion, Tree Recursion</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'>Lecture 8: <a href="https://docs.google.com/presentation/d/1cmJY7GNCTm4YqeEaS3Qp4U0PAGRPdoe1Akb05JOkgP4/edit?usp=sharing">Orders of Growth</a>
+(<a href="slides/08.py">08.py</a>)</td>
+            <td class='resource-type'>Lecture</td>
+            <td class='resource-tags'>Orders of Growth</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="http://composingprograms.com/pages/28-efficiency.html">Readings: section 2.8</a></td>
+            <td class='resource-type'>Reading</td>
+            <td class='resource-tags'>Orders of Growth</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'>Lecture 9: <a href="https://docs.google.com/presentation/d/1skXespdgvJRzwUmW1oSxHP54_bKkJPGkF1-N9poNRt4/edit?usp=sharing">Lists, Sequences, and Dictionaries</a>
+(<a href="slides/09.py">09.py</a>)</td>
+            <td class='resource-type'>Lecture</td>
+            <td class='resource-tags'>Lists, Strings, Dictionaries</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="http://composingprograms.com/pages/23-sequences.html">Readings: section 2.3</a></td>
+            <td class='resource-type'>Reading</td>
+            <td class='resource-tags'>Lists, Strings, Dictionaries</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'>Lecture 10: <a href="https://docs.google.com/presentation/d/1esogteyx3sMpOBChX5t9Ozs7UL2uhoT0EkjE1bVBblw/edit?usp=sharing">Data Abstraction</a>
+(<a href="slides/10.py">10.py</a>)</td>
+            <td class='resource-type'>Lecture</td>
+            <td class='resource-tags'>Data Abstraction</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="http://composingprograms.com/pages/21-introduction.html">Readings: section 2.1</a></td>
+            <td class='resource-type'>Reading</td>
+            <td class='resource-tags'>Data Abstraction</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="http://composingprograms.com/pages/22-data-abstraction.html">Readings: section 2.2</a></td>
+            <td class='resource-type'>Reading</td>
+            <td class='resource-tags'>Data Abstraction</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'>Lecture 11: <a href="https://docs.google.com/presentation/d/11XHLwY9hI-meQh6pxltCmdd-sgVLkT_0BXtC1BglmOI/edit?usp=sharing">Linked Lists</a>
+(<a href="slides/11.py">11.py</a>)</td>
+            <td class='resource-type'>Lecture</td>
+            <td class='resource-tags'>Linked Lists</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="http://composingprograms.com/pages/23-sequences.html">Readings: section 2.3</a></td>
+            <td class='resource-type'>Reading</td>
+            <td class='resource-tags'>Linked Lists</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'>Lecture 12: <a href="https://docs.google.com/a/berkeley.edu/presentation/d/1JCalRQi6SgpNZUppC6gP87vQFzDCaxHE9DGpk7AqVCs/edit?usp=sharing">Midterm 1 Review</a>
+(12.py)</td>
+            <td class='resource-type'>Lecture</td>
+            <td class='resource-tags'></td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'>Lecture 13: <a href="https://docs.google.com/presentation/d/1BXO9nB7I-iyzDuoBbvWqo4vUbJqBBhhVlxzOVv9aFAA/edit?usp=sharing">Trees</a>
+(<a href="slides/13.py">13.py</a>)</td>
+            <td class='resource-type'>Lecture</td>
+            <td class='resource-tags'>Trees</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="http://composingprograms.com/pages/23-sequences.html">Readings: section 2.3</a></td>
+            <td class='resource-type'>Reading</td>
+            <td class='resource-tags'>Trees</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'>Lecture 14: <a href="https://docs.google.com/presentation/d/1PC5Yw-AxxOyTaPhZ-kJ0JvVMwaVCyVmBmWdiNqGZeVo/edit?usp=sharing">Mutable Objects and Functions</a>
+(<a href="slides/14.py">14.py</a>)</td>
+            <td class='resource-type'>Lecture</td>
+            <td class='resource-tags'>Mutation, Nonlocal</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="http://composingprograms.com/pages/24-mutable-data.html">Readings: section 2.4</a></td>
+            <td class='resource-type'>Reading</td>
+            <td class='resource-tags'>Mutation, Nonlocal</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'>Lecture 15: <a href="https://docs.google.com/presentation/d/1MgFiiLa1xtQ4LfGOFZ0McvifBh0F5RaLZ23B5E1cRyQ/edit?usp=sharing">Object Oriented Programming</a>
+(<a href="slides/15.py">15.py</a>)</td>
+            <td class='resource-type'>Lecture</td>
+            <td class='resource-tags'>Object Oriented Programming</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="http://composingprograms.com/pages/25-object-oriented-programming.html">Readings: section 2.5</a></td>
+            <td class='resource-type'>Reading</td>
+            <td class='resource-tags'>Object Oriented Programming</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'>Lecture 16: <a href="https://docs.google.com/presentation/d/1KlUU5wxUvSig1q4ZXoe_ujSn9zSfp-ehzBvzaX19KPM/edit?usp=sharing">Inheritance</a>
+(<a href="slides/16.py">16.py</a>)</td>
+            <td class='resource-type'>Lecture</td>
+            <td class='resource-tags'>Object Oriented Programming, Inheritance</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="http://composingprograms.com/pages/25-object-oriented-programming.html">Readings: section 2.5</a></td>
+            <td class='resource-type'>Reading</td>
+            <td class='resource-tags'>Object Oriented Programming, Inheritance</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'>Lecture 17: <a href="https://docs.google.com/presentation/d/18KropyOg2nZf8e8Ot0JAqxTh0mQp5WnfjeU4dc5cUkU/edit?usp=sharing">Mutable Linked Lists</a>
+(<a href="slides/17.py">17.py</a>)</td>
+            <td class='resource-type'>Lecture</td>
+            <td class='resource-tags'>Mutation, Linked Lists</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="http://composingprograms.com/pages/29-recursive-objects.html">Readings: section 2.9</a></td>
+            <td class='resource-type'>Reading</td>
+            <td class='resource-tags'>Mutation, Linked Lists</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'>Lecture 18: <a href="https://docs.google.com/presentation/d/1_Z2YtfB-tjhD-9FO2KJSOs-wAeIjOfsKUzTz9beCOhw/edit?usp=sharing">Mutable Trees</a>
+(<a href="slides/18.py">18.py</a>)</td>
+            <td class='resource-type'>Lecture</td>
+            <td class='resource-tags'>Mutation, Trees</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="http://composingprograms.com/pages/29-recursive-objects.html">Readings: section 2.9</a></td>
+            <td class='resource-type'>Reading</td>
+            <td class='resource-tags'>Mutation, Trees</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'>Lecture 19: <a href="https://docs.google.com/presentation/d/1DwIq2MWlkIxGe2_m91Y22w8Ahg1_Zg1opyEo03fjFeg/edit?usp=sharing">Interfaces</a>
+(<a href="slides/19.py">19.py</a>)</td>
+            <td class='resource-type'>Lecture</td>
+            <td class='resource-tags'>Object Oriented Programming, Interfaces</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="http://composingprograms.com/pages/27-object-abstraction.html">Readings: section 2.7</a></td>
+            <td class='resource-type'>Reading</td>
+            <td class='resource-tags'>Object Oriented Programming, Interfaces</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'>Lecture 20: <a href="https://docs.google.com/presentation/d/1zqKEmNFG90YUoBtFvEX5nsMURhrR5fXQz36tXKVECb0/edit?usp=sharing">Iterators</a>
+(<a href="slides/20.py">20.py</a>)</td>
+            <td class='resource-type'>Lecture</td>
+            <td class='resource-tags'>Iterators, Generators</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="http://composingprograms.com/pages/42-implicit-sequences.html">Readings: section 4.2</a></td>
+            <td class='resource-type'>Reading</td>
+            <td class='resource-tags'>Iterators, Generators</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'>Lecture 21: <a href="https://docs.google.com/presentation/d/1abmDnKjrq1tcjGvvRNAKhOiSTSE2lyagtcEPal07Gbo/edit?usp=sharing">Scheme</a>
+(<a href="slides/21.scm">21.scm</a>)</td>
+            <td class='resource-type'>Lecture</td>
+            <td class='resource-tags'>Scheme</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="http://composingprograms.com/pages/31-introduction.html">Readings: section 3.1</a></td>
+            <td class='resource-type'>Reading</td>
+            <td class='resource-tags'>Scheme</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="http://composingprograms.com/pages/32-functional-programming.html">Readings: section 3.2</a></td>
+            <td class='resource-type'>Reading</td>
+            <td class='resource-tags'>Scheme</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'>Lecture 22: <a href="https://docs.google.com/presentation/d/1KWpVvk9Zo3vrEGr2u_rxzNFOQY_8qvszaT3MgdkyA18/edit?usp=sharing">Interpreters, Part 1</a>
+(<a href="slides/22.scm">22.scm</a>)</td>
+            <td class='resource-type'>Lecture</td>
+            <td class='resource-tags'>Interpreters, Tail calls</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="http://composingprograms.com/pages/33-exceptions.html">Readings: section 3.3</a></td>
+            <td class='resource-type'>Reading</td>
+            <td class='resource-tags'>Interpreters, Tail calls</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="http://composingprograms.com/pages/34-interpreters-for-languages-with-combination.html">Readings: section 3.4</a></td>
+            <td class='resource-type'>Reading</td>
+            <td class='resource-tags'>Interpreters, Tail calls</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'>Lecture 23: <a href="https://docs.google.com/presentation/d/1fhm6j1i7pq17tKp8DkM-79dSgLfuP_yd8-2c_3dFWuw/edit?usp=sharing">Interpreters, Part 2</a>
+(23.py)</td>
+            <td class='resource-type'>Lecture</td>
+            <td class='resource-tags'>Interpreters</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="http://composingprograms.com/pages/34-interpreters-for-languages-with-combination.html">Readings: section 3.4</a></td>
+            <td class='resource-type'>Reading</td>
+            <td class='resource-tags'>Interpreters</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="http://composingprograms.com/pages/35-interpreters-for-languages-with-abstraction.html">Readings: section 3.5</a></td>
+            <td class='resource-type'>Reading</td>
+            <td class='resource-tags'>Interpreters</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'>Lecture 24: <a href="https://drive.google.com/open?id=1HZCRJ0MAR6vx_RG8vCHdpux0bPB1pkF_hUAIJgvRTAs">Midterm 2 Review</a>
+(24.py)</td>
+            <td class='resource-type'>Lecture</td>
+            <td class='resource-tags'></td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'>Lecture 25: <a href="https://docs.google.com/presentation/d/111ucG9UwZ8ESAWGY5zWq65Nd6er_lICOfXnsEZMtSik/edit?usp=sharing">Tail calls and Streams</a>
+(<a href="slides/25.scm">25.scm</a>)</td>
+            <td class='resource-type'>Lecture</td>
+            <td class='resource-tags'>Streams, Tail Calls</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="http://composingprograms.com/pages/35-interpreters-for-languages-with-abstraction.html">Readings: section 3.5</a></td>
+            <td class='resource-type'>Reading</td>
+            <td class='resource-tags'>Streams, Tail Calls</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="http://composingprograms.com/pages/42-implicit-sequences.html">Readings: section 4.2</a></td>
+            <td class='resource-type'>Reading</td>
+            <td class='resource-tags'>Streams, Tail Calls</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'>Lecture 26: <a href="https://docs.google.com/presentation/d/1y_c35h_sOyklaV_xmp75LVM2cayLzgUSAZ6UQ_qGsiU/edit?usp=sharing">SQL</a>
+(<a href="slides/26.sql">26.sql</a>)</td>
+            <td class='resource-type'>Lecture</td>
+            <td class='resource-tags'>SQL</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="http://composingprograms.com/pages/42-implicit-sequences.html">Readings: section 4.2</a></td>
+            <td class='resource-type'>Reading</td>
+            <td class='resource-tags'>SQL</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'>Lecture 27: <a href="https://docs.google.com/presentation/d/1G7hOEU8cmYMYYtvIgI6hbHYZwhMYD0B5QXGxcDV55yQ/edit?usp=sharing">Distributed Data</a>
+(<a href="slides/27.py">27.py</a>)</td>
+            <td class='resource-type'>Lecture</td>
+            <td class='resource-tags'>MapReduce</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="http://composingprograms.com/pages/46-distributed-data-processing.html">Readings: section 4.6</a></td>
+            <td class='resource-type'>Reading</td>
+            <td class='resource-tags'>MapReduce</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'>Lecture 28: <a href="https://docs.google.com/presentation/d/1UQeqb496rhwwNmGY-82wJ63ag8FTbIOtKDYnEbGOfXc/edit?usp=sharing">Logic Programming</a>
+(<a href="slides/28.logic">28.logic</a>)</td>
+            <td class='resource-type'>Lecture</td>
+            <td class='resource-tags'>Logic</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="http://composingprograms.com/pages/44-unification.html">Readings: section 4.4</a></td>
+            <td class='resource-type'>Reading</td>
+            <td class='resource-tags'>Logic</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'>Lecture 29: <a href="slides/29.pdf">Machine Learning</a>
+(29.py)</td>
+            <td class='resource-type'>Lecture</td>
+            <td class='resource-tags'>Extra Topics</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'>Lecture 30: <a href="https://docs.google.com/presentation/d/1zIQk0x89xXcdcizzgHK6ku4IgBJ-ZYp2JdyDzvzhTQE/edit?usp=sharing">Computability and Complexity</a>
+(30.py)</td>
+            <td class='resource-type'>Lecture</td>
+            <td class='resource-tags'>Extra Topics</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'>Lecture 31: <a href="https://docs.google.com/presentation/d/15b3mlXsDoCm2mdZ0dzLW7Nwnp5dt_2KFwSl5gDuKra4/edit?usp=sharing">Computational Biology</a>
+(<a href="slides/31.py">31.py</a>)</td>
+            <td class='resource-type'>Lecture</td>
+            <td class='resource-tags'>Extra Topics</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'>Lecture 32: <a href="https://docs.google.com/presentation/d/1CUlqtQbrf7CoSKkzYDelY8nwqn-m_q0n87hC4kIcCok/edit?usp=sharing">Conclusion</a>
+(32.py)</td>
+            <td class='resource-type'>Lecture</td>
+            <td class='resource-tags'></td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="hw/hw01/">Homework 1</a> (<a href="hw/sol-hw01/">Solutions</a>)</td>
+            <td class='resource-type'>Homework</td>
+            <td class='resource-tags'>Functions, Control Structures</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="hw/hw02/">Homework 2</a> (<a href="hw/sol-hw02/">Solutions</a>)</td>
+            <td class='resource-type'>Homework</td>
+            <td class='resource-tags'>Higher Order Functions</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="hw/hw03/">Homework 3</a> (<a href="hw/sol-hw03/">Solutions</a>)</td>
+            <td class='resource-type'>Homework</td>
+            <td class='resource-tags'>Recursion, Tree Recursion</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="hw/hw04/">Homework 4</a> (<a href="hw/sol-hw04/">Solutions</a>)</td>
+            <td class='resource-type'>Homework</td>
+            <td class='resource-tags'>Lists, Data Abstraction</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="hw/hw05/">Homework 5</a> (<a href="hw/sol-hw05/">Solutions</a>)</td>
+            <td class='resource-type'>Homework</td>
+            <td class='resource-tags'>Linked Lists, Trees</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="hw/hw06/">Homework 6</a> (<a href="hw/sol-hw06/">Solutions</a>)</td>
+            <td class='resource-type'>Homework</td>
+            <td class='resource-tags'>Mutation, Object Oriented Programming, Inheritance</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="hw/hw07/">Homework 7</a> (<a href="hw/sol-hw07/">Solutions</a>)</td>
+            <td class='resource-type'>Homework</td>
+            <td class='resource-tags'>Mutation, Linked Lists, Trees</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="hw/hw08/">Homework 8</a> (<a href="hw/sol-hw08/">Solutions</a>)</td>
+            <td class='resource-type'>Homework</td>
+            <td class='resource-tags'>Scheme</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="hw/hw09/">Homework 9</a> (<a href="hw/sol-hw09/">Solutions</a>)</td>
+            <td class='resource-type'>Homework</td>
+            <td class='resource-tags'>Interpretation</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="hw/hw10/">Homework 10</a> (<a href="hw/sol-hw10/">Solutions</a>)</td>
+            <td class='resource-type'>Homework</td>
+            <td class='resource-tags'>Iterators, Generators, Streams</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="hw/hw11/">Homework 11</a> (<a href="hw/sol-hw11/">Solutions</a>)</td>
+            <td class='resource-type'>Homework</td>
+            <td class='resource-tags'>Logic</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="hw/hw12/">Homework 12</a> (Solutions)</td>
+            <td class='resource-type'>Homework</td>
+            <td class='resource-tags'></td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="proj/hog/">Hog</a></td>
+            <td class='resource-type'>Project</td>
+            <td class='resource-tags'>Functions, Higher Order Functions, Control Structures</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="proj/hog_contest/">Hog Contest</a></td>
+            <td class='resource-type'>Project</td>
+            <td class='resource-tags'>Functions, Higher Order Functions, Control Structures</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="proj/maps/">Maps</a></td>
+            <td class='resource-type'>Project</td>
+            <td class='resource-tags'>Data Abstraction, Lists, Strings, Dictionaries</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="proj/ants/">Ants</a></td>
+            <td class='resource-type'>Project</td>
+            <td class='resource-tags'>Object Oriented Programming, Inheritance</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="proj/scheme/">Scheme</a></td>
+            <td class='resource-type'>Project</td>
+            <td class='resource-tags'>Scheme, Interpreters, Tail calls</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="proj/scheme_contest/">Scheme Contest</a></td>
+            <td class='resource-type'>Project</td>
+            <td class='resource-tags'>Scheme</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="lab/lab01/">Lab 1: Setting up</a></td>
+            <td class='resource-type'>Lab</td>
+            <td class='resource-tags'></td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="lab/lab02/">Lab 2: Control structures</a></td>
+            <td class='resource-type'>Lab</td>
+            <td class='resource-tags'>Control Structures</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="lab/lab03/">Lab 3: Higher Order Functions and Lambdas</a></td>
+            <td class='resource-type'>Lab</td>
+            <td class='resource-tags'>Higher Order Functions, Lambdas</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="lab/lab04/">Lab 4: Recursion and Tree Recursion</a></td>
+            <td class='resource-type'>Lab</td>
+            <td class='resource-tags'>Recursion, Tree Recursion</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="lab/lab05/">Lab 5: Lists and Dictionaries</a></td>
+            <td class='resource-type'>Lab</td>
+            <td class='resource-tags'>Lists, Dictionaries</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="lab/lab06/">Lab 6: Linked Lists</a></td>
+            <td class='resource-type'>Lab</td>
+            <td class='resource-tags'>Linked Lists</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="lab/lab07/">Lab 7: Trees</a></td>
+            <td class='resource-type'>Lab</td>
+            <td class='resource-tags'>Trees</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="lab/lab08/">Lab 8: Object Oriented Programming</a></td>
+            <td class='resource-type'>Lab</td>
+            <td class='resource-tags'>Object Oriented Programming</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="lab/lab09/">Lab 9: Mutable Linked Lists</a></td>
+            <td class='resource-type'>Lab</td>
+            <td class='resource-tags'>Mutation, Linked Lists</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="lab/lab10/">Lab 10: Interfaces</a></td>
+            <td class='resource-type'>Lab</td>
+            <td class='resource-tags'>Object Oriented Programming, Interfaces</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="lab/lab11/">Lab 11: Scheme</a></td>
+            <td class='resource-type'>Lab</td>
+            <td class='resource-tags'>Scheme</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="lab/lab12/">Lab 12: Interpreters</a></td>
+            <td class='resource-type'>Lab</td>
+            <td class='resource-tags'>Interpreters</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="lab/lab13/">Lab 13: Tail calls and Streams</a></td>
+            <td class='resource-type'>Lab</td>
+            <td class='resource-tags'>Scheme, Tail calls, Streams</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="lab/lab14/">Lab 14: MapReduce</a></td>
+            <td class='resource-type'>Lab</td>
+            <td class='resource-tags'>MapReduce</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="lab/lab15/">Lab 15: Logic</a></td>
+            <td class='resource-type'>Lab</td>
+            <td class='resource-tags'>Logic</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="diagnostic/diagnostic1">Diagnostic 1</a></td>
+            <td class='resource-type'>Diagnostic</td>
+            <td class='resource-tags'></td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="diagnostic/diagnostic2">Diagnostic 2</a></td>
+            <td class='resource-type'>Diagnostic</td>
+            <td class='resource-tags'></td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="diagnostic/diagnostic3">Diagnostic 3</a></td>
+            <td class='resource-type'>Diagnostic</td>
+            <td class='resource-tags'></td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="diagnostic/diagnostic4">Diagnostic 4</a></td>
+            <td class='resource-type'>Diagnostic</td>
+            <td class='resource-tags'></td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="diagnostic/diagnostic5">Diagnostic 5</a></td>
+            <td class='resource-type'>Diagnostic</td>
+            <td class='resource-tags'></td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="diagnostic/diagnostic6">Diagnostic 6</a></td>
+            <td class='resource-type'>Diagnostic</td>
+            <td class='resource-tags'></td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="diagnostic/diagnostic7">Diagnostic 7</a></td>
+            <td class='resource-type'>Diagnostic</td>
+            <td class='resource-tags'></td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="disc/disc01.pdf">Discussion 1: Functions</a> (<a href="disc/disc01_sol.pdf">Solutions</a>)</td>
+            <td class='resource-type'>Discussion</td>
+            <td class='resource-tags'>Functions</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="disc/disc02.pdf">Discussion 2: Higher Order Functions and Environment Diagrams</a> (<a href="disc/disc02_sol.pdf">Solutions</a>)</td>
+            <td class='resource-type'>Discussion</td>
+            <td class='resource-tags'>Higher Order Functions, Environment Diagrams</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="disc/disc03.pdf">Discussion 3: Recursion</a> (<a href="disc/disc03_sol.pdf">Solutions</a>)</td>
+            <td class='resource-type'>Discussion</td>
+            <td class='resource-tags'>Recursion</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="disc/disc04.pdf">Discussion 4: Orders of Growth</a> (<a href="disc/disc04_sol.pdf">Solutions</a>)</td>
+            <td class='resource-type'>Discussion</td>
+            <td class='resource-tags'>Orders of Growth</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="disc/disc05.pdf">Discussion 5: Data Abstraction</a> (<a href="disc/disc05_sol.pdf">Solutions</a>)</td>
+            <td class='resource-type'>Discussion</td>
+            <td class='resource-tags'>Data Abstraction</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'>Discussion 6: Midterm 1 Review (Solutions)</td>
+            <td class='resource-type'>Discussion</td>
+            <td class='resource-tags'></td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="disc/disc07.pdf">Discussion 7: Nonlocal and Mutability</a> (<a href="disc/disc07_sol.pdf">Solutions</a>)</td>
+            <td class='resource-type'>Discussion</td>
+            <td class='resource-tags'>Nonlocal, Mutation</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="disc/disc08.pdf">Discussion 8: Inheritance</a> (<a href="disc/disc08_sol.pdf">Solutions</a>)</td>
+            <td class='resource-type'>Discussion</td>
+            <td class='resource-tags'>Object Oriented Programming, Inheritance</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="disc/disc09.pdf">Discussion 9: Mutable Trees</a> (<a href="disc/disc09_sol.pdf">Solutions</a>)</td>
+            <td class='resource-type'>Discussion</td>
+            <td class='resource-tags'>Mutation, Trees</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="disc/disc10.pdf">Discussion 10: Iterators and Generators</a> (<a href="disc/disc10_sol.pdf">Solutions</a>)</td>
+            <td class='resource-type'>Discussion</td>
+            <td class='resource-tags'>Iterators, Generators</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="disc/disc11.pdf">Discussion 11: Scheme</a> (<a href="disc/disc11_sol.pdf">Solutions</a>)</td>
+            <td class='resource-type'>Discussion</td>
+            <td class='resource-tags'>Scheme</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'>Discussion 12: Midterm 2 Review (Solutions)</td>
+            <td class='resource-type'>Discussion</td>
+            <td class='resource-tags'></td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="disc/disc13.pdf">Discussion 13: SQL</a> (<a href="disc/disc13_sol.pdf">Solutions</a>)</td>
+            <td class='resource-type'>Discussion</td>
+            <td class='resource-tags'>SQL</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="disc/disc14.pdf">Discussion 14: Logic</a> (<a href="disc/disc14_sol.pdf">Solutions</a>)</td>
+            <td class='resource-type'>Discussion</td>
+            <td class='resource-tags'>Logic</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="articles/about.html">Syllabus</a></td>
+            <td class='resource-type'>Article</td>
+            <td class='resource-tags'></td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="articles/composition.html">Composition Guide</a></td>
+            <td class='resource-type'>Article</td>
+            <td class='resource-tags'>Programming</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="articles/debugging.html">Debugging Guide</a></td>
+            <td class='resource-type'>Article</td>
+            <td class='resource-tags'>Programming</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="articles/using-ok.html">Using OK</a></td>
+            <td class='resource-type'>Article</td>
+            <td class='resource-tags'>OK</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="articles/unix.html">UNIX Tutorial</a></td>
+            <td class='resource-type'>Article</td>
+            <td class='resource-tags'>UNIX</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="articles/unix.html">Sublime Text</a></td>
+            <td class='resource-type'>Article</td>
+            <td class='resource-tags'>Text Editors</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="articles/vim.html">Vim</a></td>
+            <td class='resource-type'>Article</td>
+            <td class='resource-tags'>Text Editors</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="articles/emacs.html">Emacs</a></td>
+            <td class='resource-type'>Article</td>
+            <td class='resource-tags'>Text Editors</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="weekly.html">Weekly Schedule</a></td>
+            <td class='resource-type'>Article</td>
+            <td class='resource-tags'></td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="staff.html">Staff</a></td>
+            <td class='resource-type'>Article</td>
+            <td class='resource-tags'></td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="tutoring.html">Tutoring</a></td>
+            <td class='resource-type'>Article</td>
+            <td class='resource-tags'></td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="office-hours.html">Office Hours</a></td>
+            <td class='resource-type'>Article</td>
+            <td class='resource-tags'></td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="http://www.youtube.com/watch?v=54-wuFsPi0w">Windows: set up Python</a></td>
+            <td class='resource-type'>Article</td>
+            <td class='resource-tags'>Setting up</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="http://www.youtube.com/watch?v=gDDaz6Sb8jo">Windows: connecting from home (video)</a></td>
+            <td class='resource-type'>Article</td>
+            <td class='resource-tags'>Setting up</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="http://inst.eecs.berkeley.edu/~cs61a/fa13/pdfs/connect-windows.pdf">Windows: connecting form home (pdf)</a></td>
+            <td class='resource-type'>Article</td>
+            <td class='resource-tags'>Setting up</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="http://www.youtube.com/watch?v=smHuBHxJdK8">Mac: set up Python</a></td>
+            <td class='resource-type'>Article</td>
+            <td class='resource-tags'>Setting up</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="http://www.youtube.com/watch?v=6tQx-J4nBSY">Mac: set up Emacs</a></td>
+            <td class='resource-type'>Article</td>
+            <td class='resource-tags'>Setting up</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="http://www.youtube.com/watch?v=irwlU7esODA">Mac: connecting from home (video)</a></td>
+            <td class='resource-type'>Article</td>
+            <td class='resource-tags'>Setting up</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="http://inst.eecs.berkeley.edu/~cs61a/fa13/pdfs/connect-mac.pdf">Mac: connecting from home (pdf)</a></td>
+            <td class='resource-type'>Article</td>
+            <td class='resource-tags'>Setting up</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="http://tutor.composingprograms.com/visualize.html">Online Python tutor</a></td>
+            <td class='resource-type'>Article</td>
+            <td class='resource-tags'>Environment Diagrams</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="https://www.youtube.com/playlist?list=PL-XXv-cvA_iBM29DgZsGaQihJp8lLQn3J">Spring 2015 screencasts</a></td>
+            <td class='resource-type'>Article</td>
+            <td class='resource-tags'>Video, John DeNero</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="https://www.youtube.com/playlist?list=PL-XXv-cvA_iDbsAvTYyJnMkObr12IIkyg">Fall 2014 screencasts</a></td>
+            <td class='resource-type'>Article</td>
+            <td class='resource-tags'>Video, John DeNero</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="http://www.youtube.com/view_play_list?p=-XXv-cvA_iCIEwJhyDVdyLMCiimv6Tup">Fall 2013 screencasts</a></td>
+            <td class='resource-type'>Article</td>
+            <td class='resource-tags'>Video, John DeNero</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="http://www.ee.surrey.ac.uk/Teaching/Unix/">Another UNIX tutorial</a></td>
+            <td class='resource-type'>Article</td>
+            <td class='resource-tags'>UNIX</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="http://albertwu.org/cs61a/">Albert Wu's practice problems</a></td>
+            <td class='resource-type'>Practice</td>
+            <td class='resource-tags'></td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="http://markmiyashita.com/cs61a/sp14/practice/">Mark Miyashita's practice problems</a></td>
+            <td class='resource-type'>Practice</td>
+            <td class='resource-tags'></td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="practice/functions-and-expressions.html">Functions and expressions practice problems</a></td>
+            <td class='resource-type'>Practice</td>
+            <td class='resource-tags'>Functions</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="practice/control.html">Control structures practice problems</a></td>
+            <td class='resource-type'>Practice</td>
+            <td class='resource-tags'>Control Structures</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="practice/hof.html">Higher Order Functions practice problems</a></td>
+            <td class='resource-type'>Practice</td>
+            <td class='resource-tags'>Higher Order Functions</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="practice/lambdas.html">Lambda expressions practice problems</a></td>
+            <td class='resource-type'>Practice</td>
+            <td class='resource-tags'>Lambdas</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'><a href="practice/recursion.html">Recursion practice problems</a></td>
+            <td class='resource-type'>Practice</td>
+            <td class='resource-tags'>Recursion, Tree Recursion</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'>Week 2 (Sat 06/27 to Fri 07/03): <a href="tutor/tutor2.pdf">Basics, Control Structures, and Higher order functions</a> (<a href="tutor/tutor2_sol.pdf">solutions</a>)</td>
+            <td class='resource-type'>Tutoring</td>
+            <td class='resource-tags'>Functions, Control Structures, Higher Order Functions</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'>Week 3 (Sat 07/04 to Fri 07/10): <a href="tutor/tutor3.pdf">Higher Order Functions, Recursion, and Orders of Growth</a> (<a href="tutor/tutor3_sol.pdf">solutions</a>)</td>
+            <td class='resource-type'>Tutoring</td>
+            <td class='resource-tags'>Higher Order Functions, Recursion, Tree Recursion, Orders of Growth</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'>Week 4 (Sat 07/11 to Fri 07/17): <a href="tutor/tutor4.pdf">Lists, Sequences, Dictionaries, Data Abstraction, and Linked Lists</a> (<a href="tutor/tutor4_sol.pdf">solutions</a>)</td>
+            <td class='resource-type'>Tutoring</td>
+            <td class='resource-tags'>Lists, Sequences, Dictionaries, Data Abstraction, Linked Lists</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'>Week 5 (Sat 07/18 to Thu 07/23): <a href="tutor/tutor5.pdf">Trees, Mutability, and Object-Oriented Programming</a> (<a href="tutor/tutor5_sol.pdf">solutions</a>)</td>
+            <td class='resource-type'>Tutoring</td>
+            <td class='resource-tags'>Trees, Mutation, Object-Oriented Programming, Inheritance</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'>Week 6 (Sat 07/25 to Thu 07/30): <a href="tutor/tutor6.pdf">Mutable Linked Lists, Mutable Trees, Interfaces, and Iterators</a> (<a href="tutor/tutor6_sol.pdf">solutions</a>)</td>
+            <td class='resource-type'>Tutoring</td>
+            <td class='resource-tags'>Mutation, Linked Lists, Trees, Interfaces, Iterators</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'>Week 7 (Fri 07/31 to Thu 08/06): <a href="tutor/tutor7.pdf">Scheme and Interpreters</a> (<a href="tutor/tutor7_sol.pdf">solutions</a>)</td>
+            <td class='resource-type'>Tutoring</td>
+            <td class='resource-tags'>Scheme, Interpreters</td>
+        </tr>
+
+        <tr>
+            <td class='resource-name'>Week 8 (Sat 08/08 to Wed 08/12): <a href="tutor/tutor8.pdf">SQL, Streams, Tail recursion, and Logic</a> (<a href="tutor/tutor8_sol.pdf">solutions</a>)</td>
+            <td class='resource-type'>Tutoring</td>
+            <td class='resource-tags'>SQL, Streams, Tail Calls, Logic</td>
+        </tr>
+        </tbody>
+    </table>
+  </div>
+</div>
+
+<div>
+  <h2>Calendar</h2>
+
+  <div class="table-responsive">
+
+  <table id="calendar">
+<tr>
+<th>Week</th>
+<th>Date</th>
+<th>Lecture</th>
+<th>Reading</th>
+<th>Handout</th>
+<th>Homework</th>
+<th>Project</th>
+</tr>
+<tr>
+<td rowspan="5" class="weeknum odd">1</td>
+<td>Mon 6/22</td>
+<td><a href="https://docs.google.com/presentation/d/1F1VV8g48V2FeRWBQgOmIB7QaTGSpxPUGwNmSn7GXEGc/edit?usp=sharing">Introduction and Basics</a>
+<br/>
+(<a href="slides/01.py">01.py</a>)</td>
+<td><a href="http://composingprograms.com/pages/11-getting-started.html">1.1</a><br/>
+<a href="http://composingprograms.com/pages/12-elements-of-programming.html">1.2</a></td>
+<td><a href="lab/lab01/">Lab 1: Setting up</a><br/>(due Tue 6/23)</td>
+<td><a href="hw/hw01/">Homework 1</a><br/>(due Fri 6/26) (<a href="hw/sol-hw01/">Solutions</a>)</td>
+<td></td>
+</tr>
+<tr>
+<td>Tue 6/23</td>
+<td><a href="https://docs.google.com/presentation/d/1p6rgyp4_lPLT6mtOdyKQ1VsuZOuiqaUIVYSm2c7CCu8/edit?usp=sharing">Functions and Control Structures</a>
+<br/>
+(<a href="slides/02.py">02.py</a>)</td>
+<td><a href="http://composingprograms.com/pages/13-defining-new-functions.html">1.3</a><br/>
+<a href="http://composingprograms.com/pages/14-designing-functions.html">1.4</a><br/>
+<a href="http://composingprograms.com/pages/15-control.html">1.5</a></td>
+<td><a href="disc/disc01.pdf">Discussion 1: Functions</a> (<a href="disc/disc01_sol.pdf">Solutions</a>)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Wed 6/24</td>
+<td><a href="https://docs.google.com/presentation/d/1RijXoFtQxe2zdl6dYzwn0KMTW8gXiP7MMQgKd-MHXBo/edit?usp=sharing">Higher Order Functions</a>
+<br/>
+(<a href="slides/03.py">03.py</a>)</td>
+<td><a href="http://composingprograms.com/pages/16-higher-order-functions.html">1.6</a></td>
+<td><a href="lab/lab02/">Lab 2: Control structures</a><br/>(due Thu 6/25)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Thu 6/25</td>
+<td><a href="https://docs.google.com/presentation/d/1K4a54Qp716fWcGaTLDAyAYv-CCBy4p6P66M97eTAFgI/edit?usp=sharing">Higher Order Functions</a>
+<br/>
+(<a href="slides/04.py">04.py</a>)</td>
+<td><a href="http://composingprograms.com/pages/16-higher-order-functions.html">1.6</a></td>
+<td><a href="disc/disc02.pdf">Discussion 2: Higher Order Functions and Environment Diagrams</a> (<a href="disc/disc02_sol.pdf">Solutions</a>)</td>
+<td><a href="hw/hw02/">Homework 2</a><br/>(due Mon 6/29) (<a href="hw/sol-hw02/">Solutions</a>)</td>
+<td><a href="proj/hog/">Hog</a><br/>(due Thu 7/2)</td>
+</tr>
+<tr>
+<td>Fri 6/26</td>
+<td></td>
+<td></td>
+<td><a href="diagnostic/diagnostic1">Diagnostic 1</a></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td rowspan="5" class="weeknum even">2</td>
+<td>Mon 6/29</td>
+<td><a href="https://docs.google.com/presentation/d/11-75T8zaVP1V2rwADDDtyt77hX-LKIeUu1hPMmfGXME/edit?usp=sharing">Week 1 Review</a>
+<br/>
+(<a href="slides/05.py">05.py</a>)</td>
+<td></td>
+<td><a href="lab/lab03/">Lab 3: Higher Order Functions and Lambdas</a><br/>(due Tue 6/30)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Tue 6/30</td>
+<td><a href="https://docs.google.com/presentation/d/10GYJwCNS0N41pTcUWxNpLlBpFpCxzBG3OVSKjkHLopQ/edit?usp=sharing">Recursion</a>
+<br/>
+(<a href="slides/06.py">06.py</a>)</td>
+<td><a href="http://composingprograms.com/pages/17-recursive-functions.html">1.7</a></td>
+<td><a href="disc/disc03.pdf">Discussion 3: Recursion</a> (<a href="disc/disc03_sol.pdf">Solutions</a>)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Wed 7/1</td>
+<td><a href="https://docs.google.com/presentation/d/1PgyLb9WUgGpnjX_--cjtNHO3iXT-aHQW8O2RKGPc_IE/edit?usp=sharing">Tree Recursion</a>
+<br/>
+(<a href="slides/07.py">07.py</a>)</td>
+<td><a href="http://composingprograms.com/pages/17-recursive-functions.html">1.7</a></td>
+<td><a href="lab/lab04/">Lab 4: Recursion and Tree Recursion</a><br/>(due Thu 7/2)</td>
+<td></td>
+<td><a href="proj/hog_contest/">Hog Contest</a><br/>(due Sun 7/12)</td>
+</tr>
+<tr>
+<td>Thu 7/2</td>
+<td><a href="https://docs.google.com/presentation/d/1cmJY7GNCTm4YqeEaS3Qp4U0PAGRPdoe1Akb05JOkgP4/edit?usp=sharing">Orders of Growth</a>
+<br/>
+(<a href="slides/08.py">08.py</a>)</td>
+<td><a href="http://composingprograms.com/pages/28-efficiency.html">2.8</a></td>
+<td><a href="disc/disc04.pdf">Discussion 4: Orders of Growth</a> (<a href="disc/disc04_sol.pdf">Solutions</a>)</td>
+<td><a href="hw/hw03/">Homework 3</a><br/>(due Tue 7/7) (<a href="hw/sol-hw03/">Solutions</a>)</td>
+<td></td>
+</tr>
+<tr>
+<td>Fri 7/3</td>
+<td></td>
+<td></td>
+<td><a href="diagnostic/diagnostic2">Diagnostic 2</a></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td rowspan="5" class="weeknum odd">3</td>
+<td>Mon 7/6</td>
+<td><a href="https://docs.google.com/presentation/d/1skXespdgvJRzwUmW1oSxHP54_bKkJPGkF1-N9poNRt4/edit?usp=sharing">Lists, Sequences, and Dictionaries</a>
+<br/>
+(<a href="slides/09.py">09.py</a>)</td>
+<td><a href="http://composingprograms.com/pages/23-sequences.html">2.3</a></td>
+<td><a href="lab/lab05/">Lab 5: Lists and Dictionaries</a><br/>(due Tue 7/7)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Tue 7/7</td>
+<td><a href="https://docs.google.com/presentation/d/1esogteyx3sMpOBChX5t9Ozs7UL2uhoT0EkjE1bVBblw/edit?usp=sharing">Data Abstraction</a>
+<br/>
+(<a href="slides/10.py">10.py</a>)</td>
+<td><a href="http://composingprograms.com/pages/21-introduction.html">2.1</a><br/>
+<a href="http://composingprograms.com/pages/22-data-abstraction.html">2.2</a></td>
+<td><a href="disc/disc05.pdf">Discussion 5: Data Abstraction</a> (<a href="disc/disc05_sol.pdf">Solutions</a>)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Wed 7/8</td>
+<td><a href="https://docs.google.com/presentation/d/11XHLwY9hI-meQh6pxltCmdd-sgVLkT_0BXtC1BglmOI/edit?usp=sharing">Linked Lists</a>
+<br/>
+(<a href="slides/11.py">11.py</a>)</td>
+<td><a href="http://composingprograms.com/pages/23-sequences.html">2.3</a></td>
+<td><a href="lab/lab06/">Lab 6: Linked Lists</a><br/>(due Thu 7/9)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Thu 7/9</td>
+<td><a href="https://docs.google.com/a/berkeley.edu/presentation/d/1JCalRQi6SgpNZUppC6gP87vQFzDCaxHE9DGpk7AqVCs/edit?usp=sharing">Midterm 1 Review</a>
+<br/>
+(12.py)<br/>
+<a href="exams/midterm1.html">Midterm 1</a></td>
+<td></td>
+<td>Discussion 6: Midterm 1 Review (Solutions)</td>
+<td><a href="hw/hw04/">Homework 4</a><br/>(due Tue 7/14) (<a href="hw/sol-hw04/">Solutions</a>)</td>
+<td><a href="proj/maps/">Maps</a><br/>(due Thu 7/16)</td>
+</tr>
+<tr>
+<td>Fri 7/10</td>
+<td></td>
+<td></td>
+<td><a href="diagnostic/diagnostic3">Diagnostic 3</a></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td rowspan="5" class="weeknum even">4</td>
+<td>Mon 7/13</td>
+<td><a href="https://docs.google.com/presentation/d/1BXO9nB7I-iyzDuoBbvWqo4vUbJqBBhhVlxzOVv9aFAA/edit?usp=sharing">Trees</a>
+<br/>
+(<a href="slides/13.py">13.py</a>)</td>
+<td><a href="http://composingprograms.com/pages/23-sequences.html">2.3</a></td>
+<td><a href="lab/lab07/">Lab 7: Trees</a><br/>(due Tue 7/14)</td>
+<td><a href="hw/hw05/">Homework 5</a><br/>(due Sat 7/18) (<a href="hw/sol-hw05/">Solutions</a>)</td>
+<td></td>
+</tr>
+<tr>
+<td>Tue 7/14</td>
+<td><a href="https://docs.google.com/presentation/d/1PC5Yw-AxxOyTaPhZ-kJ0JvVMwaVCyVmBmWdiNqGZeVo/edit?usp=sharing">Mutable Objects and Functions</a>
+<br/>
+(<a href="slides/14.py">14.py</a>)</td>
+<td><a href="http://composingprograms.com/pages/24-mutable-data.html">2.4</a></td>
+<td><a href="disc/disc07.pdf">Discussion 7: Nonlocal and Mutability</a> (<a href="disc/disc07_sol.pdf">Solutions</a>)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Wed 7/15</td>
+<td><a href="https://docs.google.com/presentation/d/1MgFiiLa1xtQ4LfGOFZ0McvifBh0F5RaLZ23B5E1cRyQ/edit?usp=sharing">Object Oriented Programming</a>
+<br/>
+(<a href="slides/15.py">15.py</a>)</td>
+<td><a href="http://composingprograms.com/pages/25-object-oriented-programming.html">2.5</a></td>
+<td><a href="lab/lab08/">Lab 8: Object Oriented Programming</a><br/>(due Thu 7/16)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Thu 7/16</td>
+<td><a href="https://docs.google.com/presentation/d/1KlUU5wxUvSig1q4ZXoe_ujSn9zSfp-ehzBvzaX19KPM/edit?usp=sharing">Inheritance</a>
+<br/>
+(<a href="slides/16.py">16.py</a>)</td>
+<td><a href="http://composingprograms.com/pages/25-object-oriented-programming.html">2.5</a></td>
+<td><a href="disc/disc08.pdf">Discussion 8: Inheritance</a> (<a href="disc/disc08_sol.pdf">Solutions</a>)</td>
+<td><a href="hw/hw06/">Homework 6</a><br/>(due Mon 7/20) (<a href="hw/sol-hw06/">Solutions</a>)</td>
+<td></td>
+</tr>
+<tr>
+<td>Fri 7/17</td>
+<td></td>
+<td></td>
+<td><a href="diagnostic/diagnostic4">Diagnostic 4</a></td>
+<td></td>
+<td><a href="proj/ants/">Ants</a><br/>(due Tue 7/28)</td>
+</tr>
+<tr>
+<td rowspan="5" class="weeknum odd">5</td>
+<td>Mon 7/20</td>
+<td><a href="https://docs.google.com/presentation/d/18KropyOg2nZf8e8Ot0JAqxTh0mQp5WnfjeU4dc5cUkU/edit?usp=sharing">Mutable Linked Lists</a>
+<br/>
+(<a href="slides/17.py">17.py</a>)</td>
+<td><a href="http://composingprograms.com/pages/29-recursive-objects.html">2.9</a></td>
+<td><a href="lab/lab09/">Lab 9: Mutable Linked Lists</a><br/>(due Tue 7/21)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Tue 7/21</td>
+<td><a href="https://docs.google.com/presentation/d/1_Z2YtfB-tjhD-9FO2KJSOs-wAeIjOfsKUzTz9beCOhw/edit?usp=sharing">Mutable Trees</a>
+<br/>
+(<a href="slides/18.py">18.py</a>)</td>
+<td><a href="http://composingprograms.com/pages/29-recursive-objects.html">2.9</a></td>
+<td><a href="disc/disc09.pdf">Discussion 9: Mutable Trees</a> (<a href="disc/disc09_sol.pdf">Solutions</a>)</td>
+<td><a href="hw/hw07/">Homework 7</a><br/>(due Sat 7/25) (<a href="hw/sol-hw07/">Solutions</a>)</td>
+<td></td>
+</tr>
+<tr>
+<td>Wed 7/22</td>
+<td><a href="https://docs.google.com/presentation/d/1DwIq2MWlkIxGe2_m91Y22w8Ahg1_Zg1opyEo03fjFeg/edit?usp=sharing">Interfaces</a>
+<br/>
+(<a href="slides/19.py">19.py</a>)</td>
+<td><a href="http://composingprograms.com/pages/27-object-abstraction.html">2.7</a></td>
+<td><a href="lab/lab10/">Lab 10: Interfaces</a><br/>(due Thu 7/23)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Thu 7/23</td>
+<td><a href="https://docs.google.com/presentation/d/1zqKEmNFG90YUoBtFvEX5nsMURhrR5fXQz36tXKVECb0/edit?usp=sharing">Iterators</a>
+<br/>
+(<a href="slides/20.py">20.py</a>)</td>
+<td><a href="http://composingprograms.com/pages/42-implicit-sequences.html">4.2</a></td>
+<td><a href="disc/disc10.pdf">Discussion 10: Iterators and Generators</a> (<a href="disc/disc10_sol.pdf">Solutions</a>)</td>
+<td><a href="hw/hw08/">Homework 8</a><br/>(due Mon 7/27) (<a href="hw/sol-hw08/">Solutions</a>)</td>
+<td></td>
+</tr>
+<tr>
+<td>Fri 7/24</td>
+<td></td>
+<td></td>
+<td><a href="diagnostic/diagnostic5">Diagnostic 5</a></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td rowspan="5" class="weeknum even">6</td>
+<td>Mon 7/27</td>
+<td><a href="https://docs.google.com/presentation/d/1abmDnKjrq1tcjGvvRNAKhOiSTSE2lyagtcEPal07Gbo/edit?usp=sharing">Scheme</a>
+<br/>
+(<a href="slides/21.scm">21.scm</a>)</td>
+<td><a href="http://composingprograms.com/pages/31-introduction.html">3.1</a><br/>
+<a href="http://composingprograms.com/pages/32-functional-programming.html">3.2</a></td>
+<td><a href="lab/lab11/">Lab 11: Scheme</a><br/>(due Sat 8/1)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Tue 7/28</td>
+<td><a href="https://docs.google.com/presentation/d/1KWpVvk9Zo3vrEGr2u_rxzNFOQY_8qvszaT3MgdkyA18/edit?usp=sharing">Interpreters, Part 1</a>
+<br/>
+(<a href="slides/22.scm">22.scm</a>)</td>
+<td><a href="http://composingprograms.com/pages/33-exceptions.html">3.3</a><br/>
+<a href="http://composingprograms.com/pages/34-interpreters-for-languages-with-combination.html">3.4</a></td>
+<td><a href="disc/disc11.pdf">Discussion 11: Scheme</a> (<a href="disc/disc11_sol.pdf">Solutions</a>)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Wed 7/29</td>
+<td><a href="https://docs.google.com/presentation/d/1fhm6j1i7pq17tKp8DkM-79dSgLfuP_yd8-2c_3dFWuw/edit?usp=sharing">Interpreters, Part 2</a>
+<br/>
+(23.py)</td>
+<td><a href="http://composingprograms.com/pages/34-interpreters-for-languages-with-combination.html">3.4</a><br/>
+<a href="http://composingprograms.com/pages/35-interpreters-for-languages-with-abstraction.html">3.5</a></td>
+<td><a href="lab/lab12/">Lab 12: Interpreters</a><br/>(due Sat 8/1)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Thu 7/30</td>
+<td><a href="https://drive.google.com/open?id=1HZCRJ0MAR6vx_RG8vCHdpux0bPB1pkF_hUAIJgvRTAs">Midterm 2 Review</a>
+<br/>
+(24.py)<br/>
+<a href="exams/midterm2.html">Midterm 2</a></td>
+<td></td>
+<td>Discussion 12: Midterm 2 Review (Solutions)</td>
+<td><a href="hw/hw09/">Homework 9</a><br/>(due Mon 8/3) (<a href="hw/sol-hw09/">Solutions</a>)</td>
+<td><a href="proj/scheme/">Scheme</a><br/>(due Mon 8/10)</td>
+</tr>
+<tr>
+<td>Fri 7/31</td>
+<td></td>
+<td></td>
+<td><a href="diagnostic/diagnostic6">Diagnostic 6</a></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td rowspan="5" class="weeknum odd">7</td>
+<td>Mon 8/3</td>
+<td><a href="https://docs.google.com/presentation/d/111ucG9UwZ8ESAWGY5zWq65Nd6er_lICOfXnsEZMtSik/edit?usp=sharing">Tail calls and Streams</a>
+<br/>
+(<a href="slides/25.scm">25.scm</a>)</td>
+<td><a href="http://composingprograms.com/pages/35-interpreters-for-languages-with-abstraction.html">3.5</a><br/>
+<a href="http://composingprograms.com/pages/42-implicit-sequences.html">4.2</a></td>
+<td><a href="lab/lab13/">Lab 13: Tail calls and Streams</a><br/>(due Tue 8/4)</td>
+<td><a href="hw/hw10/">Homework 10</a><br/>(due Fri 8/7) (<a href="hw/sol-hw10/">Solutions</a>)</td>
+<td></td>
+</tr>
+<tr>
+<td>Tue 8/4</td>
+<td><a href="https://docs.google.com/presentation/d/1y_c35h_sOyklaV_xmp75LVM2cayLzgUSAZ6UQ_qGsiU/edit?usp=sharing">SQL</a>
+<br/>
+(<a href="slides/26.sql">26.sql</a>)</td>
+<td><a href="http://composingprograms.com/pages/42-implicit-sequences.html">4.2</a></td>
+<td><a href="disc/disc13.pdf">Discussion 13: SQL</a> (<a href="disc/disc13_sol.pdf">Solutions</a>)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Wed 8/5</td>
+<td><a href="https://docs.google.com/presentation/d/1G7hOEU8cmYMYYtvIgI6hbHYZwhMYD0B5QXGxcDV55yQ/edit?usp=sharing">Distributed Data</a>
+<br/>
+(<a href="slides/27.py">27.py</a>)</td>
+<td><a href="http://composingprograms.com/pages/46-distributed-data-processing.html">4.6</a></td>
+<td><a href="lab/lab14/">Lab 14: MapReduce</a><br/>(due Thu 8/6)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Thu 8/6</td>
+<td><a href="https://docs.google.com/presentation/d/1UQeqb496rhwwNmGY-82wJ63ag8FTbIOtKDYnEbGOfXc/edit?usp=sharing">Logic Programming</a>
+<br/>
+(<a href="slides/28.logic">28.logic</a>)</td>
+<td><a href="http://composingprograms.com/pages/44-unification.html">4.4</a></td>
+<td><a href="disc/disc14.pdf">Discussion 14: Logic</a> (<a href="disc/disc14_sol.pdf">Solutions</a>)</td>
+<td><a href="hw/hw11/">Homework 11</a><br/>(due Mon 8/10) (<a href="hw/sol-hw11/">Solutions</a>)</td>
+<td></td>
+</tr>
+<tr>
+<td>Fri 8/7</td>
+<td></td>
+<td></td>
+<td><a href="diagnostic/diagnostic7">Diagnostic 7</a></td>
+<td></td>
+<td><a href="proj/scheme_contest/">Scheme Contest</a><br/>(due Tue 8/11)</td>
+</tr>
+<tr>
+<td rowspan="4" class="weeknum even">8</td>
+<td>Mon 8/10</td>
+<td><a href="slides/29.pdf">Machine Learning</a>
+<br/>
+(29.py)</td>
+<td></td>
+<td><a href="lab/lab15/">Lab 15: Logic</a><br/>(due Tue 8/11)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Tue 8/11</td>
+<td><a href="https://docs.google.com/presentation/d/1zIQk0x89xXcdcizzgHK6ku4IgBJ-ZYp2JdyDzvzhTQE/edit?usp=sharing">Computability and Complexity</a>
+<br/>
+(30.py)</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Wed 8/12</td>
+<td><a href="https://docs.google.com/presentation/d/15b3mlXsDoCm2mdZ0dzLW7Nwnp5dt_2KFwSl5gDuKra4/edit?usp=sharing">Computational Biology</a>
+<br/>
+(<a href="slides/31.py">31.py</a>)</td>
+<td></td>
+<td></td>
+<td><a href="hw/hw12/">Homework 12</a><br/>(due Wed 8/12) (Solutions)</td>
+<td></td>
+</tr>
+<tr>
+<td>Thu 8/13</td>
+<td><a href="https://docs.google.com/presentation/d/1CUlqtQbrf7CoSKkzYDelY8nwqn-m_q0n87hC4kIcCok/edit?usp=sharing">Conclusion</a>
+<br/>
+(32.py)<br/>
+<a href="exams/final.html">Final</a></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</table>
+
+  </div>
+
+</div>
+    </div>
+  </body>
+  <script src="//cdn.jsdelivr.net/algoliasearch/3/algoliasearch.jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.1.1/list.min.js"></script>
+<script>
+$(document).ready(function() {
+  // Resource search
+  var options = {
+    valueNames: ['resource-name', 'resource-type', 'resource-tags']
+  };
+  var resourceList = new List('resources', options);
+
+  // Piazza search
+  var client = $.algolia.Client('LHANIWJEIC', '90cdc253a44cd765eead874d15767970');
+  var index = client.initIndex('CS61A Su15 Piazza'); // Change this depending on semester
+  var piazzaResultLimit = 5;
+  var piazzaCache = {};
+
+  function piazzaSearchCallback(err, content) {
+    if (err || content.hits.length === 0) {
+      return;
+    }
+    // Scan all hits and display them
+    for (var i = 0; i < Math.min(content.hits.length, piazzaResultLimit); ++i) {
+
+      var hit = content.hits[i];
+      if (hit.qid in piazzaCache) {
+        piazzaCache[hit.qid].show();
+        continue;
+      }
+
+
+      newPost = resourceList.add({
+          'resource-name': '<a href="' + hit.urlto + '">'
+                           + '@' + hit.qid.toString() + ': ' + hit.subject
+                           + '</a>',
+          'resource-type': 'Piazza post',
+          'resource-tags': hit.tags.join(', ')
+        });
+      newPost[0].show();
+      piazzaCache[hit.qid] = newPost[0];
+
+
+    }
+  }
+
+  // Assignment quick list
+  var assignments = [{"link": "lab/lab01/", "due": "6/23/15", "name": "Lab 1: Setting up", "release": "6/22/15"}, {"link": "lab/lab02/", "due": "6/25/15", "name": "Lab 2: Control structures", "release": "6/24/15"}, {"link": "lab/lab03/", "due": "6/30/15", "name": "Lab 3: Higher Order Functions and Lambdas", "release": "6/29/15"}, {"link": "lab/lab04/", "due": "7/2/15", "name": "Lab 4: Recursion and Tree Recursion", "release": "7/1/15"}, {"link": "lab/lab05/", "due": "7/7/15", "name": "Lab 5: Lists and Dictionaries", "release": "7/6/15"}, {"link": "lab/lab06/", "due": "7/9/15", "name": "Lab 6: Linked Lists", "release": "7/8/15"}, {"link": "lab/lab07/", "due": "7/14/15", "name": "Lab 7: Trees", "release": "7/13/15"}, {"link": "lab/lab08/", "due": "7/16/15", "name": "Lab 8: Object Oriented Programming", "release": "7/15/15"}, {"link": "lab/lab09/", "due": "7/21/15", "name": "Lab 9: Mutable Linked Lists", "release": "7/20/15"}, {"link": "lab/lab10/", "due": "7/23/15", "name": "Lab 10: Interfaces", "release": "7/22/15"}, {"link": "lab/lab11/", "due": "8/1/15", "name": "Lab 11: Scheme", "release": "7/27/15"}, {"link": "lab/lab12/", "due": "8/1/15", "name": "Lab 12: Interpreters", "release": "7/29/15"}, {"link": "lab/lab13/", "due": "8/4/15", "name": "Lab 13: Tail calls and Streams", "release": "8/3/15"}, {"link": "lab/lab14/", "due": "8/6/15", "name": "Lab 14: MapReduce", "release": "8/5/15"}, {"link": "lab/lab15/", "due": "8/11/15", "name": "Lab 15: Logic", "release": "8/10/15"}, {"link": "hw/hw01/", "due": "6/26/15", "name": "Homework 1", "release": "6/22/15"}, {"link": "hw/hw02/", "due": "6/29/15", "name": "Homework 2", "release": "6/25/15"}, {"link": "hw/hw03/", "due": "7/7/15", "name": "Homework 3", "release": "7/2/15"}, {"link": "hw/hw04/", "due": "7/14/15", "name": "Homework 4", "release": "7/9/15"}, {"link": "hw/hw05/", "due": "7/18/15", "name": "Homework 5", "release": "7/13/15"}, {"link": "hw/hw06/", "due": "7/20/15", "name": "Homework 6", "release": "7/16/15"}, {"link": "hw/hw07/", "due": "7/25/15", "name": "Homework 7", "release": "7/21/15"}, {"link": "hw/hw08/", "due": "7/27/15", "name": "Homework 8", "release": "7/23/15"}, {"link": "hw/hw09/", "due": "8/3/15", "name": "Homework 9", "release": "7/30/15"}, {"link": "hw/hw10/", "due": "8/7/15", "name": "Homework 10", "release": "8/3/15"}, {"link": "hw/hw11/", "due": "8/10/15", "name": "Homework 11", "release": "8/6/15"}, {"link": "hw/hw12/", "due": "8/12/15", "name": "Homework 12", "release": "8/12/15"}, {"link": "proj/hog/", "due": "7/2/15", "name": "Hog", "release": "6/25/15"}, {"link": "proj/hog_contest/", "due": "7/12/15", "name": "Hog Contest", "release": "7/1/15"}, {"link": "proj/maps/", "due": "7/16/15", "name": "Maps", "release": "7/9/15"}, {"link": "proj/ants/", "due": "7/28/15", "name": "Ants", "release": "7/17/15"}, {"link": "proj/scheme/", "due": "8/10/15", "name": "Scheme", "release": "7/30/15"}, {"link": "proj/scheme_contest/", "due": "8/11/15", "name": "Scheme Contest", "release": "8/7/15"}];
+
+  $(document).ready(function() {
+    $("#resources-search-box").keyup(function() {
+      if (!this.value) {
+        $('#resources-display').hide();
+      } else {
+        index.search($("#resources-search-box").val(), piazzaSearchCallback);
+        $('#resources-display').show();
+      }
+    });
+
+    var currentTime = Date.now();
+    var quickListCount = 0;
+    assignments.forEach(function(assignment) {
+      var due = new Date(assignment.due);
+      due.setDate(due.getDate() + 1);
+      if (new Date(assignment.release) <= currentTime
+          && currentTime <= due) {
+        if (quickListCount % 4 === 0) {
+          $('#assignment-quick-list').append('<div class="row"></div>');
+          quickListCount++;
+        }
+        $('#assignment-quick-list > div').last().append(
+            '<div class="col-xs-6 col-md-3">'
+            + '<div class="quick-list-item">'
+            + '<a href="' + assignment.link + '"><span class="quick-list-item-link"></span></a>'
+            + assignment.name
+            + '<hr/>Due '
+            + assignment.due
+            + '</div></div>');
+      }
+    });
+  });
+
+  // Announcements
+  var announcementIndex = 0;
+
+  function setAnnouncements(offset) {
+    var newIndex = announcementIndex  + offset;
+    var announcementNumber = $('.announcement').length;
+
+    if (newIndex < 0 || newIndex >= announcementNumber) {
+      return;
+    }
+
+    $('#announcement-' + announcementIndex).hide(0, function() {
+      $('#announcement-' + newIndex).show(0);
+    });
+
+    announcementIndex = newIndex;
+
+    if (announcementIndex >= announcementNumber - 1) {
+      $('#announcement-' + announcementIndex + ' .announcement-btn-older')
+        .addClass('disabled');
+    }
+    if (announcementIndex === 0) {
+      $('#announcement-' + announcementIndex + ' .announcement-btn-newer')
+        .addClass('disabled');
+    }
+  }
+  setAnnouncements(0);
+
+  $('.announcement-btn-newer > a').click(function() {
+    setAnnouncements(-1);
+  });
+  $('.announcement-btn-older > a').click(function() {
+    setAnnouncements(1);
+  });
+});
+</script>
+</html>

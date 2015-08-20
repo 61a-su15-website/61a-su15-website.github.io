@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="description" content ="CS61A: Structure and Interpretation of Computer Programs" />
+    <meta name="keywords" content ="CS61A, Computer Science, CS, 61A, Programming, John DeNero, Berkeley, EECS" />
+    <meta name="author" content ="Albert Wu, Robert Huang, Alfonso Martinez, Cale Horeff, Chris Le, Colin Schoen, Derrick Lin, Jeffrey Lu, Jessica Gu, Rohit Lalchandani, Tammy Nguyen, Will Jiang, Yulin Zheng" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width">
+
+    <script src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
+    <link rel="icon" href="/assets/images/favicon.ico">
+
+    <link rel="stylesheet" href="/assets/css/mono-blue.css">
+    <script src="/assets/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    <link rel="stylesheet" type="text/css" href="/assets/css/resource.css" />
+<link rel="stylesheet" type="text/css" href="/assets/css/lab.css" />
+
+
+    <title>Diagnostic 7: Week 7 review | CS 61A Summer 2015</title>
+
+  </head>
+
+  <body id="index" class="home">
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-section">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">CS 61A</a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="navbar-collapse-section">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/">Calendar</a></li>
+            <li><a href="/office-hours.html">Office Hours</a></li>
+            <li><a href="/tutoring.html">Tutoring</a></li>
+
+            <li><a href="/articles/using-ok.html">Using OK</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Course Info <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="/articles/about.html">Syllabus</a></li>
+                <li><a href="/staff.html">Staff</a></li>
+                <li><a href="/weekly.html">Weekly Schedule</a></li>
+              </ul>
+            </li>
+
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div id="content" class="container">
+      <div class='row'>
+  <div class='col-md-9'>
+    <div class='page-header'>
+      <h1><span class="content-title-brand">Diagnostic 7</span>: Week
+7 review</h1>
+    </div>
+
+    Diagnostics are meant for you to check your understanding of the week's
+material. They are not worth any points and are not counted towards midterm
+recovery points; instead, diagnostics are solely for your benefit.
+
+If you find yourself struggling with the questions in this diagnostic, consider
+signing up for <a href="/tutoring.html">Tutoring</a>.
+
+    
+
+
+<h2 id="tail-calls">Tail calls</h2>
+
+
+<h3 class="question" id="q1">Question 1: Concatenate</h3>
+
+<p>Write a tail-recursive function <code>concatenate</code>, which takes in <code>s</code>, a list of lists,
+and concatenates all the elements together into one list.</p>
+
+
+
+<pre><code>; Expected behavior:
+;
+; scm&gt; (concatenate (list (list 1 2) (list 5 1)))
+; (1 2 5 1)
+; scm&gt; (concatenate (list (list (1 2)) (list)))
+; (1 2)
+
+(define (concatenate s)
+<div class="alt 0">'YOUR-CODE-HERE
+</div><div class="solution 0">&#x20;&#x20;&#x20;&#x20;&#x28;&#x64;&#x65;&#x66;&#x69;&#x6e;&#x65;&#x20;&#x28;&#x68;&#x65;&#x6c;&#x70;&#x65;&#x72;&#x20;&#x63;&#x6f;&#x6e;&#x63;&#x61;&#x74;&#x65;&#x6e;&#x61;&#x74;&#x65;&#x64;&#x20;&#x72;&#x65;&#x73;&#x74;&#x29;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x28;&#x69;&#x66;&#x20;&#x28;&#x6e;&#x75;&#x6c;&#x6c;&#x3f;&#x20;&#x72;&#x65;&#x73;&#x74;&#x29;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x63;&#x6f;&#x6e;&#x63;&#x61;&#x74;&#x65;&#x6e;&#x61;&#x74;&#x65;&#x64;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x28;&#x68;&#x65;&#x6c;&#x70;&#x65;&#x72;&#x20;&#x28;&#x61;&#x70;&#x70;&#x65;&#x6e;&#x64;&#x20;&#x63;&#x6f;&#x6e;&#x63;&#x61;&#x74;&#x65;&#x6e;&#x61;&#x74;&#x65;&#x64;&#x20;&#x28;&#x63;&#x61;&#x72;&#x20;&#x72;&#x65;&#x73;&#x74;&#x29;&#x29;&#x20;&#x28;&#x63;&#x64;&#x72;&#x20;&#x72;&#x65;&#x73;&#x74;&#x29;&#x29;&#x29;&#x29;&#xa;&#x20;&#x20;&#x20;&#x20;&#x28;&#x68;&#x65;&#x6c;&#x70;&#x65;&#x72;&#x20;&#x28;&#x29;&#x20;&#x73;&#x29;</div>)</code></pre>
+
+
+    <button id='0' class='toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+<h3 class="question" id="q2">Question 2: Swap</h3>
+
+<p>Write a tail-recursive function <code>swap</code>, which takes in a Scheme list <code>s</code> and returns a new Scheme list where every two elements in <code>s</code> are swapped.</p>
+
+
+
+<pre><code>; Expected behavior:
+;
+; scm&gt; (swap (list 1 2 3 4))
+; (2 1 4 3)
+; scm&gt; (swap (list 1 2 3 4 5))
+; (2 1 4 3 5)
+
+(define (swap s)
+<div class="alt 1">  'YOUR-CODE-HERE
+</div><div class="solution 1">&#x20;&#x20;&#x28;&#x64;&#x65;&#x66;&#x69;&#x6e;&#x65;&#x20;&#x28;&#x68;&#x65;&#x6c;&#x70;&#x65;&#x72;&#x20;&#x73;&#x6f;&#x66;&#x61;&#x72;&#x20;&#x72;&#x65;&#x73;&#x74;&#x29;&#xa;&#x20;&#x20;&#x20;&#x20;&#x28;&#x63;&#x6f;&#x6e;&#x64;&#x20;&#x28;&#x28;&#x6e;&#x75;&#x6c;&#x6c;&#x3f;&#x20;&#x72;&#x65;&#x73;&#x74;&#x29;&#x20;&#x73;&#x6f;&#x66;&#x61;&#x72;&#x29;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x28;&#x28;&#x6e;&#x75;&#x6c;&#x6c;&#x3f;&#x20;&#x28;&#x63;&#x64;&#x72;&#x20;&#x72;&#x65;&#x73;&#x74;&#x29;&#x29;&#x20;&#x28;&#x61;&#x70;&#x70;&#x65;&#x6e;&#x64;&#x20;&#x73;&#x6f;&#x66;&#x61;&#x72;&#x20;&#x28;&#x6c;&#x69;&#x73;&#x74;&#x20;&#x28;&#x63;&#x61;&#x72;&#x20;&#x72;&#x65;&#x73;&#x74;&#x29;&#x29;&#x29;&#x29;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x28;&#x65;&#x6c;&#x73;&#x65;&#x20;&#x28;&#x68;&#x65;&#x6c;&#x70;&#x65;&#x72;&#x20;&#x28;&#x61;&#x70;&#x70;&#x65;&#x6e;&#x64;&#x20;&#x73;&#x6f;&#x66;&#x61;&#x72;&#x20;&#x28;&#x6c;&#x69;&#x73;&#x74;&#x20;&#x28;&#x63;&#x61;&#x72;&#x20;&#x28;&#x63;&#x64;&#x72;&#x20;&#x72;&#x65;&#x73;&#x74;&#x29;&#x29;&#x20;&#x28;&#x63;&#x61;&#x72;&#x20;&#x72;&#x65;&#x73;&#x74;&#x29;&#x29;&#x29;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x28;&#x63;&#x64;&#x72;&#x20;&#x28;&#x63;&#x64;&#x72;&#x20;&#x72;&#x65;&#x73;&#x74;&#x29;&#x29;&#x29;&#x29;&#x29;&#x29;&#xa;&#x20;&#x20;&#x28;&#x68;&#x65;&#x6c;&#x70;&#x65;&#x72;&#x20;&#x28;&#x29;&#x20;&#x73;&#x29;</div>)</code></pre>
+
+
+    <button id='1' class='toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+<h3 class="question" id="q3">Question 3: Insert</h3>
+
+<p>Write a tail-recursive function that inserts number n into a sorted
+list of numbers, s. s is of at least length 1. Hint: Use the built-in Scheme 
+function <code>append</code>.</p>
+
+
+
+<pre><code>(define (insert n s)
+<div class="alt 2">  'YOUR-CODE-HERE
+</div><div class="solution 2">&#x20;&#x20;&#x28;&#x64;&#x65;&#x66;&#x69;&#x6e;&#x65;&#x20;&#x28;&#x69;&#x6e;&#x73;&#x65;&#x72;&#x74;&#x2d;&#x68;&#x65;&#x6c;&#x70;&#x20;&#x73;&#x20;&#x73;&#x6f;&#x2d;&#x66;&#x61;&#x72;&#x29;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x28;&#x63;&#x6f;&#x6e;&#x64;&#x20;&#x28;&#x28;&#x6e;&#x75;&#x6c;&#x6c;&#x3f;&#x20;&#x73;&#x29;&#x20;&#x28;&#x61;&#x70;&#x70;&#x65;&#x6e;&#x64;&#x20;&#x73;&#x6f;&#x2d;&#x66;&#x61;&#x72;&#x20;&#x28;&#x63;&#x6f;&#x6e;&#x73;&#x20;&#x6e;&#x20;&#x73;&#x29;&#x29;&#x29;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x28;&#x28;&#x3c;&#x20;&#x6e;&#x20;&#x28;&#x63;&#x61;&#x72;&#x20;&#x73;&#x29;&#x29;&#x20;&#x28;&#x61;&#x70;&#x70;&#x65;&#x6e;&#x64;&#x20;&#x73;&#x6f;&#x2d;&#x66;&#x61;&#x72;&#x20;&#x28;&#x63;&#x6f;&#x6e;&#x73;&#x20;&#x6e;&#x20;&#x73;&#x29;&#x29;&#x29;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x28;&#x65;&#x6c;&#x73;&#x65;&#x20;&#x28;&#x69;&#x6e;&#x73;&#x65;&#x72;&#x74;&#x2d;&#x68;&#x65;&#x6c;&#x70;&#x20;&#x28;&#x63;&#x64;&#x72;&#x20;&#x73;&#x29;&#x20;&#x28;&#x61;&#x70;&#x70;&#x65;&#x6e;&#x64;&#x20;&#x73;&#x6f;&#x2d;&#x66;&#x61;&#x72;&#x20;&#x28;&#x6c;&#x69;&#x73;&#x74;&#x20;&#x28;&#x63;&#x61;&#x72;&#x20;&#x73;&#x29;&#x29;&#x29;&#x29;&#x29;&#x29;&#x29;&#xa;&#x20;&#x20;&#x28;&#x69;&#x6e;&#x73;&#x65;&#x72;&#x74;&#x2d;&#x68;&#x65;&#x6c;&#x70;&#x20;&#x73;&#x20;&#x6e;&#x69;&#x6c;&#x29;</div>)</code></pre>
+
+
+    <button id='2' class='toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+<ok:unlock insert>
+
+<blockquote><p><em>Note</em>: This was an extra question in <a href="/lab/lab13/#q8">Lab 13</a>.</p></blockquote>
+
+
+<h2 id="streams">Streams</h2>
+
+
+<h3 class="question" id="q4">Question 4: Cycle</h3>
+
+<p>Define a function <code>cycle</code> which takes in as input an ordinary Scheme
+list and returns a stream which just repeats that list over and over.
+For example, <code>cycle(&#x27;(a b c) ))</code> is the stream containing elements <code>(a
+b c a b c ...)</code>. If the input list is empty, output the empty stream;
+otherwise, the output stream should be infinite.</p>
+
+
+
+<pre><code>(define (cycle lst)
+<div class="alt 3">  'YOUR-CODE-HERE
+</div><div class="solution 3">&#x20;&#x20;&#x28;&#x69;&#x66;&#x20;&#x28;&#x6e;&#x75;&#x6c;&#x6c;&#x3f;&#x20;&#x6c;&#x73;&#x74;&#x29;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x6e;&#x69;&#x6c;&#x20;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x28;&#x63;&#x6f;&#x6e;&#x73;&#x2d;&#x73;&#x74;&#x72;&#x65;&#x61;&#x6d;&#x20;&#x28;&#x63;&#x61;&#x72;&#x20;&#x6c;&#x73;&#x74;&#x29;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x28;&#x63;&#x79;&#x63;&#x6c;&#x65;&#x20;&#x28;&#x61;&#x70;&#x70;&#x65;&#x6e;&#x64;&#x20;&#x28;&#x63;&#x64;&#x72;&#x20;&#x6c;&#x73;&#x74;&#x29;&#x20;&#x28;&#x6c;&#x69;&#x73;&#x74;&#x20;&#x28;&#x63;&#x61;&#x72;&#x20;&#x6c;&#x73;&#x74;&#x29;&#x29;&#x29;&#x29;&#x29;&#x29;</div>)</code></pre>
+
+
+    <button id='3' class='toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+<ok:unlock cycle>
+
+<blockquote><p><em>Note</em>: This was an extra question in <a href="/lab/lab13/#q9">Lab 13</a>.</p></blockquote>
+
+<h3 class="question" id="q5">Question 5: Partial sums</h3>
+
+<p>Define a function <code>partial_sums</code>, which takes in a stream with elements</p>
+
+<pre><code>a1, a2, a3, ...</code></pre>
+
+<p>and outputs the stream</p>
+
+<pre><code>a1, a1 + a2, a1 + a2 + a3, ...</code></pre>
+
+<p>If the input is a finite stream of length <em>n</em>, the output should be a
+finite stream of length <em>n</em>. If the input is an infinite stream, the
+output should also be an infinite stream.</p>
+
+
+
+<pre><code>(define (partial&#x2d;sums stream)
+<div class="alt 4">  'YOUR-CODE-HERE
+</div><div class="solution 4">&#x20;&#x20;&#x28;&#x68;&#x65;&#x6c;&#x70;&#x65;&#x72;&#x20;&#x30;&#x20;&#x73;&#x74;&#x72;&#x65;&#x61;&#x6d;&#x29;</div>)
+
+<div class="solution 4">&#x28;&#x64;&#x65;&#x66;&#x69;&#x6e;&#x65;&#x20;&#x28;&#x68;&#x65;&#x6c;&#x70;&#x65;&#x72;&#x20;&#x73;&#x75;&#x6d;&#x2d;&#x73;&#x6f;&#x2d;&#x66;&#x61;&#x72;&#x20;&#x73;&#x74;&#x72;&#x65;&#x61;&#x6d;&#x2d;&#x72;&#x65;&#x6d;&#x61;&#x69;&#x6e;&#x69;&#x6e;&#x67;&#x29;&#xa;&#x20;&#x20;&#x28;&#x69;&#x66;&#x20;&#x28;&#x73;&#x74;&#x72;&#x65;&#x61;&#x6d;&#x2d;&#x6e;&#x75;&#x6c;&#x6c;&#x3f;&#x20;&#x73;&#x74;&#x72;&#x65;&#x61;&#x6d;&#x2d;&#x72;&#x65;&#x6d;&#x61;&#x69;&#x6e;&#x69;&#x6e;&#x67;&#x29;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x74;&#x68;&#x65;&#x2d;&#x65;&#x6d;&#x70;&#x74;&#x79;&#x2d;&#x73;&#x74;&#x72;&#x65;&#x61;&#x6d;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x28;&#x62;&#x65;&#x67;&#x69;&#x6e;&#x20;&#x28;&#x64;&#x65;&#x66;&#x69;&#x6e;&#x65;&#x20;&#x6e;&#x65;&#x77;&#x2d;&#x73;&#x75;&#x6d;&#x20;&#x28;&#x2b;&#x20;&#x73;&#x75;&#x6d;&#x2d;&#x73;&#x6f;&#x2d;&#x66;&#x61;&#x72;&#x20;&#x28;&#x73;&#x74;&#x72;&#x65;&#x61;&#x6d;&#x2d;&#x63;&#x61;&#x72;&#x20;&#x73;&#x74;&#x72;&#x65;&#x61;&#x6d;&#x2d;&#x72;&#x65;&#x6d;&#x61;&#x69;&#x6e;&#x69;&#x6e;&#x67;&#x29;&#x29;&#x29;&#xa;&#x9;&#x20;&#x20;&#x20;&#x20;&#x20;&#x28;&#x63;&#x6f;&#x6e;&#x73;&#x2d;&#x73;&#x74;&#x72;&#x65;&#x61;&#x6d;&#x20;&#x6e;&#x65;&#x77;&#x2d;&#x73;&#x75;&#x6d;&#x20;&#x28;&#x68;&#x65;&#x6c;&#x70;&#x65;&#x72;&#x20;&#x6e;&#x65;&#x77;&#x2d;&#x73;&#x75;&#x6d;&#x20;&#x28;&#x73;&#x74;&#x72;&#x65;&#x61;&#x6d;&#x2d;&#x63;&#x64;&#x72;&#x20;&#x73;&#x74;&#x72;&#x65;&#x61;&#x6d;&#x2d;&#x72;&#x65;&#x6d;&#x61;&#x69;&#x6e;&#x69;&#x6e;&#x67;&#x29;&#x29;&#x29;&#x29;&#x29;&#x29;</div>
+; Doctests for partial&#x2d;sums
+(define twos (cons&#x2d;stream 2 twos))
+(define p (partial&#x2d;sums twos))
+(assert&#x2d;equal 1 &quot;partial&#x2d;sums&quot; (ss p) &#x27;(2 4 6 8 10 12 14 16 18 20 ...))
+
+(define ones (cons&#x2d;stream 1 ones))
+(define q (partial&#x2d;sums (interleave ones twos)))
+(assert&#x2d;equal 2 &quot;partial&#x2d;sums&quot; (ss q) &#x27;(1 3 4 6 7 9 10 12 13 15 ...))</code></pre>
+
+
+    <button id='4' class='toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+<p>Consider <code>(define p (partial&#x2d;sums (cycle &#x27;(1))))</code>. What do you think
+the stream <code>p</code> looks like?</p>
+
+<div class="solution 5">
+
+<p><code>(partial&#x2d;sums (cycle &#x27;(1)))</code> contains the elements <code>1, 2, 3, 4, ...</code>.</p>
+
+</div>
+    <button id='5' class='toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+
+<h2 id="sql">SQL</h2>
+
+
+<blockquote><p>You can use this <a href="https://kripken.github.io/sql.js/GUI/">online SQLite
+interpreter</a> to check your answers.</p></blockquote>
+
+<p>A block of 10 store locations, numbered 1 through 10, already has some cafes.
+Cafes can serve espresso, bagels, coffee, muffins, and eggs (but nothing else).</p>
+
+<pre><code>&#x2d;&#x2d; Locations of each cafe
+create table cafes as
+  select &quot;nefeli&quot; as name, 2 as location union
+  select &quot;brewed&quot;        , 8             union
+  select &quot;hummingbird&quot;   , 6;
+
+&#x2d;&#x2d; Menu items at each cafe
+create table menus as
+  select &quot;nefeli&quot; as cafe, &quot;espresso&quot; as item union
+  select &quot;nefeli&quot;        , &quot;bagels&quot;           union
+  select &quot;brewed&quot;        , &quot;coffee&quot;           union
+  select &quot;brewed&quot;        , &quot;bagels&quot;           union
+  select &quot;brewed&quot;        , &quot;muffins&quot;          union
+  select &quot;hummingbird&quot;   , &quot;muffins&quot;          union
+  select &quot;hummingbird&quot;   , &quot;eggs&quot;;
+
+&#x2d;&#x2d; All locations on the block
+create table locations as
+  with locations(n) as (
+    select 1 union
+    select n+1 from locations where n &lt; 10
+  )
+  select * from locations;</code></pre>
+
+<h3 class="question" id="q6">Question 6: Open</h3>
+
+<p>You would like to open a new cafe. Create a table <code>open_locations</code> that
+has a single column <code>n</code> where each row is a location that is not already
+occupied by an existing cafe.</p>
+
+
+
+<pre><code>&#x2d;&#x2d; Locations without a cafe
+create table open_locations as
+<div class="alt 6">  -- REPLACE THIS LINE
+</div><div class="solution 6">&#x20;&#x20;&#x73;&#x65;&#x6c;&#x65;&#x63;&#x74;&#x20;&#x6e;&#x20;&#x66;&#x72;&#x6f;&#x6d;&#x20;&#x6c;&#x6f;&#x63;&#x61;&#x74;&#x69;&#x6f;&#x6e;&#x73;&#x2c;&#x20;&#x63;&#x61;&#x66;&#x65;&#x73;&#x20;&#x67;&#x72;&#x6f;&#x75;&#x70;&#x20;&#x62;&#x79;&#x20;&#x6e;&#x20;&#x68;&#x61;&#x76;&#x69;&#x6e;&#x67;&#x20;&#x6d;&#x69;&#x6e;&#x28;&#x61;&#x62;&#x73;&#x28;&#x6e;&#x2d;&#x6c;&#x6f;&#x63;&#x61;&#x74;&#x69;&#x6f;&#x6e;&#x29;&#x29;&#x20;&#x3e;&#x20;&#x30;&#x3b;</div>
+&#x2d;&#x2d; select * from open_locations where n &gt;= 5;
+&#x2d;&#x2d; Expected output:
+&#x2d;&#x2d;   5
+&#x2d;&#x2d;   7
+&#x2d;&#x2d;   9
+&#x2d;&#x2d;   10</code></pre>
+
+
+    <button id='6' class='toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+<blockquote><p><em>Hint</em>: Join <code>locations</code> and <code>cafes</code> in the <code>from</code> clause, so that you can
+compare a location <code>n</code> with the <code>location</code> of an existing cafe.</p>
+
+<p><em>Hint</em>: A location is open if its minimum distance from an existing cafe is
+more than 0. The built-in <code>abs</code> and <code>min</code> functions can be used to express
+this condition in a <code>having</code> clause.</p></blockquote>
+
+<h3 class="question" id="q7">Question 7: Allowed</h3>
+
+<p>To limit competition, the block mandates that no cafe can have a menu item
+that is sold by another cafe within 2 locations. So, if location 2 already
+sells bagels, then a cafe located at 1, 3, or 4 cannot sell bagels. You may
+assume that every item is sold by at least one cafe.</p>
+
+<p>Create a table <code>allowed</code> that has two columns, a location <code>n</code> and a menu
+<code>item</code>. The rows should contain every item that can be sold at every
+location, based on these constraints. It should include occupied
+locations that could expand their current menus.</p>
+
+
+
+<pre><code>&#x2d;&#x2d; Items that could be placed on a menu at an open location
+create table allowed as
+  with item_locations(item, location) as (
+    select item, location from cafes, menus where name = cafe
+  )
+<div class="alt 7">  -- REPLACE THIS LINE
+</div><div class="solution 7">&#x20;&#x20;&#x73;&#x65;&#x6c;&#x65;&#x63;&#x74;&#x20;&#x6e;&#x2c;&#x20;&#x69;&#x74;&#x65;&#x6d;&#x20;&#x66;&#x72;&#x6f;&#x6d;&#x20;&#x6c;&#x6f;&#x63;&#x61;&#x74;&#x69;&#x6f;&#x6e;&#x73;&#x2c;&#x20;&#x69;&#x74;&#x65;&#x6d;&#x5f;&#x6c;&#x6f;&#x63;&#x61;&#x74;&#x69;&#x6f;&#x6e;&#x73;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x67;&#x72;&#x6f;&#x75;&#x70;&#x20;&#x62;&#x79;&#x20;&#x6e;&#x2c;&#x20;&#x69;&#x74;&#x65;&#x6d;&#x20;&#x68;&#x61;&#x76;&#x69;&#x6e;&#x67;&#x20;&#x6d;&#x69;&#x6e;&#x28;&#x61;&#x62;&#x73;&#x28;&#x6e;&#x2d;&#x6c;&#x6f;&#x63;&#x61;&#x74;&#x69;&#x6f;&#x6e;&#x29;&#x29;&#x20;&#x3e;&#x20;&#x32;&#x3b;</div>
+&#x2d;&#x2d; select * from allowed where n &gt;= 5;
+&#x2d;&#x2d; Expected output:
+&#x2d;&#x2d;   5|bagels
+&#x2d;&#x2d;   5|coffee
+&#x2d;&#x2d;   5|espresso
+&#x2d;&#x2d;   6|espresso
+&#x2d;&#x2d;   7|espresso
+&#x2d;&#x2d;   8|espresso
+&#x2d;&#x2d;   9|eggs
+&#x2d;&#x2d;   9|espresso
+&#x2d;&#x2d;   10|eggs
+&#x2d;&#x2d;   10|espresso</code></pre>
+
+
+    <button id='7' class='toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+<p><em>Hint</em>: Join <code>locations</code> and <code>item_locations</code>, so that you can compare how
+far a location <code>n</code> is from the <code>location</code> at which an item is already sold.</p>
+
+<blockquote><p><em>Hint</em>: Group by a combination of the location <code>n</code> and the <code>item</code> that might
+be sold at <code>n</code>; use a <code>having</code> clause to filter the groups.</p>
+
+<p><em>Hint</em>: You <strong>do not</strong> need to use <code>open_locations</code> from the previous question.</p></blockquote>
+
+
+<h2 id="logic-programming">Logic Programming</h2>
+
+
+<blockquote><p>You can download a copy of the <a href="/hw/hw11/logic">Logic interpreter</a> to double
+check your answers.</p></blockquote>
+
+<h3 class="question" id="q8">Question 8: Swap</h3>
+
+<p>Write facts for a relation <code>swap</code> that swaps every pair of elements in
+a list:
+</p>
+
+<pre><code>; Expected behavior:
+;
+; logic&gt; (query (swap (1 2 3 4 5 6) ?x))
+; Success!
+; x: (2 1 4 3 6 5)
+; logic&gt; (query (swap (1 2 3 4 5 6 7) ?x))
+; Success!
+; x: (2 1 4 3 6 5 7)
+
+<div class="solution 8">&#x28;&#x66;&#x61;&#x63;&#x74;&#x20;&#x28;&#x73;&#x77;&#x61;&#x70;&#x20;&#x28;&#x29;&#x20;&#x28;&#x29;&#x29;&#x29;&#xa;&#x28;&#x66;&#x61;&#x63;&#x74;&#x20;&#x28;&#x73;&#x77;&#x61;&#x70;&#x20;&#x28;&#x3f;&#x78;&#x29;&#x20;&#x28;&#x3f;&#x78;&#x29;&#x29;&#x29;&#xa;&#x28;&#x66;&#x61;&#x63;&#x74;&#x20;&#x28;&#x73;&#x77;&#x61;&#x70;&#x20;&#x28;&#x3f;&#x78;&#x20;&#x3f;&#x79;&#x20;&#x2e;&#x20;&#x3f;&#x7a;&#x29;&#x20;&#x28;&#x3f;&#x79;&#x20;&#x3f;&#x78;&#x20;&#x2e;&#x20;&#x3f;&#x65;&#x29;&#x29;&#x20;&#x28;&#x73;&#x77;&#x61;&#x70;&#x20;&#x3f;&#x7a;&#x20;&#x3f;&#x65;&#x29;&#x29;</div></code></pre>
+
+
+    <button id='8' class='toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+<h3 class="question" id="q9">Question 9: Nested</h3>
+
+<p>Write facts for a relation <code>nest</code> that constructs a nested pair
+representation of a flat list:
+</p>
+
+<pre><code>; Expected behavior:
+;
+; logic&gt; (query (nest (1 2 3 4 5) ?nested))
+; Success!
+; nested: (1 (2 (3 (4 (5 ())))))
+
+<div class="solution 9">&#x28;&#x66;&#x61;&#x63;&#x74;&#x20;&#x28;&#x6e;&#x65;&#x73;&#x74;&#x20;&#x28;&#x29;&#x20;&#x28;&#x29;&#x29;&#x29;&#xa;&#x28;&#x66;&#x61;&#x63;&#x74;&#x20;&#x28;&#x6e;&#x65;&#x73;&#x74;&#x20;&#x28;&#x3f;&#x61;&#x20;&#x2e;&#x20;&#x3f;&#x72;&#x65;&#x73;&#x74;&#x29;&#x20;&#x28;&#x3f;&#x61;&#x20;&#x3f;&#x6e;&#x65;&#x73;&#x74;&#x65;&#x64;&#x29;&#x29;&#x20;&#x28;&#x6e;&#x65;&#x73;&#x74;&#x20;&#x3f;&#x72;&#x65;&#x73;&#x74;&#x20;&#x3f;&#x6e;&#x65;&#x73;&#x74;&#x65;&#x64;&#x29;&#x29;</div></code></pre>
+
+
+    <button id='9' class='toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+<h3 class="question" id="q10">Question 10: Interleave</h3>
+
+<p>Write facts for <code>interleave</code>, which relates two smaller lists to a larger list.
+The <code>interleave</code> relation is true if the larger list is the result of
+interleaving elements from the two smaller lists (with all of the elements of
+the first small list appearing at even indices, and all of the elements of the
+second small list appearing at odd indices). See the tests for examples.</p>
+
+
+
+<pre><code><div class="alt 10">'YOUR-CODE-HERE
+</div><div class="solution 10">&#x28;&#x66;&#x61;&#x63;&#x74;&#x20;&#x28;&#x69;&#x6e;&#x74;&#x65;&#x72;&#x6c;&#x65;&#x61;&#x76;&#x65;&#x20;&#x28;&#x29;&#x20;&#x28;&#x29;&#x20;&#x28;&#x29;&#x29;&#x29;&#xa;&#x28;&#x66;&#x61;&#x63;&#x74;&#x20;&#x28;&#x69;&#x6e;&#x74;&#x65;&#x72;&#x6c;&#x65;&#x61;&#x76;&#x65;&#x20;&#x28;&#x3f;&#x78;&#x20;&#x2e;&#x20;&#x3f;&#x73;&#x29;&#x20;&#x28;&#x3f;&#x79;&#x20;&#x2e;&#x20;&#x3f;&#x74;&#x29;&#x20;&#x28;&#x3f;&#x78;&#x20;&#x3f;&#x79;&#x20;&#x2e;&#x20;&#x3f;&#x72;&#x29;&#x29;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x28;&#x69;&#x6e;&#x74;&#x65;&#x72;&#x6c;&#x65;&#x61;&#x76;&#x65;&#x20;&#x3f;&#x73;&#x20;&#x3f;&#x74;&#x20;&#x3f;&#x72;&#x29;&#x29;</div>
+;;; interleave tests
+(query (interleave ?evens ?odds (a b c d e f)))
+; expect Success! ; evens: (a c e)	odds: (b d f)
+(query (interleave (a b c) (d e f) ?what))
+; expect Success! ; what: (a d b e c f)</code></pre>
+
+
+    <button id='10' class='toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+
+  </div>
+
+  <div class='col-md-3'>
+    <nav class='hidden-print hidden-sm hidden-xs sidebar'>
+      <ul>
+  <li><a href="#tail-calls">Tail calls</a></li>
+  <ul>
+  <li><a href="#q1">Question 1: Concatenate</a></li>
+  <li><a href="#q2">Question 2: Swap</a></li>
+  <li><a href="#q3">Question 3: Insert</a></li>
+</ul>
+
+  <li><a href="#streams">Streams</a></li>
+  <ul>
+  <li><a href="#q4">Question 4: Cycle</a></li>
+  <li><a href="#q5">Question 5: Partial sums</a></li>
+</ul>
+
+  <li><a href="#sql">SQL</a></li>
+  <ul>
+  <li><a href="#q6">Question 6: Open</a></li>
+  <li><a href="#q7">Question 7: Allowed</a></li>
+</ul>
+
+  <li><a href="#logic-programming">Logic Programming</a></li>
+  <ul>
+  <li><a href="#q8">Question 8: Swap</a></li>
+  <li><a href="#q9">Question 9: Nested</a></li>
+  <li><a href="#q10">Question 10: Interleave</a></li>
+</ul>
+
+</ul>
+
+    </nav>
+  </div>
+
+</div>
+    </div>
+  </body>
+  <script>
+  $('.sidebar ul').addClass('nav nav-stacked');
+  $('body').scrollspy({
+    target: '.sidebar',
+    offset: 40
+  });
+</script>
+<script src="//code.jquery.com/jquery-latest.js"></script>
+<script>
+  $(function() {
+    $('.toggleButton').css('display', 'inline-block');
+    $('.toggleButton').click(function() {
+      alert('Solutions have been removed.');
+    });
+    // Always display these toggle buttons
+    $('.toggleButtonShow').click(function() {
+      alert('Solutions have been removed.');
+    });
+  });
+</script>
+</html>

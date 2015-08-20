@@ -1,0 +1,1214 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="description" content ="CS61A: Structure and Interpretation of Computer Programs" />
+    <meta name="keywords" content ="CS61A, Computer Science, CS, 61A, Programming, John DeNero, Berkeley, EECS" />
+    <meta name="author" content ="Albert Wu, Robert Huang, Alfonso Martinez, Cale Horeff, Chris Le, Colin Schoen, Derrick Lin, Jeffrey Lu, Jessica Gu, Rohit Lalchandani, Tammy Nguyen, Will Jiang, Yulin Zheng" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width">
+
+    <script src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
+    <link rel="icon" href="/assets/images/favicon.ico">
+
+    <link rel="stylesheet" href="/assets/css/mono-blue.css">
+    <script src="/assets/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    <link rel="stylesheet" type="text/css" href="/assets/css/resource.css" />
+<link href="../../assets/css/project.css" rel="stylesheet" type="text/css">
+
+    <title>Optional Contest: Hog Strategy | CS 61A Summer 2015</title>
+
+  </head>
+
+  <body id="index" class="home">
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-section">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">CS 61A</a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="navbar-collapse-section">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/">Calendar</a></li>
+            <li><a href="/office-hours.html">Office Hours</a></li>
+            <li><a href="/tutoring.html">Tutoring</a></li>
+
+            <li><a href="/articles/using-ok.html">Using OK</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Course Info <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="/articles/about.html">Syllabus</a></li>
+                <li><a href="/staff.html">Staff</a></li>
+                <li><a href="/weekly.html">Weekly Schedule</a></li>
+              </ul>
+            </li>
+
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div id="content" class="container">
+      <div class='row'>
+  <div class='col-md-9'>
+    <div class='page-header'>
+      <h1><span class="content-title-brand">Optional Contest</span>: Hog Strategy</h1>
+    </div>
+
+    <div id="haiku">
+  
+<blockquote><cite>
+A strategy is<br/>
+A single function that makes<br/>
+Ten thousand choices.
+</cite></blockquote>
+
+</div>
+
+    
+<blockquote><p>Results are in! Scroll down to the <a href="#results">bottom</a> to see the rankings.</p></blockquote>
+
+
+<h2 id="instructions">Instructions</h2>
+
+
+<blockquote><p>This contest is completely optional!</p></blockquote>
+
+<p>A blank <code>hog.py</code> file and simple tests for correct formatting can be downloaded
+as a <a href="hog_contest.zip">zip archive</a>. Type <code>python3 ok</code> to run the provided tests.</p>
+
+<p>Submit a <code>hog.py</code> file containing a function called <code>final_strategy</code>.</p>
+
+<pre><code>python3 ok &#x2d;&#x2d;submit</code></pre>
+
+
+<h2 id="game-rules">Game rules</h2>
+
+
+<p>To spice up the game, we've introduced two extra rules (<strong>Ham Hijinks</strong> and
+<strong>Pig Fest</strong>) in addition to the rules from Project 1. Here is the entire set of
+rules:</p>
+
+<ol>
+  <li><strong>Pig out</strong>. During a turn, if one of the dice that a player rolls has an
+  outcome of 1, the player receives a score of 1 for the entire turn.</li>
+  <li><strong>Free bacon</strong>. A player who chooses to roll zero dice scores one plus the
+  largest digit in the opponent's score.</li>
+  <li><strong>Hog wild</strong>. If the sum of both players' total scores is a multiple of seven
+  (e.g., 14, 21, 35), then the current player rolls four-sided dice instead of
+  the usual six-sided dice.</li>
+  <li><strong>Swine Swap</strong>. At the end of each turn, if the last two digits of Player 0's
+  score are the reverse of the last two digits of Player 1's score, the
+  players' score will be swapped.</li>
+  <li><p><strong>Ham Hijinks</strong> (New!).  A player may choose to roll -1 dice, which scores 1
+  point for the turn and exchanges the dice. If the total number of times any
+  player has exchanged the dice during the game is odd, then four-sided dice
+  are rolled when six-sided dice would normally be rolled, and vice-versa. That
+  is, players will roll four-sided dice unless Hog Wild is in effect, in which
+  case they will roll six-sided dice.</p>
+
+  <p><em>A sample game</em>: Player 0 rolls -1, exchanging the dice: the score is 1 to 0.
+  Next, Player 1 rolls 2 dice; these are four-sided dice due to the previous
+  exchange, and earn (let's say) six points: the score is 1 to 6. Player 0
+  rolls 4 six-sided dice (because of Hog Wild), earning (let's say) 10 points:
+  the score is 11 to 6. Player 1 rolls -1, exchanging the dice again: the score
+  is 11 to 7.  Player 0 would next roll six-sided dice because of the previous
+  exchange.</p>
+
+  <p><em>Note</em>: Players do not know how many dice the opponent chose to roll and thus
+  cannot be certain how many times the dice have been exchanged. The values
+  bound to the global names <code>four_sided</code> and <code>six_sided</code> will not indicate what
+  dice are being used.</p></li>
+  <li><p><strong>Pig Fest</strong> (New!). If a player Pigs Out (see first rule) multiple turns in
+  a row, the player receives a score multiplier.</p>
+
+  <p>Let <code>consecutive_pig_outs</code> be the number of times a player has gotten Pig Out
+  consecutively; then the score multiplier is equal to <code>max(1,
+  consecutive_pig_outs</code>).</p>
+
+  <p>The maximum score multiplier is capped at 3. Once the player completes a turn
+  without Pig Out, that <strong>turn's score</strong> is multiplied by the score multiplier.
+  For example, if a player's score multiplier is 3, and they score 12 on their
+  next turn, their final turn score is <code>12 * 3 = 36</code>.</p>
+
+  <p>After a score multiplier is used, the number of consecutive Pig Outs is set
+  back to 0 (i.e. the score multiplier resets).</p>
+
+  <p>Players do not share a score multiplier. One player's Pig Outs will not affect
+  the other player's score multiplier.</p></li>
+</ol>
+
+
+<h2 id="contest-rules">Contest rules</h2>
+
+
+<p>Each submitted strategy will play against all other submissions. For each pair
+of submissions, we will simulate 9 games with unbiased six-sided and four-sided
+dice. The submission that wins the most number of games is awarded one point for
+that match.</p>
+
+<blockquote><p><strong>Note</strong>: the games will use random dice! There is an element of change to
+this game; it is a dice game after all!</p></blockquote>
+
+<p>In each game, we will randomly choose which submission is Player 0 and which
+submission is Player 1.</p>
+
+<p>We will rank submissions based on the number of matches they won. We will break
+ties by comparing each submission's exact win rate against an <code>always_roll(5)</code>
+strategy.</p>
+
+<p>The top three submissions will earn the following:</p>
+
+<ol>
+  <li>First place gets 3 points of extra credit</li>
+  <li>Second place gets 2 points of extra credit</li>
+  <li>Third place gets 1 point of extra credit</li>
+</ol>
+
+<p>Some additional rules:</p>
+
+<ul>
+  <li>The contest may be entered individually or in pairs. Two people submit a
+  single entry (make sure you register each other as partners on
+  <a href="https://okpy.org">okpy.org</a>). Each person in the course can only be
+  associated with at most one entry.</li>
+  <li>Strategies are allowed to be non-deterministic (i.e. allowed to return random
+  outputs). However, when computing exact win rates for tie-breaking, we will
+  only compute your exact win rate once.</li>
+  <li>Calling your <code>final_strategy</code> function on every possible pair of scores
+  should take less than 10 seconds. The provided tests check for this.</li>
+</ul>
+
+
+<h2 id="results">Results</h2>
+
+
+<p>The results are in! Congratulations to top three contestants:</p>
+
+<ol>
+  <li>Evin Yang (15 - 1, 76% against <code>always_roll(5)</code>)</li>
+  <li>Boyuan Yu (12 - 4, 71% against <code>always_roll(5)</code>)</li>
+  <li>Minsu Kim (12 - 4, 62% against <code>always_roll(5)</code>)</li>
+</ol>
+
+
+<h3 id="rankings">Rankings</h3>
+
+
+<p>Each entry was assigned a random number for anonymity.</p>
+
+<script>
+$(document).ready(function() {
+  $('table').addClass('table table-responsive table-striped table-bordered');
+});
+</script>
+
+
+
+<table>
+  <tr>
+    <th>Ranking</th>
+    <th>Entry number</th>
+    <th>Wins</th>
+    <th>Losses</th>
+    <th>Winrate against <code>always_roll(5)</code></th>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>98</td>
+    <td>15</td>
+    <td>1</td>
+    <td>75.9%</td>
+  </tr>
+  <tr>
+    <td>2</td>
+    <td>27</td>
+    <td>12</td>
+    <td>4</td>
+    <td>70.9%</td>
+  </tr>
+  <tr>
+    <td>3</td>
+    <td>74</td>
+    <td>12</td>
+    <td>4</td>
+    <td>62.3%</td>
+  </tr>
+  <tr>
+    <td>4</td>
+    <td>43</td>
+    <td>12</td>
+    <td>4</td>
+    <td>58.3%</td>
+  </tr>
+  <tr>
+    <td>5</td>
+    <td>79</td>
+    <td>11</td>
+    <td>5</td>
+    <td>50.1%</td>
+  </tr>
+  <tr>
+    <td>6</td>
+    <td>36</td>
+    <td>9</td>
+    <td>7</td>
+    <td>66.5%</td>
+  </tr>
+  <tr>
+    <td>7</td>
+    <td>20</td>
+    <td>9</td>
+    <td>7</td>
+    <td>53.3%</td>
+  </tr>
+  <tr>
+    <td>8</td>
+    <td>59</td>
+    <td>9</td>
+    <td>7</td>
+    <td>38.2%</td>
+  </tr>
+  <tr>
+    <td>9</td>
+    <td>39</td>
+    <td>8</td>
+    <td>8</td>
+    <td>54.1%</td>
+  </tr>
+  <tr>
+    <td>10</td>
+    <td>51</td>
+    <td>7</td>
+    <td>9</td>
+    <td>49.1%</td>
+  </tr>
+  <tr>
+    <td>11</td>
+    <td>42</td>
+    <td>7</td>
+    <td>9</td>
+    <td>48.5%</td>
+  </tr>
+  <tr>
+    <td>12</td>
+    <td>46</td>
+    <td>6</td>
+    <td>10</td>
+    <td>51.8%</td>
+  </tr>
+  <tr>
+    <td>13</td>
+    <td>86</td>
+    <td>6</td>
+    <td>10</td>
+    <td>50.9%</td>
+  </tr>
+  <tr>
+    <td>14</td>
+    <td>7</td>
+    <td>5</td>
+    <td>11</td>
+    <td>53.9%</td>
+  </tr>
+  <tr>
+    <td>15</td>
+    <td>47</td>
+    <td>5</td>
+    <td>11</td>
+    <td>46.9%</td>
+  </tr>
+  <tr>
+    <td>16</td>
+    <td>6</td>
+    <td>3</td>
+    <td>13</td>
+    <td>50.0%</td>
+  </tr>
+  <tr>
+    <td>17</td>
+    <td>76</td>
+    <td>0</td>
+    <td>16</td>
+    <td>7.8%</td>
+  </tr>
+</table>
+
+
+
+
+<h3 id="matches">Matches</h3>
+
+
+
+
+<table>
+  <tr>
+    <th>Entry 0</th>
+    <th>Entry 1</th>
+    <th>Entry 0's wins</th>
+    <th>Entry 1's wins</th>
+  </tr>
+  <tr>
+    <td>59</td>
+    <td>27</td>
+    <td>3</td>
+    <td>6</td>
+  </tr>
+  <tr>
+    <td>59</td>
+    <td>7</td>
+    <td>7</td>
+    <td>2</td>
+  </tr>
+  <tr>
+    <td>59</td>
+    <td>79</td>
+    <td>4</td>
+    <td>5</td>
+  </tr>
+  <tr>
+    <td>59</td>
+    <td>51</td>
+    <td>3</td>
+    <td>6</td>
+  </tr>
+  <tr>
+    <td>59</td>
+    <td>98</td>
+    <td>3</td>
+    <td>6</td>
+  </tr>
+  <tr>
+    <td>59</td>
+    <td>47</td>
+    <td>6</td>
+    <td>3</td>
+  </tr>
+  <tr>
+    <td>59</td>
+    <td>46</td>
+    <td>2</td>
+    <td>7</td>
+  </tr>
+  <tr>
+    <td>59</td>
+    <td>74</td>
+    <td>6</td>
+    <td>3</td>
+  </tr>
+  <tr>
+    <td>59</td>
+    <td>76</td>
+    <td>9</td>
+    <td>0</td>
+  </tr>
+  <tr>
+    <td>59</td>
+    <td>86</td>
+    <td>6</td>
+    <td>3</td>
+  </tr>
+  <tr>
+    <td>59</td>
+    <td>42</td>
+    <td>4</td>
+    <td>5</td>
+  </tr>
+  <tr>
+    <td>59</td>
+    <td>6</td>
+    <td>5</td>
+    <td>4</td>
+  </tr>
+  <tr>
+    <td>59</td>
+    <td>36</td>
+    <td>4</td>
+    <td>5</td>
+  </tr>
+  <tr>
+    <td>59</td>
+    <td>20</td>
+    <td>5</td>
+    <td>4</td>
+  </tr>
+  <tr>
+    <td>59</td>
+    <td>39</td>
+    <td>5</td>
+    <td>4</td>
+  </tr>
+  <tr>
+    <td>59</td>
+    <td>43</td>
+    <td>7</td>
+    <td>2</td>
+  </tr>
+  <tr>
+    <td>27</td>
+    <td>7</td>
+    <td>7</td>
+    <td>2</td>
+  </tr>
+  <tr>
+    <td>27</td>
+    <td>79</td>
+    <td>5</td>
+    <td>4</td>
+  </tr>
+  <tr>
+    <td>27</td>
+    <td>51</td>
+    <td>6</td>
+    <td>3</td>
+  </tr>
+  <tr>
+    <td>27</td>
+    <td>98</td>
+    <td>2</td>
+    <td>7</td>
+  </tr>
+  <tr>
+    <td>27</td>
+    <td>47</td>
+    <td>7</td>
+    <td>2</td>
+  </tr>
+  <tr>
+    <td>27</td>
+    <td>46</td>
+    <td>8</td>
+    <td>1</td>
+  </tr>
+  <tr>
+    <td>27</td>
+    <td>74</td>
+    <td>4</td>
+    <td>5</td>
+  </tr>
+  <tr>
+    <td>27</td>
+    <td>76</td>
+    <td>9</td>
+    <td>0</td>
+  </tr>
+  <tr>
+    <td>27</td>
+    <td>86</td>
+    <td>7</td>
+    <td>2</td>
+  </tr>
+  <tr>
+    <td>27</td>
+    <td>42</td>
+    <td>6</td>
+    <td>3</td>
+  </tr>
+  <tr>
+    <td>27</td>
+    <td>6</td>
+    <td>6</td>
+    <td>3</td>
+  </tr>
+  <tr>
+    <td>27</td>
+    <td>36</td>
+    <td>5</td>
+    <td>4</td>
+  </tr>
+  <tr>
+    <td>27</td>
+    <td>20</td>
+    <td>4</td>
+    <td>5</td>
+  </tr>
+  <tr>
+    <td>27</td>
+    <td>39</td>
+    <td>4</td>
+    <td>5</td>
+  </tr>
+  <tr>
+    <td>27</td>
+    <td>43</td>
+    <td>6</td>
+    <td>3</td>
+  </tr>
+  <tr>
+    <td>7</td>
+    <td>79</td>
+    <td>3</td>
+    <td>6</td>
+  </tr>
+  <tr>
+    <td>7</td>
+    <td>51</td>
+    <td>2</td>
+    <td>7</td>
+  </tr>
+  <tr>
+    <td>7</td>
+    <td>98</td>
+    <td>1</td>
+    <td>8</td>
+  </tr>
+  <tr>
+    <td>7</td>
+    <td>47</td>
+    <td>3</td>
+    <td>6</td>
+  </tr>
+  <tr>
+    <td>7</td>
+    <td>46</td>
+    <td>2</td>
+    <td>7</td>
+  </tr>
+  <tr>
+    <td>7</td>
+    <td>74</td>
+    <td>3</td>
+    <td>6</td>
+  </tr>
+  <tr>
+    <td>7</td>
+    <td>76</td>
+    <td>7</td>
+    <td>2</td>
+  </tr>
+  <tr>
+    <td>7</td>
+    <td>86</td>
+    <td>6</td>
+    <td>3</td>
+  </tr>
+  <tr>
+    <td>7</td>
+    <td>42</td>
+    <td>5</td>
+    <td>4</td>
+  </tr>
+  <tr>
+    <td>7</td>
+    <td>6</td>
+    <td>5</td>
+    <td>4</td>
+  </tr>
+  <tr>
+    <td>7</td>
+    <td>36</td>
+    <td>4</td>
+    <td>5</td>
+  </tr>
+  <tr>
+    <td>7</td>
+    <td>20</td>
+    <td>5</td>
+    <td>4</td>
+  </tr>
+  <tr>
+    <td>7</td>
+    <td>39</td>
+    <td>3</td>
+    <td>6</td>
+  </tr>
+  <tr>
+    <td>7</td>
+    <td>43</td>
+    <td>4</td>
+    <td>5</td>
+  </tr>
+  <tr>
+    <td>79</td>
+    <td>51</td>
+    <td>6</td>
+    <td>3</td>
+  </tr>
+  <tr>
+    <td>79</td>
+    <td>98</td>
+    <td>3</td>
+    <td>6</td>
+  </tr>
+  <tr>
+    <td>79</td>
+    <td>47</td>
+    <td>5</td>
+    <td>4</td>
+  </tr>
+  <tr>
+    <td>79</td>
+    <td>46</td>
+    <td>5</td>
+    <td>4</td>
+  </tr>
+  <tr>
+    <td>79</td>
+    <td>74</td>
+    <td>2</td>
+    <td>7</td>
+  </tr>
+  <tr>
+    <td>79</td>
+    <td>76</td>
+    <td>5</td>
+    <td>4</td>
+  </tr>
+  <tr>
+    <td>79</td>
+    <td>86</td>
+    <td>6</td>
+    <td>3</td>
+  </tr>
+  <tr>
+    <td>79</td>
+    <td>42</td>
+    <td>5</td>
+    <td>4</td>
+  </tr>
+  <tr>
+    <td>79</td>
+    <td>6</td>
+    <td>6</td>
+    <td>3</td>
+  </tr>
+  <tr>
+    <td>79</td>
+    <td>36</td>
+    <td>7</td>
+    <td>2</td>
+  </tr>
+  <tr>
+    <td>79</td>
+    <td>20</td>
+    <td>6</td>
+    <td>3</td>
+  </tr>
+  <tr>
+    <td>79</td>
+    <td>39</td>
+    <td>4</td>
+    <td>5</td>
+  </tr>
+  <tr>
+    <td>79</td>
+    <td>43</td>
+    <td>3</td>
+    <td>6</td>
+  </tr>
+  <tr>
+    <td>51</td>
+    <td>98</td>
+    <td>4</td>
+    <td>5</td>
+  </tr>
+  <tr>
+    <td>51</td>
+    <td>47</td>
+    <td>5</td>
+    <td>4</td>
+  </tr>
+  <tr>
+    <td>51</td>
+    <td>46</td>
+    <td>4</td>
+    <td>5</td>
+  </tr>
+  <tr>
+    <td>51</td>
+    <td>74</td>
+    <td>2</td>
+    <td>7</td>
+  </tr>
+  <tr>
+    <td>51</td>
+    <td>76</td>
+    <td>7</td>
+    <td>2</td>
+  </tr>
+  <tr>
+    <td>51</td>
+    <td>86</td>
+    <td>6</td>
+    <td>3</td>
+  </tr>
+  <tr>
+    <td>51</td>
+    <td>42</td>
+    <td>4</td>
+    <td>5</td>
+  </tr>
+  <tr>
+    <td>51</td>
+    <td>6</td>
+    <td>7</td>
+    <td>2</td>
+  </tr>
+  <tr>
+    <td>51</td>
+    <td>36</td>
+    <td>5</td>
+    <td>4</td>
+  </tr>
+  <tr>
+    <td>51</td>
+    <td>20</td>
+    <td>1</td>
+    <td>8</td>
+  </tr>
+  <tr>
+    <td>51</td>
+    <td>39</td>
+    <td>3</td>
+    <td>6</td>
+  </tr>
+  <tr>
+    <td>51</td>
+    <td>43</td>
+    <td>4</td>
+    <td>5</td>
+  </tr>
+  <tr>
+    <td>98</td>
+    <td>47</td>
+    <td>5</td>
+    <td>4</td>
+  </tr>
+  <tr>
+    <td>98</td>
+    <td>46</td>
+    <td>6</td>
+    <td>3</td>
+  </tr>
+  <tr>
+    <td>98</td>
+    <td>74</td>
+    <td>4</td>
+    <td>5</td>
+  </tr>
+  <tr>
+    <td>98</td>
+    <td>76</td>
+    <td>9</td>
+    <td>0</td>
+  </tr>
+  <tr>
+    <td>98</td>
+    <td>86</td>
+    <td>5</td>
+    <td>4</td>
+  </tr>
+  <tr>
+    <td>98</td>
+    <td>42</td>
+    <td>7</td>
+    <td>2</td>
+  </tr>
+  <tr>
+    <td>98</td>
+    <td>6</td>
+    <td>5</td>
+    <td>4</td>
+  </tr>
+  <tr>
+    <td>98</td>
+    <td>36</td>
+    <td>6</td>
+    <td>3</td>
+  </tr>
+  <tr>
+    <td>98</td>
+    <td>20</td>
+    <td>7</td>
+    <td>2</td>
+  </tr>
+  <tr>
+    <td>98</td>
+    <td>39</td>
+    <td>7</td>
+    <td>2</td>
+  </tr>
+  <tr>
+    <td>98</td>
+    <td>43</td>
+    <td>7</td>
+    <td>2</td>
+  </tr>
+  <tr>
+    <td>47</td>
+    <td>46</td>
+    <td>5</td>
+    <td>4</td>
+  </tr>
+  <tr>
+    <td>47</td>
+    <td>74</td>
+    <td>3</td>
+    <td>6</td>
+  </tr>
+  <tr>
+    <td>47</td>
+    <td>76</td>
+    <td>9</td>
+    <td>0</td>
+  </tr>
+  <tr>
+    <td>47</td>
+    <td>86</td>
+    <td>6</td>
+    <td>3</td>
+  </tr>
+  <tr>
+    <td>47</td>
+    <td>42</td>
+    <td>4</td>
+    <td>5</td>
+  </tr>
+  <tr>
+    <td>47</td>
+    <td>6</td>
+    <td>4</td>
+    <td>5</td>
+  </tr>
+  <tr>
+    <td>47</td>
+    <td>36</td>
+    <td>6</td>
+    <td>3</td>
+  </tr>
+  <tr>
+    <td>47</td>
+    <td>20</td>
+    <td>4</td>
+    <td>5</td>
+  </tr>
+  <tr>
+    <td>47</td>
+    <td>39</td>
+    <td>3</td>
+    <td>6</td>
+  </tr>
+  <tr>
+    <td>47</td>
+    <td>43</td>
+    <td>4</td>
+    <td>5</td>
+  </tr>
+  <tr>
+    <td>46</td>
+    <td>74</td>
+    <td>4</td>
+    <td>5</td>
+  </tr>
+  <tr>
+    <td>46</td>
+    <td>76</td>
+    <td>6</td>
+    <td>3</td>
+  </tr>
+  <tr>
+    <td>46</td>
+    <td>86</td>
+    <td>6</td>
+    <td>3</td>
+  </tr>
+  <tr>
+    <td>46</td>
+    <td>42</td>
+    <td>4</td>
+    <td>5</td>
+  </tr>
+  <tr>
+    <td>46</td>
+    <td>6</td>
+    <td>6</td>
+    <td>3</td>
+  </tr>
+  <tr>
+    <td>46</td>
+    <td>36</td>
+    <td>3</td>
+    <td>6</td>
+  </tr>
+  <tr>
+    <td>46</td>
+    <td>20</td>
+    <td>3</td>
+    <td>6</td>
+  </tr>
+  <tr>
+    <td>46</td>
+    <td>39</td>
+    <td>2</td>
+    <td>7</td>
+  </tr>
+  <tr>
+    <td>46</td>
+    <td>43</td>
+    <td>3</td>
+    <td>6</td>
+  </tr>
+  <tr>
+    <td>74</td>
+    <td>76</td>
+    <td>9</td>
+    <td>0</td>
+  </tr>
+  <tr>
+    <td>74</td>
+    <td>86</td>
+    <td>4</td>
+    <td>5</td>
+  </tr>
+  <tr>
+    <td>74</td>
+    <td>42</td>
+    <td>9</td>
+    <td>0</td>
+  </tr>
+  <tr>
+    <td>74</td>
+    <td>6</td>
+    <td>5</td>
+    <td>4</td>
+  </tr>
+  <tr>
+    <td>74</td>
+    <td>36</td>
+    <td>6</td>
+    <td>3</td>
+  </tr>
+  <tr>
+    <td>74</td>
+    <td>20</td>
+    <td>4</td>
+    <td>5</td>
+  </tr>
+  <tr>
+    <td>74</td>
+    <td>39</td>
+    <td>5</td>
+    <td>4</td>
+  </tr>
+  <tr>
+    <td>74</td>
+    <td>43</td>
+    <td>4</td>
+    <td>5</td>
+  </tr>
+  <tr>
+    <td>76</td>
+    <td>86</td>
+    <td>2</td>
+    <td>7</td>
+  </tr>
+  <tr>
+    <td>76</td>
+    <td>42</td>
+    <td>2</td>
+    <td>7</td>
+  </tr>
+  <tr>
+    <td>76</td>
+    <td>6</td>
+    <td>2</td>
+    <td>7</td>
+  </tr>
+  <tr>
+    <td>76</td>
+    <td>36</td>
+    <td>1</td>
+    <td>8</td>
+  </tr>
+  <tr>
+    <td>76</td>
+    <td>20</td>
+    <td>0</td>
+    <td>9</td>
+  </tr>
+  <tr>
+    <td>76</td>
+    <td>39</td>
+    <td>1</td>
+    <td>8</td>
+  </tr>
+  <tr>
+    <td>76</td>
+    <td>43</td>
+    <td>1</td>
+    <td>8</td>
+  </tr>
+  <tr>
+    <td>86</td>
+    <td>42</td>
+    <td>5</td>
+    <td>4</td>
+  </tr>
+  <tr>
+    <td>86</td>
+    <td>6</td>
+    <td>5</td>
+    <td>4</td>
+  </tr>
+  <tr>
+    <td>86</td>
+    <td>36</td>
+    <td>5</td>
+    <td>4</td>
+  </tr>
+  <tr>
+    <td>86</td>
+    <td>20</td>
+    <td>2</td>
+    <td>7</td>
+  </tr>
+  <tr>
+    <td>86</td>
+    <td>39</td>
+    <td>6</td>
+    <td>3</td>
+  </tr>
+  <tr>
+    <td>86</td>
+    <td>43</td>
+    <td>2</td>
+    <td>7</td>
+  </tr>
+  <tr>
+    <td>42</td>
+    <td>6</td>
+    <td>3</td>
+    <td>6</td>
+  </tr>
+  <tr>
+    <td>42</td>
+    <td>36</td>
+    <td>4</td>
+    <td>5</td>
+  </tr>
+  <tr>
+    <td>42</td>
+    <td>20</td>
+    <td>6</td>
+    <td>3</td>
+  </tr>
+  <tr>
+    <td>42</td>
+    <td>39</td>
+    <td>6</td>
+    <td>3</td>
+  </tr>
+  <tr>
+    <td>42</td>
+    <td>43</td>
+    <td>4</td>
+    <td>5</td>
+  </tr>
+  <tr>
+    <td>6</td>
+    <td>36</td>
+    <td>4</td>
+    <td>5</td>
+  </tr>
+  <tr>
+    <td>6</td>
+    <td>20</td>
+    <td>4</td>
+    <td>5</td>
+  </tr>
+  <tr>
+    <td>6</td>
+    <td>39</td>
+    <td>3</td>
+    <td>6</td>
+  </tr>
+  <tr>
+    <td>6</td>
+    <td>43</td>
+    <td>4</td>
+    <td>5</td>
+  </tr>
+  <tr>
+    <td>36</td>
+    <td>20</td>
+    <td>7</td>
+    <td>2</td>
+  </tr>
+  <tr>
+    <td>36</td>
+    <td>39</td>
+    <td>7</td>
+    <td>2</td>
+  </tr>
+  <tr>
+    <td>36</td>
+    <td>43</td>
+    <td>5</td>
+    <td>4</td>
+  </tr>
+  <tr>
+    <td>20</td>
+    <td>39</td>
+    <td>7</td>
+    <td>2</td>
+  </tr>
+  <tr>
+    <td>20</td>
+    <td>43</td>
+    <td>4</td>
+    <td>5</td>
+  </tr>
+  <tr>
+    <td>39</td>
+    <td>43</td>
+    <td>3</td>
+    <td>6</td>
+  </tr>
+</table>
+
+
+
+
+  </div>
+
+  <div class='col-md-3'>
+    <nav class='hidden-print hidden-sm hidden-xs sidebar'>
+      <ul>
+  <li><a href="#instructions">Instructions</a></li>
+  <li><a href="#game-rules">Game rules</a></li>
+  <li><a href="#contest-rules">Contest rules</a></li>
+  <li><a href="#results">Results</a></li>
+  <ul>
+  <li><a href="#rankings">Rankings</a></li>
+  <li><a href="#matches">Matches</a></li>
+</ul>
+
+</ul>
+
+    </nav>
+  </div>
+
+</div>
+    </div>
+  </body>
+  <script>
+  $('.sidebar ul').addClass('nav nav-stacked');
+  $('body').scrollspy({
+    target: '.sidebar',
+    offset: 40
+  });
+</script>
+
+</html>

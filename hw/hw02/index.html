@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="description" content ="CS61A: Structure and Interpretation of Computer Programs" />
+    <meta name="keywords" content ="CS61A, Computer Science, CS, 61A, Programming, John DeNero, Berkeley, EECS" />
+    <meta name="author" content ="Albert Wu, Robert Huang, Alfonso Martinez, Cale Horeff, Chris Le, Colin Schoen, Derrick Lin, Jeffrey Lu, Jessica Gu, Rohit Lalchandani, Tammy Nguyen, Will Jiang, Yulin Zheng" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width">
+
+    <script src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
+    <link rel="icon" href="/assets/images/favicon.ico">
+
+    <link rel="stylesheet" href="/assets/css/mono-blue.css">
+    <script src="/assets/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    <link rel="stylesheet" type="text/css" href="/assets/css/resource.css" />
+<link rel="stylesheet" type="text/css" href="../../assets/css/hw.css"/>
+
+
+    <title>Homework 2 | CS 61A Summer 2015</title>
+
+  </head>
+
+  <body id="index" class="home">
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-section">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">CS 61A</a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="navbar-collapse-section">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/">Calendar</a></li>
+            <li><a href="/office-hours.html">Office Hours</a></li>
+            <li><a href="/tutoring.html">Tutoring</a></li>
+
+            <li><a href="/articles/using-ok.html">Using OK</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Course Info <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="/articles/about.html">Syllabus</a></li>
+                <li><a href="/staff.html">Staff</a></li>
+                <li><a href="/weekly.html">Weekly Schedule</a></li>
+              </ul>
+            </li>
+
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div id="content" class="container">
+      <div class='row'>
+  <div class='col-md-9'>
+    <div class='page-header'>
+      <h1><span class="content-title-brand">Homework 2</span></h1>
+    </div>
+
+    <p><em>Due by 11:59pm on Monday, 6/29</em></p>
+
+<h2>Instructions</h2>
+
+<p>Download <a href="hw02.zip">
+  hw02.zip</a>.  Inside the archive, you will
+find a file called <a href="hw02.py">
+  hw02.py</a>, along with a copy
+of the <a href="ok">OK</a> autograder.</p>
+
+<p><strong>Submission:</strong> When you are done, submit with <code>python3 ok
+  --submit</code>. You may submit more than once before the deadline; only the
+final submission will be scored. See <a href="/lab/lab01#submitting-assignments">Lab 1</a> for instructions on submitting
+assignments.</p>
+
+<p><strong>Using OK:</strong> If you have any questions about using OK, please
+refer to <a href="/articles/using-ok.html">this guide.</a>
+
+<p><strong>Readings:</strong> You might find the following references
+useful:</p>
+
+<ul>
+  <li><a href="http://composingprograms.com/pages/16-higher-order-functions.html">Section 1.6</a></li>
+</ul>
+
+    
+
+
+<h2 id="composition-questions-required">Composition questions (required)</h2>
+
+
+<p>One of the most important aspects of writing code is readability, or
+<em>composition</em>; it is often the case that a fellow programmer needs to read and
+understand your code.  A program is composed well if it is</p>
+
+<ul>
+  <li>concise</li>
+  <li>uses well-named variables</li>
+  <li>understandable and easy to follow</li>
+</ul>
+
+<p>Programs that have poor composition are often difficult to understand,
+needlessly verbose, or difficult to maintain. For more details, see <a href="/articles/composition.html">this
+article about composition</a>.</p>
+
+<p>For each of the following questions, decide which version of the question's code
+has better composition explain why. See each question for further instructions.</p>
+
+<h3 class="question" id="q1">Question 1: Composition: summation</h3>
+
+<p>Consider these two versions of the <code>summation</code> function:</p>
+
+
+    <div class='row'>
+        <div class='col-md-6 composition-version'>
+            <strong>Version 1</strong>
+            
+<pre><code>def summation(term, n):
+    current, total = 1, 0
+    while current &lt;= n:
+        total += term(current)
+        current += 1
+    return total</code></pre>
+
+        </div>
+        <div class='col-md-6 composition-version'>
+            <strong>Version 2</strong>
+            
+<pre><code>def summation(f, n):
+    x, y = 0, 1
+    while y &lt; n:
+        x += f(y)
+        y += 1
+    x += f(n)
+    return x</code></pre>
+
+        </div>
+    </div>
+    
+
+<p>Decide which of version (1 or 2) has better composition:</p>
+
+<ul>
+  <li>assign the variable <code>better_summation</code> to the number of your choice (either
+  <code>1</code> or <code>2</code>)</li>
+  <li>assign the variable <code>better_summation_explanation</code> to a (multi-line) string
+  explaining your decision</li>
+</ul>
+
+<p>in your homework file.</p>
+
+<pre><code>better_summation = None  # REPLACE None WITH 1 or 2
+
+better_summation_explanation = &quot;&quot;&quot;
+YOUR EXPLANATION HERE
+&quot;&quot;&quot;</code></pre>
+
+<h3 class="question" id="q2">Question 2: Composition: is_positive</h3>
+
+<p>Consider these two versions of the <code>is_positive</code> function:</p>
+
+
+    <div class='row'>
+        <div class='col-md-6 composition-version'>
+            <strong>Version 1</strong>
+            
+<pre><code>def is_positive(n):
+    if (n &gt; 0) == True:
+        return True
+    else:
+        return False</code></pre>
+
+        </div>
+        <div class='col-md-6 composition-version'>
+            <strong>Version 2</strong>
+            
+<pre><code>def is_positive(n):
+    return n &gt; 0</code></pre>
+
+        </div>
+    </div>
+    
+
+<p>Decide which of version (1 or 2) has better composition:</p>
+
+<ul>
+  <li>assign the variable <code>better_is_positive</code> to the number of your choice (either
+  <code>1</code> or <code>2</code>)</li>
+  <li>assign the variable <code>better_is_positive_explanation</code> to a (multi-line) string
+  explaining your decision</li>
+</ul>
+
+<p>in your homework file.</p>
+
+<pre><code>better_is_positive = None  # REPLACE None WITH 1 or 2
+
+better_is_positive_explanation = &quot;&quot;&quot;
+YOUR EXPLANATION HERE
+&quot;&quot;&quot;</code></pre>
+
+
+<h2 id="required-questions">Required questions</h2>
+
+
+
+<h3 id="doctest-functions">Doctest functions</h3>
+
+
+<p>Several doctests refer to these one-argument functions:</p>
+
+<pre><code>def square(x):
+    return x * x
+
+def triple(x):
+    return 3 * x
+
+def identity(x):
+    return x
+
+def increment(x):
+    return x + 1</code></pre>
+
+<h3 class="question" id="q3">Question 3: Piecewise</h3>
+
+<p>Implement <code>piecewise</code>, which takes two one-argument functions, <code>f</code> and <code>g</code>,
+along with a number <code>b</code>. It returns a new function that takes a number <code>x</code> and
+returns either <code>f(x)</code> if <code>x</code> is less than <code>b</code>, or <code>g(x)</code> if <code>x</code> is greater than
+or equal to <code>b</code>.</p>
+
+<pre><code>def piecewise(f, g, b):
+    &quot;&quot;&quot;Returns the piecewise function h where:
+
+    h(x) = f(x) if x &lt; b,
+           g(x) otherwise
+
+    &gt;&gt;&gt; def negate(x):
+    ...     return &#x2d;x
+    &gt;&gt;&gt; abs_value = piecewise(negate, identity, 0)
+    &gt;&gt;&gt; abs_value(6)
+    6
+    &gt;&gt;&gt; abs_value(&#x2d;1)
+    1
+    &quot;&quot;&quot;
+    "*** YOUR CODE HERE ***"</code></pre>
+
+<p>Use OK to test your code:</p><pre><code>python3 ok -q piecewise</code></pre>
+
+<h3 class="question" id="q4">Question 4: Product</h3>
+
+<p>The <code>summation(term, n)</code> function from lecture adds up <code>term(1) + ... + term(n)</code>
+Write a similar <code>product(n, term)</code> function that returns <code>term(1) * ... *
+term(n)</code>. Show how to define the
+<a href="http://en.wikipedia.org/wiki/Factorial">factorial</a> function in terms of
+<code>product</code>. <em>Hint</em>: try using the <code>identity</code> function for <code>factorial</code>.</p>
+
+<pre><code>def product(n, term):
+    &quot;&quot;&quot;Return the product of the first n terms in a sequence.
+
+    n    &#x2d;&#x2d; a positive integer
+    term &#x2d;&#x2d; a function that takes one argument
+
+    &gt;&gt;&gt; product(3, identity) # 1 * 2 * 3
+    6
+    &gt;&gt;&gt; product(5, identity) # 1 * 2 * 3 * 4 * 5
+    120
+    &gt;&gt;&gt; product(3, square)   # 1^2 * 2^2 * 3^2
+    36
+    &gt;&gt;&gt; product(5, square)   # 1^2 * 2^2 * 3^2 * 4^2 * 5^2
+    14400
+    &quot;&quot;&quot;
+    "*** YOUR CODE HERE ***"
+
+def factorial(n):
+    &quot;&quot;&quot;Return n factorial for n &gt;= 0 by calling product.
+
+    &gt;&gt;&gt; factorial(4)
+    24
+    &gt;&gt;&gt; factorial(6)
+    720
+    &quot;&quot;&quot;
+    "*** YOUR CODE HERE ***"</code></pre>
+
+<p>Use OK to test your code:</p><pre><code>python3 ok -q product
+python3 ok -q factorial</code></pre>
+
+
+
+<h3 class="question" id="q5">Question 5: Accumulate</h3>
+
+<p>Show that both <code>summation</code> and <code>product</code> are instances of a more
+general function, called <code>accumulate</code>, with the following signature:</p>
+
+<pre><code>from operator import add, mul
+
+def accumulate(combiner, base, n, term):
+    &quot;&quot;&quot;Return the result of combining the first n terms in a sequence.
+
+    &gt;&gt;&gt; accumulate(add, 0, 5, identity)  # 0 + 1 + 2 + 3 + 4 + 5
+    15
+    &gt;&gt;&gt; accumulate(add, 11, 5, identity) # 11 + 1 + 2 + 3 + 4 + 5
+    26
+    &gt;&gt;&gt; accumulate(add, 11, 0, identity) # 11
+    11
+    &gt;&gt;&gt; accumulate(add, 11, 3, square)   # 11 + 1^2 + 2^2 + 3^2
+    25
+    &gt;&gt;&gt; accumulate(mul, 2, 3, square)   # 2 * 1^2 * 2^2 * 3^2
+    72
+    &quot;&quot;&quot;
+    "*** YOUR CODE HERE ***"</code></pre>
+
+<p><code>accumulate(combiner, base, n, term)</code> takes the following arguments:</p>
+
+<ul>
+  <li><code>term</code> and <code>n</code>: the same arguments as in <code>summation</code> and <code>product</code></li>
+  <li><code>combiner</code>: a two-argument function that specifies how the current term
+  combined with the previously accumulated terms.</li>
+  <li><code>base</code>: value that specifies what value to use to start the accumulation.</li>
+</ul>
+
+<p>For example, <code>accumulate(add, 11, 3, square)</code> is</p>
+
+<pre><code>11 + square(1) + square(2) + square(3)</code></pre>
+
+<p>Implement <code>accumulate</code> and show how <code>summation</code> and <code>product</code> can both be
+defined as simple calls to <code>accumulate</code>:</p>
+
+<pre><code>def summation_using_accumulate(n, term):
+    &quot;&quot;&quot;An implementation of summation using accumulate.
+
+    &gt;&gt;&gt; summation_using_accumulate(5, square)
+    55
+    &gt;&gt;&gt; summation_using_accumulate(5, triple)
+    45
+    &quot;&quot;&quot;
+    "*** YOUR CODE HERE ***"
+
+def product_using_accumulate(n, term):
+    &quot;&quot;&quot;An implementation of product using accumulate.
+
+    &gt;&gt;&gt; product_using_accumulate(4, square)
+    576
+    &gt;&gt;&gt; product_using_accumulate(6, triple)
+    524880
+    &quot;&quot;&quot;
+    "*** YOUR CODE HERE ***"</code></pre>
+
+<p>Use OK to test your code:</p><pre><code>python3 ok -q accumulate
+python3 ok -q summation_using_accumulate
+python3 ok -q product_using_accumulate</code></pre>
+
+<h3 class="question" id="q6">Question 6: Repeated</h3>
+
+<p>Implement <code>repeated(f, n)</code>:</p>
+
+<ul>
+  <li><code>f</code> is a one-argument function that takes a number and returns another number.</li>
+  <li><code>n</code> is a positive integer</li>
+</ul>
+
+<p><code>repeated</code> returns another function that, when given an argument <code>x</code>, will
+compute <code>f(f(....(f(x))....))</code> (apply <code>f</code> a total <code>n</code> times). For example,
+<code>repeated(square, 3)(42)</code> evaluates to <code>square(square(square(42)))</code>.</p>
+
+<pre><code>def repeated(f, n):
+    &quot;&quot;&quot;Return the function that computes the nth application of f.
+
+    &gt;&gt;&gt; add_three = repeated(increment, 3)
+    &gt;&gt;&gt; add_three(5)
+    8
+    &gt;&gt;&gt; repeated(triple, 5)(1) # 3 * 3 * 3 * 3 * 3 * 1
+    243
+    &gt;&gt;&gt; repeated(square, 2)(5) # square(square(5))
+    625
+    &gt;&gt;&gt; repeated(square, 4)(5) # square(square(square(square(5))))
+    152587890625
+    &quot;&quot;&quot;
+    "*** YOUR CODE HERE ***"</code></pre>
+
+<p><em>Hint</em>: You may find it convenient to use <code>compose1</code> from the textbook:</p>
+
+<pre><code>def compose1(f, g):
+    &quot;&quot;&quot;Return a function h, such that h(x) = f(g(x)).&quot;&quot;&quot;
+    def h(x):
+        return f(g(x))
+    return h</code></pre>
+
+<p>Use OK to test your code:</p><pre><code>python3 ok -q repeated</code></pre>
+
+
+
+
+<h2 id="extra-questions">Extra questions</h2>
+
+
+<h3 class="question" id="q7">Question 7: Church numerals</h3>
+
+<p>The logician Alonzo Church invented a system of representing non-negative
+integers entirely using functions. The purpose was to show that functions are
+sufficient to describe all of number theory: if we have functions, we do not
+need to assume that numbers exist, but instead we can invent them.</p>
+
+<p>Your goal in this problem is to rediscover this representation known as <em>Church
+numerals</em>. Here are the definitions of <code>zero</code>, as well as a function that
+returns one more than its argument:</p>
+
+<pre><code>def zero(f):
+    return lambda x: x
+
+def successor(n):
+    return lambda f: lambda x: f(n(f)(x))</code></pre>
+
+<p>First, define functions <code>one</code> and <code>two</code> such that they have the same behavior
+as <code>successor(zero)</code> and <code>successsor(successor(zero))</code> respectively, but <em>do
+not call <code>successor</code> in your implementation</em>.</p>
+
+<p>Next, implement a function <code>church_to_int</code> that converts a church numeral
+argument to a regular Python integer.</p>
+
+<p>Finally, implement functions <code>add_church</code>, <code>mul_church</code>, and <code>pow_church</code> that
+perform addition, multiplication, and exponentiation on church numerals.</p>
+
+<pre><code>def one(f):
+    &quot;&quot;&quot;Church numeral 1: same as successor(zero)&quot;&quot;&quot;
+    "*** YOUR CODE HERE ***"
+
+def two(f):
+    &quot;&quot;&quot;Church numeral 2: same as successor(successor(zero))&quot;&quot;&quot;
+    "*** YOUR CODE HERE ***"
+
+three = successor(two)
+
+def church_to_int(n):
+    &quot;&quot;&quot;Convert the Church numeral n to a Python integer.
+
+    &gt;&gt;&gt; church_to_int(zero)
+    0
+    &gt;&gt;&gt; church_to_int(one)
+    1
+    &gt;&gt;&gt; church_to_int(two)
+    2
+    &gt;&gt;&gt; church_to_int(three)
+    3
+    &quot;&quot;&quot;
+    "*** YOUR CODE HERE ***"
+
+def add_church(m, n):
+    &quot;&quot;&quot;Return the Church numeral for m + n, for Church numerals m and n.
+
+    &gt;&gt;&gt; church_to_int(add_church(two, three))
+    5
+    &quot;&quot;&quot;
+    "*** YOUR CODE HERE ***"
+
+def mul_church(m, n):
+    &quot;&quot;&quot;Return the Church numeral for m * n, for Church numerals m and n.
+
+    &gt;&gt;&gt; four = successor(three)
+    &gt;&gt;&gt; church_to_int(mul_church(two, three))
+    6
+    &gt;&gt;&gt; church_to_int(mul_church(three, four))
+    12
+    &quot;&quot;&quot;
+    "*** YOUR CODE HERE ***"
+
+def pow_church(m, n):
+    &quot;&quot;&quot;Return the Church numeral m ** n, for Church numerals m and n.
+
+    &gt;&gt;&gt; church_to_int(pow_church(two, three))
+    8
+    &gt;&gt;&gt; church_to_int(pow_church(three, two))
+    9
+    &quot;&quot;&quot;
+    "*** YOUR CODE HERE ***"</code></pre>
+
+<p>Use OK to test your code:</p><pre><code>python3 ok -q church_to_int
+python3 ok -q add_church
+python3 ok -q mul_church
+python3 ok -q pow_church</code></pre>
+
+
+
+
+  </div>
+
+  <div class='col-md-3'>
+    <nav class='hidden-print hidden-sm hidden-xs sidebar'>
+      <ul>
+  <li><a href="#composition-questions-required">Composition questions (required)</a></li>
+  <ul>
+  <li><a href="#q1">Question 1: Composition: summation</a></li>
+  <li><a href="#q2">Question 2: Composition: is_positive</a></li>
+</ul>
+
+  <li><a href="#required-questions">Required questions</a></li>
+  <ul>
+  <li><a href="#doctest-functions">Doctest functions</a></li>
+  <li><a href="#q3">Question 3: Piecewise</a></li>
+  <li><a href="#q4">Question 4: Product</a></li>
+  <li><a href="#q5">Question 5: Accumulate</a></li>
+  <li><a href="#q6">Question 6: Repeated</a></li>
+</ul>
+
+  <li><a href="#extra-questions">Extra questions</a></li>
+  <ul>
+  <li><a href="#q7">Question 7: Church numerals</a></li>
+</ul>
+
+</ul>
+
+    </nav>
+  </div>
+
+</div>
+    </div>
+  </body>
+  <script>
+  $('.sidebar ul').addClass('nav nav-stacked');
+  $('body').scrollspy({
+    target: '.sidebar',
+    offset: 40
+  });
+</script>
+
+</html>

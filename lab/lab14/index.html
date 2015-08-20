@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="description" content ="CS61A: Structure and Interpretation of Computer Programs" />
+    <meta name="keywords" content ="CS61A, Computer Science, CS, 61A, Programming, John DeNero, Berkeley, EECS" />
+    <meta name="author" content ="Albert Wu, Robert Huang, Alfonso Martinez, Cale Horeff, Chris Le, Colin Schoen, Derrick Lin, Jeffrey Lu, Jessica Gu, Rohit Lalchandani, Tammy Nguyen, Will Jiang, Yulin Zheng" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width">
+
+    <script src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
+    <link rel="icon" href="/assets/images/favicon.ico">
+
+    <link rel="stylesheet" href="/assets/css/mono-blue.css">
+    <script src="/assets/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    <link rel="stylesheet" type="text/css" href="/assets/css/resource.css" />
+<link rel="stylesheet" type="text/css" href="/assets/css/lab.css" />
+
+
+    <title>Lab 14: Spark | CS 61A Summer 2015</title>
+
+  </head>
+
+  <body id="index" class="home">
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-section">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">CS 61A</a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="navbar-collapse-section">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/">Calendar</a></li>
+            <li><a href="/office-hours.html">Office Hours</a></li>
+            <li><a href="/tutoring.html">Tutoring</a></li>
+
+            <li><a href="/articles/using-ok.html">Using OK</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Course Info <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="/articles/about.html">Syllabus</a></li>
+                <li><a href="/staff.html">Staff</a></li>
+                <li><a href="/weekly.html">Weekly Schedule</a></li>
+              </ul>
+            </li>
+
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div id="content" class="container">
+      <div class='row'>
+  <div class='col-md-9'>
+    <div class='page-header'>
+      <h1><span class="content-title-brand">Lab 14</span>: Spark</h1>
+    </div>
+
+    <p><i>Due at 11:59pm on 08/06/2015.</i></p>
+
+<h2 id='starter-files'>Starter Files</h2>
+
+<p>Download <a href="lab14.zip">lab14.zip</a>.
+Inside the archive, you will find starter files for the questions in this lab,
+  along with a copy of the <a href="ok">OK</a> autograder.</p>
+
+<h2 id='submission'>Submission</h2>
+
+<p>By the end of this lab, you should have submitted the lab with
+<code>python3 ok --submit</code>. You may submit more than once before the
+deadline; only the final submission will be graded.</p>
+
+
+<ul>
+  <li>You do not need to submit anything for this lab.</li>
+</ul>
+
+
+    
+
+
+<h2 id="setting-up-spark-and-ec2">Setting up Spark and EC2</h2>
+
+
+
+<h3 id="launching-ec2-instances">Launching EC2 Instances</h3>
+
+
+<p>To get started, we will need to launch EC2 instances. First download <a href="https://piazza.com/class/i9yw3s5t8k63ge?cid=770">the
+authentication keys from
+Piazza</a>. Move the zip archive
+into your <code>lab14</code> folder and then extract the files. You should now have
+<code>credentials.csv</code> and <code>cs61a</code>. You may need to move these two files into
+the <code>lab14</code> folder.</p>
+
+<p>Next, edit the <code>email.txt</code> file and add your email address to it. <!-- Also edit the
+<code>region.py</code> file. The default region is <code>&#x27;us&#x2d;west&#x2d;2&#x27;</code>. Because of limits on the
+number of instances we can start, try changing the region to
+<code>&#x27;us&#x2d;east&#x2d;1&#x27;</code>
+<code>&#x27;us&#x2d;west&#x2d;1&#x27;</code>
+<code>&#x27;us&#x2d;west&#x2d;2&#x27;</code>
+<code>&#x27;eu&#x2d;west&#x2d;1&#x27;</code>
+--></p>
+
+<p>If a certain region hits the limit on the number of clusters, try another
+region. But before you do, make sure you terminate your cluster with <code>python3
+run_spark.py &#x2d;&#x2d;destroy</code>.</p>
+
+<p>Now we will start four EC2 instances. This process will take a long time (at
+least 5 minutes). <strong>Do not terminate the launching process while it is in
+progress.</strong> The launching script will install Spark onto each of the instances.
+Use:</p>
+
+<pre><code>python3 run_spark.py &#x2d;&#x2d;launch</code></pre>
+
+
+<h3 id="viewing-the-web-gui">Viewing the Web GUI</h3>
+
+
+<p>Spark automatically creates a website that you can visit to check the status of
+your cluster, and the progress for a particular job. Use:</p>
+
+<pre><code>python3 run_spark.py &#x2d;&#x2d;website</code></pre>
+
+<p>No jobs are currently running, so the jobs website will not load. However, once
+we start launching programs in this lab, the website will show progress
+information.</p>
+
+
+<h3 id="downloading-the-dataset">Downloading the Dataset</h3>
+
+
+<p>Once the instances have launched, we will need to download the dataset onto
+them. Use:</p>
+
+<pre><code>python3 run_spark.py &#x2d;&#x2d;download_dataset</code></pre>
+
+
+<h3 id="terminating-ec2-instances">Terminating EC2 Instances</h3>
+
+
+<p><strong>After you have finished the lab, you must terminate the EC2 instances.</strong> We
+are billed at an hourly rate. Use:</p>
+
+<pre><code>python3 run_spark.py &#x2d;&#x2d;destroy</code></pre>
+
+
+<h2 id="mapreduce">MapReduce</h2>
+
+
+<p>In this lab, we'll be working with MapReduce, a programming paradigm
+developed by Google, which allows a programmer to process large amounts
+of data in parallel on many computers.</p>
+
+<p>A computation in MapReduce consists two components: the <strong>mapper</strong> and
+the <strong>reducer</strong>.</p>
+
+<ul>
+  <li>The <strong>mapper</strong> takes an input file, and outputs a series of
+  key-value pairs:</li>
+  <li><p>The <strong>reducer</strong> takes the (sorted) output from the mapper, and
+  outputs a single value for each key. The mapper's output will be
+  sorted according to the key.</p>
+
+<pre><code>age 29
+name cecilia
+job gradstudent
+salary 42</code></pre>
+
+  <p>In the example above, the key-value pairs are:</p>
+
+  <ul>
+    <li>age: 29</li>
+    <li>name: cecilia</li>
+    <li>job: gradstudent</li>
+    <li>salary: 42</li>
+  </ul></li>
+</ul>
+
+<p>The following diagram summarizes the entire MapReduce pipeline:</p>
+
+<p><img class="img-responsive center-block" src="assets/mapreduce_diag.png" alt="Mapreduce Diagram"></p>
+
+
+<h2 id="spark-and-ec2">Spark and EC2</h2>
+
+
+<p><a href="https://spark.apache.org/research.html">Spark</a> is a framework that builds on
+MapReduce. The <a href="http://amplab.cs.berkeley.edu">AMPLab</a> first developed this
+system to improve an open source implementation of MapReduce,
+<a href="https://hadoop.apache.org/">Hadoop</a>. In this lab, we will run Spark on <a href="https://aws.amazon.com/ec2/">Amazon
+EC2</a> instances, which will demonstrate how you can
+write programs that can harness parallel processing. EC2, or Elastic Compute
+Cloud, allows customers to rent servers for their own use. We will rent a couple
+servers on a hourly basis. (We are paying for this, so please do not waste
+resources.)</p>
+
+
+<h2 id="yelp-academic-dataset-analysis">Yelp Academic Dataset Analysis</h2>
+
+
+<p>In this section, we introduce the framework for mappers and reducers in Spark.
+We will be analyzing the Yelp academic dataset that was used in the maps
+project.</p>
+
+
+<h3 id="example-counting-reviews">Example: Counting Reviews</h3>
+
+
+<p>Our first exercise will be counting the number of reviews for each distinct
+restaurant in our dataset, which is a sequence of <code>review</code>s. A <code>review</code> contains
+the following attributes:</p>
+
+<ul>
+  <li><code>review.text</code>: The text of the review.</li>
+  <li><code>review.stars</code>: The number of stars the user gave the restaurant. It is an
+  integer from 1 to 5 (inclusive).</li>
+  <li><code>review.business_id</code>: A unique restaurant identifier, such as
+  <code>1CBs84C&#x2d;a&#x2d;cuA3vncXVSAw</code> (La Val's Pizza).</li>
+</ul>
+
+<p>To formulate this as a MapReduce problem, we need to define an appropriate
+<code>mapper</code> and <code>reducer</code> function.</p>
+
+<p>Recall what the <strong>mapper</strong> does: for each review in our dataset, the mapper
+outputs a key-value pair. The mapper function takes in one review at a time.
+What should our key-value pairs be for our example?</p>
+
+<ul>
+  <li><strong>key</strong>: To group our data by restaurants we will use the <code>business_id</code> of
+  each review as our key</li>
+  <li><strong>value</strong>: To count each line exactly once we will use 1 as our value</li>
+</ul>
+
+<p>For example, for the following dataset</p>
+
+<pre><code>Review(&#x27;I hate the food here. Avoid at all costs.&#x27;, 1, &#x27;id1&#x27;)
+Review(&#x27;So good. #icanteven&#x27;, 5, &#x27;id1&#x27;)
+Review(&#x27;This place is good. Sometimes.&#x27;, 3, &#x27;id2&#x27;)
+Review(&#x27;What kind of restaurant only serves one type of pizza?!?&#x27;, 2, &#x27;id3&#x27;)
+Review(&#x27;They make some awesome pizza here. One type a day.&#x27;, 4, &#x27;id3&#x27;)</code></pre>
+
+<p>(notice there are 5 reviews); it then outputs a sequence of key-value
+pairs like this:</p>
+
+<pre><code>(&#x27;id1&#x27;, 1)
+(&#x27;id1&#x27;, 1)
+(&#x27;id2&#x27;, 1)
+(&#x27;id3&#x27;, 1)
+(&#x27;id3&#x27;, 1)</code></pre>
+
+<p>During the reducing step, we combine all values that share the same key
+together using the <strong>reducer</strong>. The reducer is a combining function that takes
+in two values that are associated with the same key. It should return a single
+value. Spark will repeatedly call the reducer is the values until they have been
+reduced to a single value. The output of the step will be a sequence of
+key-value pairs, where the value is the result of the reducing step.</p>
+
+<pre><code>(&#x27;id1&#x27;, 2)
+(&#x27;id2&#x27;, 1)
+(&#x27;id3&#x27;, 2)</code></pre>
+
+<!-- <img class="img-responsive center-block" src="assets/mapreduce_linecount.png" alt="Linecount example"> -->
+<!-- Change img to match yelp -->
+
+<p>Let's examine the code for our mapper and reducer. The code is provided in
+<code>yelp/count_reviews.py</code>. You can run the example by using</p>
+
+<pre><code>python3 run_spark.py &#x2d;&#x2d;count_reviews</code></pre>
+
+<p>This will copy the scripts to the EC2 instances. It will then shard the data and
+process them in parallel. The output will be saved to a file
+<code>spark&#x2d;count&#x2d;reviews.out/part&#x2d;00000</code>.</p>
+
+<h3 class="question" id="q1">Question 1: Counting Stars</h3>
+
+<p>Now let's count how many reviews have a certain rating. For example, how many
+4-starred ratings are there? Write a mapper and a reducer to calculate this.
+Think about what the keys and the values represent. You will need to edit the
+<code>count_by_stars.py</code> file.</p>
+
+
+
+<pre><code>def mapper(review):
+<div class="alt 0">    "*** YOUR CODE HERE ***"
+    return None # REPLACE THIS LINE
+</div><div class="solution 0">&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x28;&#x72;&#x65;&#x76;&#x69;&#x65;&#x77;&#x2e;&#x73;&#x74;&#x61;&#x72;&#x73;&#x2c;&#x20;&#x31;&#x29;</div>
+def reducer(val1, val2):
+<div class="alt 0">    "*** YOUR CODE HERE ***"
+    return None # REPLACE THIS LINE
+</div><div class="solution 0">&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x76;&#x61;&#x6c;&#x31;&#x20;&#x2b;&#x20;&#x76;&#x61;&#x6c;&#x32;</div></code></pre>
+
+
+    <button id='0' class='toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+<p>To test your code, run</p>
+
+<pre><code>python3 run_spark.py &#x2d;&#x2d;count_by_stars</code></pre>
+
+<p>The output will be in <code>spark&#x2d;count&#x2d;by&#x2d;stars.out/part&#x2d;00000</code>. It should look
+something like this</p>
+
+<pre><code>(2, 1950)
+(4, 6395)
+(1, 1054)
+(3, 3989)
+(5, 4008)</code></pre>
+
+<h3 class="question" id="q2">Question 2: Counting Stars in SQL</h3>
+
+<p>Now let's use a simple SQL query to do the same computation: counting the number
+of reviews that have a certain rating. You will need to edit the
+<code>count_by_stars_sql.py</code> file.</p>
+
+
+
+<pre><code>def sql_query():
+<div class="alt 1">    "*** YOUR CODE HERE ***"
+    return &#x27;YOUR SQL QUERY HERE&#x27;
+</div><div class="solution 1">&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x27;&#x53;&#x45;&#x4c;&#x45;&#x43;&#x54;&#x20;&#x73;&#x74;&#x61;&#x72;&#x73;&#x2c;&#x20;&#x63;&#x6f;&#x75;&#x6e;&#x74;&#x28;&#x2a;&#x29;&#x20;&#x46;&#x52;&#x4f;&#x4d;&#x20;&#x72;&#x65;&#x76;&#x69;&#x65;&#x77;&#x73;&#x20;&#x47;&#x52;&#x4f;&#x55;&#x50;&#x20;&#x42;&#x59;&#x20;&#x73;&#x74;&#x61;&#x72;&#x73;&#x27;</div></code></pre>
+
+
+    <button id='1' class='toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+<p>To test your code, run</p>
+
+<pre><code>python3 run_spark.py &#x2d;&#x2d;count_by_stars_sql</code></pre>
+
+<p>The output will be in <code>spark&#x2d;count&#x2d;by&#x2d;stars&#x2d;sql.out/part&#x2d;00000</code>. It should look
+something like this</p>
+
+<pre><code>Row(stars=1, c1=1054)
+Row(stars=2, c1=1950)
+Row(stars=3, c1=3989)
+Row(stars=4, c1=6395)
+Row(stars=5, c1=4008)</code></pre>
+
+<h3 class="question" id="q3">Question 3: Analyzing Positivity</h3>
+
+<p>We will now try to analyze how "positive" certain words are. Positive words,
+such as "good", "excellent", "delicious", should appear in positive ratings more
+frequently than in negative ratings. We will rank positivity using a number
+scale from 1 to 5, where 1 represents negative words, and 5 represents positive
+words.</p>
+
+<p>To do so, we will analyze each unique word in a review. The mapper should output
+a list of (key, value) pairs, where the key is a word, and the value is the
+number of stars associated with the review. For example:</p>
+
+<pre><code>Review(&#x27;this is good&#x27;, 5, &#x27;id1&#x27;) =&gt; [(&#x27;this&#x27;, 5), (&#x27;is&#x27;, 5), (&#x27;good&#x27;, 5)]
+Review(&#x27;this is bad&#x27;, 2, &#x27;id1&#x27;)  =&gt; [(&#x27;this&#x27;, 2), (&#x27;is&#x27;, 2), (&#x27;bad&#x27;, 2)]</code></pre>
+
+<p>The reducer will take in a sequence of values associated with the same key. For
+example, one reducer call might take in all of the ratings associated with the
+word "this". The reducer will then combine all of the values by taking the
+average. Continuing the same example:</p>
+
+<pre><code>(&#x27;this&#x27;, [5, 2]) =&gt; 3.5
+(&#x27;is&#x27;, [5, 2]) =&gt; 3.5
+(&#x27;good&#x27;, [5]) =&gt; 5
+(&#x27;bad&#x27;, [2]) =&gt; 2</code></pre>
+
+
+
+<pre><code>def mapper(review):
+    words = list(set(REGEX.sub(&#x27; &#x27;, review.text.lower()).split()))
+<div class="alt 2">    "*** YOUR CODE HERE ***"
+    return [(KEY, VALUE) for word in words]
+</div><div class="solution 2">&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x5b;&#x28;&#x77;&#x6f;&#x72;&#x64;&#x2c;&#x20;&#x72;&#x65;&#x76;&#x69;&#x65;&#x77;&#x2e;&#x73;&#x74;&#x61;&#x72;&#x73;&#x29;&#x20;&#x66;&#x6f;&#x72;&#x20;&#x77;&#x6f;&#x72;&#x64;&#x20;&#x69;&#x6e;&#x20;&#x77;&#x6f;&#x72;&#x64;&#x73;&#x5d;</div>
+def reducer(values):
+<div class="alt 2">    "*** YOUR CODE HERE ***"
+    return 0 # REPLACE THIS LINE
+</div><div class="solution 2">&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x61;&#x76;&#x67;&#x28;&#x76;&#x61;&#x6c;&#x75;&#x65;&#x73;&#x29;</div></code></pre>
+
+
+    <button id='2' class='toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+<p>To test your code, use</p>
+
+<pre><code>python3 run_spark.py &#x2d;&#x2d;analyze_positivity</code></pre>
+
+<p>The output will be in <code>spark&#x2d;analyze&#x2d;positivity&#x2d;out/part&#x2d;00000</code>. It should look
+something like this</p>
+
+<pre><code>(u&#x27;awesome&#x27;, 4.1554524361948957)
+(u&#x27;so&#x27;, 3.5585770983389682)
+(u&#x27;into&#x27;, 3.5268373245251858)
+(u&#x27;salads&#x27;, 3.666015625)</code></pre>
+
+<h3 class="question" id="q4">Question 4: Extra for Experts</h3>
+
+<p>We can now use the calculated word positivities to try to predict the star
+ratings for each review in the much larger Yelp academic dataset. For each
+review, we'll analyze the unique words in the text. We'll use the average
+positivity value of the words to rate each review.</p>
+
+<p>You will need to modify the <code>predict_ratings.py</code> file. The mapper and reducer
+will be the same as in <code>analyze_positivity.py</code>. You will only need to define the
+<code>predictor</code> function. The predictor takes in a review and returns three values:
+the review's text, its actual rating, and your predicted rating.</p>
+
+
+
+<pre><code>def mapper(review):
+    words = set(REGEX.sub(&#x27; &#x27;, review.text.lower()).split())
+<div class="alt 3">    "*** YOUR CODE HERE ***"
+    return # COPY FROM PREVIOUS QUESTION
+</div><div class="solution 3">&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x5b;&#x28;&#x77;&#x6f;&#x72;&#x64;&#x2c;&#x20;&#x72;&#x65;&#x76;&#x69;&#x65;&#x77;&#x2e;&#x73;&#x74;&#x61;&#x72;&#x73;&#x29;&#x20;&#x66;&#x6f;&#x72;&#x20;&#x77;&#x6f;&#x72;&#x64;&#x20;&#x69;&#x6e;&#x20;&#x77;&#x6f;&#x72;&#x64;&#x73;&#x5d;</div>
+def reducer(values):
+<div class="alt 3">    "*** YOUR CODE HERE ***"
+    return # COPY FROM PREVIOUS QUESTION
+</div><div class="solution 3">&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x61;&#x76;&#x67;&#x28;&#x76;&#x61;&#x6c;&#x75;&#x65;&#x73;&#x29;</div>
+def make_predictor(positivities):
+    def predictor(review):
+        words = set(REGEX.sub(&#x27; &#x27;, review.text.lower()).split())
+<div class="alt 3">        "*** YOUR CODE HERE ***"
+        return (KEY, VALUE) # REPLACE THIS LINE
+</div><div class="solution 3">&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x72;&#x65;&#x74;&#x75;&#x72;&#x6e;&#x20;&#x28;&#x72;&#x65;&#x76;&#x69;&#x65;&#x77;&#x2e;&#x74;&#x65;&#x78;&#x74;&#x2c;&#x20;&#x72;&#x65;&#x76;&#x69;&#x65;&#x77;&#x2e;&#x73;&#x74;&#x61;&#x72;&#x73;&#x2c;&#x20;&#x61;&#x76;&#x67;&#x28;&#x70;&#x6f;&#x73;&#x69;&#x74;&#x69;&#x76;&#x69;&#x74;&#x69;&#x65;&#x73;&#x5b;&#x77;&#x5d;&#x20;&#x66;&#x6f;&#x72;&#x20;&#x77;&#x20;&#x69;&#x6e;&#x20;&#x77;&#x6f;&#x72;&#x64;&#x73;&#x20;&#x69;&#x66;&#x20;&#x77;&#x20;&#x69;&#x6e;&#x20;&#x70;&#x6f;&#x73;&#x69;&#x74;&#x69;&#x76;&#x69;&#x74;&#x69;&#x65;&#x73;&#x29;&#x29;</div>    return predictor</code></pre>
+
+
+    <button id='3' class='toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+<p>To test your code, use</p>
+
+<pre><code>python3 run_spark.py &#x2d;&#x2d;predict_ratings</code></pre>
+
+<p>The output will be in <code>spark&#x2d;predict&#x2d;ratings.out/part&#x2d;00000</code>. The first column
+contains the reviews' texts. The second column represents the actual ratings.
+The last column represents your predicted ratings. The closer the numbers the
+better. It should look something like:</p>
+
+<pre><code>(u&quot;I&#x27;m a fan of soft serve ...&quot;, 5.0, 4.1235340109460514)
+(u&quot;Pretty great!  Okay, so this place ...)&quot;, 4.0, 3.6952811547386157)
+(u&#x27;The Tale of the 4&#x2d;Starred, Up Close and Personal Bar...&#x27;, 4.0, 3.0033519553072625)</code></pre>
+
+
+<h2 id="terminating-ec2-instances">Terminating EC2 Instances</h2>
+
+
+<p>We hope you enjoyed the lab. Please terminate your EC2 instances to save costs.
+Use</p>
+
+<pre><code>python3 run_spark.py &#x2d;&#x2d;destroy</code></pre>
+
+  </div>
+
+  <div class='col-md-3'>
+    <nav class='hidden-print hidden-sm hidden-xs sidebar'>
+      <ul>
+  <li><a href="#setting-up-spark-and-ec2">Setting up Spark and EC2</a></li>
+  <ul>
+  <li><a href="#launching-ec2-instances">Launching EC2 Instances</a></li>
+  <li><a href="#viewing-the-web-gui">Viewing the Web GUI</a></li>
+  <li><a href="#downloading-the-dataset">Downloading the Dataset</a></li>
+  <li><a href="#terminating-ec2-instances">Terminating EC2 Instances</a></li>
+</ul>
+
+  <li><a href="#mapreduce">MapReduce</a></li>
+  <li><a href="#spark-and-ec2">Spark and EC2</a></li>
+  <li><a href="#yelp-academic-dataset-analysis">Yelp Academic Dataset Analysis</a></li>
+  <ul>
+  <li><a href="#example-counting-reviews">Example: Counting Reviews</a></li>
+  <li><a href="#q1">Question 1: Counting Stars</a></li>
+  <li><a href="#q2">Question 2: Counting Stars in SQL</a></li>
+  <li><a href="#q3">Question 3: Analyzing Positivity</a></li>
+  <li><a href="#q4">Question 4: Extra for Experts</a></li>
+</ul>
+
+  <li><a href="#terminating-ec2-instances">Terminating EC2 Instances</a></li>
+</ul>
+
+    </nav>
+  </div>
+
+</div>
+    </div>
+  </body>
+  <script>
+  $('.sidebar ul').addClass('nav nav-stacked');
+  $('body').scrollspy({
+    target: '.sidebar',
+    offset: 40
+  });
+</script>
+<script src="//code.jquery.com/jquery-latest.js"></script>
+<script>
+  $(function() {
+    if (false) {
+      $('.toggleButton').css('display', 'inline-block');
+      $('.toggleButton').click(function() {
+        var solution_id = $(this).attr('id');
+        $('div.' + solution_id).slideToggle(600);
+      });
+    }
+    // Always display these toggle buttons
+    $('.toggleButtonShow').click(function() {
+      var solution_id = $(this).attr('id');
+      $('div.' + solution_id).slideToggle(600);
+    });
+  });
+</script>
+</html>

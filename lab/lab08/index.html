@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="description" content ="CS61A: Structure and Interpretation of Computer Programs" />
+    <meta name="keywords" content ="CS61A, Computer Science, CS, 61A, Programming, John DeNero, Berkeley, EECS" />
+    <meta name="author" content ="Albert Wu, Robert Huang, Alfonso Martinez, Cale Horeff, Chris Le, Colin Schoen, Derrick Lin, Jeffrey Lu, Jessica Gu, Rohit Lalchandani, Tammy Nguyen, Will Jiang, Yulin Zheng" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width">
+
+    <script src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
+    <link rel="icon" href="/assets/images/favicon.ico">
+
+    <link rel="stylesheet" href="/assets/css/mono-blue.css">
+    <script src="/assets/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    <link rel="stylesheet" type="text/css" href="/assets/css/resource.css" />
+<link rel="stylesheet" type="text/css" href="/assets/css/lab.css" />
+
+
+    <title>Lab 08: OOP | CS 61A Summer 2015</title>
+
+  </head>
+
+  <body id="index" class="home">
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-section">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">CS 61A</a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="navbar-collapse-section">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/">Calendar</a></li>
+            <li><a href="/office-hours.html">Office Hours</a></li>
+            <li><a href="/tutoring.html">Tutoring</a></li>
+
+            <li><a href="/articles/using-ok.html">Using OK</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Course Info <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="/articles/about.html">Syllabus</a></li>
+                <li><a href="/staff.html">Staff</a></li>
+                <li><a href="/weekly.html">Weekly Schedule</a></li>
+              </ul>
+            </li>
+
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div id="content" class="container">
+      <div class='row'>
+  <div class='col-md-9'>
+    <div class='page-header'>
+      <h1><span class="content-title-brand">Lab 08</span>: OOP</h1>
+    </div>
+
+    <p><i>Due at 11:59pm on 07/16/2015.</i></p>
+
+<h2 id='starter-files'>Starter Files</h2>
+
+<p>Download <a href="lab08.zip">lab08.zip</a>.
+Inside the archive, you will find starter files for the questions in this lab,
+  along with a copy of the <a href="ok">OK</a> autograder.</p>
+
+<h2 id='submission'>Submission</h2>
+
+<p>By the end of this lab, you should have submitted the lab with
+<code>python3 ok --submit</code>. You may submit more than once before the
+deadline; only the final submission will be graded.</p>
+
+
+
+<p>To receive credit for this lab, you must complete the following:</p>
+
+<ul>
+  <li>Unlock Question 1 (What would Python print?)</li>
+  <li>Complete Questions 2 in <code>data.py</code></li>
+  <li>Complete Questions 3, 4, and 5 in <code>classses.py</code></li>
+</ul>
+
+
+    
+
+<p>In this lab, you will use <strong>Object-oriented programming</strong> (OOP) &mdash; a style of
+programming that allows you to think of code in terms of "objects" &mdash; to build a
+text-based adventure game!</p>
+
+
+<h2 id="prologue">Prologue</h2>
+
+
+<p>It's the day of the CS 61A potluck, and Robert needs to buy food for the
+potluck. It would be really convenient if he could drive a car; after all,
+there's a lot of food to carry!</p>
+
+<p>In <code>car.py</code>, you'll find a class called <code>Car</code>. Remember that a <strong>class</strong> is a
+blueprint for how to create objects of that type; in this case, the <code>Car</code> class
+tells us how to to create create <code>Car</code> objects.</p>
+
+<p>Let's build Robert a car. Don't worry, you won't need to do any physical work,
+the <strong>constructor</strong> will do it for you. A class's <strong>constructor</strong> is a function
+that builds an instance of the class. In Python, the constructor is called the
+<code>__init__</code>. There must be two underscores on each side of <code>init</code>. The <code>Car</code> class's constructor looks like this:</p>
+
+<pre><code>def __init__(self, model_type):
+    self.wheels = Car.num_wheels
+    self.color = &quot;No color yet. You need to paint me.&quot;
+    self.model = model_type</code></pre>
+
+<p>Let's make our car. First, open up the Python interpreter and load <code>car.py</code>:</p>
+
+<pre><code>python3 &#x2d;i car.py</code></pre>
+
+<p>Robert would like to drive a Tesla. Try constructing an instance of the <code>Car</code>
+class with the following::</p>
+
+<pre><code>roberts_car = Car(&quot;Tesla&quot;)</code></pre>
+
+<p>An <strong>object</strong> is an instance of a class.  In this case,<code>roberts_car</code> is an
+instance of the <code>Car</code> class.</p>
+
+<p>That's cool and all, but what color is my car?</p>
+
+<p>We'll use an <strong>attribute</strong> of the class. An attribute is a quality of the
+object: cars have wheels and color, so we have given our <code>Car</code> class
+<code>self.wheels</code> and <code>self.color</code> attributes. We can access attributes using <em>dot
+notation</em>. What does the following print in the interpreter?</p>
+
+<pre><code>roberts_car.color</code></pre>
+
+<p>Look's like we need to paint it.</p>
+
+<p>Let's use the <code>paint</code> method. <strong>Methods</strong> are functions that are bound to an
+object. Think of methods as "verbs" of the class. Cars can <em>drive</em> so we have
+given our <code>Car</code> class the method <code>drive</code>. Try out the following in the
+interpreter:</p>
+
+<pre><code>roberts_car.paint(&quot;Black&quot;)
+roberts_car.color</code></pre>
+
+<p>Awesome! But why don't I need to input two arguments? The car constructor should
+take in <code>self</code> and <code>model</code>, but I only passed in <code>model</code>, and it worked. <em>Why?</em></p>
+
+<p>In Python, the <em>dot notation</em> implicitly passes in <code>roberts_car</code> as <code>self</code>.
+When a method is called, <code>self</code> is bound to an instance of the class.</p>
+
+<h3 class="question" id="q1">Question 1: What would Python print?</h3>
+
+<blockquote><p>Use OK to test your knowledge with the following What would Python print
+questions:</p>
+
+<pre><code>python3 ok &#x2d;q car &#x2d;u</code></pre></blockquote>
+
+
+    <pre><code>&gt;&gt;&gt; roberts_car = Car(&quot;Tesla&quot;)
+&gt;&gt;&gt; roberts_car.model
+<div class="alt 4">______</div><div class="solution 4">&#x27;&#x54;&#x65;&#x73;&#x6c;&#x61;&#x27;</div></code></pre>
+
+    <button id='4' class='toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+
+    <pre><code>&gt;&gt;&gt; Car.headlights
+<div class="alt 5">______</div><div class="solution 5">&#x32;</div>
+&gt;&gt;&gt; roberts_car.headlights
+<div class="alt 5">______</div><div class="solution 5">&#x32;</div>
+&gt;&gt;&gt; Car.headlights = 3
+&gt;&gt;&gt; roberts_car.headlights
+<div class="alt 5">______</div><div class="solution 5">&#x33;</div>
+&gt;&gt;&gt; roberts_car.headlights = 2
+&gt;&gt;&gt; Car.headlights
+<div class="alt 5">______</div><div class="solution 5">&#x33;</div></code></pre>
+
+    <button id='5' class='toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+
+    <pre><code>&gt;&gt;&gt; roberts_car.wheels = 2
+&gt;&gt;&gt; roberts_car.wheels
+<div class="alt 6">______</div><div class="solution 6">&#x32;</div>
+&gt;&gt;&gt; Car.num_wheels
+<div class="alt 6">______</div><div class="solution 6">&#x34;</div>
+&gt;&gt;&gt; roberts_car.drive()
+<div class="alt 6">______</div><div class="solution 6">&#x27;&#x54;&#x65;&#x73;&#x6c;&#x61;&#x20;&#x63;&#x61;&#x6e;&#x6e;&#x6f;&#x74;&#x20;&#x64;&#x72;&#x69;&#x76;&#x65;&#x21;&#x27;</div></code></pre>
+
+    <button id='6' class='toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+
+<h2 id="variables">Variables</h2>
+
+
+<p>Before you enter Soda! You must take this chart with you...</p>
+
+<p>With OOP be aware of three types of variables:</p>
+
+<p><strong>Notice: Local variables has two examples</strong></p>
+
+<table class='table table-bordered'>
+    <tr>
+        <th></th>
+        <th>Instance Attributes</th>
+        <th>Class Attributes</th>
+        <th>Local Variable</th>
+    </tr>
+    <tr>
+        <td>Traits</td>
+        <td>- Will be accessible after method calls. <br>
+            - Each instance of a class keeps its own version of the instance attribute
+        </td>
+        <td>- Will be accessible after method calls. <br>
+            - All instances of a class will share the same class attributes.
+        </td>
+        <td>- Will not be accessible after method or function calls. <br>
+            - Just like the variables in normal functions.<br>
+        </td>
+    </tr>
+    <tr>
+        <td>Examples</td>
+        <td>
+<pre><code>>>> car1 = Car('red')
+>>> car2 = Car('blue')
+>>> car1.color
+'red'
+>>> car2.color
+'blue'
+>>> car1.color = 'yellow'
+>>> car1.color
+'yellow'
+>>> car2.color
+'blue' </code></pre>
+        </td>
+        <td>
+<pre><code>>>> car1 = Car('red')
+>>> car2 = Car('blue')
+>>> car1.num_wheels
+4
+>>> car2.num_wheels
+4
+>>> Car.num_wheels = 2
+>>> car1.num_wheels
+2
+>>> car2.num_wheels
+2
+</code></pre>
+        </td>
+        <td>
+<pre><code>def __init__(self, model_type):
+    self.wheels = Car.num_wheels
+    self.color = "No color yet.
+    You need to paint me."
+    self.model = model_type
+
+def method(self):
+    x = 5
+</code></pre>
+    </tr>
+    <tr>
+        <td>Explanations</td>
+        <td>
+             We construct two <code>Car</code> instances. Each has its own
+             <code>self.color</code> instance attribute/variable. One is
+             <code>'red'</code>, and the other is <code>'blue'</code>.
+        </td>
+        <td>
+            <code>num_wheels</code> is a class attribute of the <code>Car</code> class.
+        </td> 
+        <td>
+            <code>model_type</code> is a local variable. It is not accessible
+            outside of the <code>__init__</code> method. In contrast,
+            <code>self.model</code> is an instance variable that is accessible
+            everywhere. <code>x</code> is also a local variable.
+        </td>
+    </tr>
+</table>
+
+<p><strong>Note</strong>: Access class attributes by <code>&lt;class name&gt;.&lt;attribute&gt;</code>, such as
+<code>Car.num_wheels</code>, or by <code>&lt;instance&gt;.&lt;attribute&gt;</code>, such as <code>car1.num_wheels</code>.</p>
+
+
+<h2 id="adventure-game">Adventure Game!</h2>
+
+
+<p>In this lab, you will implement a text adventure game. To start the game, type</p>
+
+<pre><code>python3 adventure.py</code></pre>
+
+<p>The ZIP archive provided at the start of lab contains all the starter code.  All
+of your changes will be made to <code>classes.py</code>, although you have to create
+yourself as a player in <code>data.py</code> before implementing anything else.</p>
+
+<ul>
+  <li><code>classes.py</code>: Implementation for classes used in the game</li>
+  <li><code>data.py</code>: All of the objects used in the game</li>
+  <li><code>adventure.py</code>: Interpreter of the game</li>
+</ul>
+
+<h3 class="question" id="q2">Question 2: Who am I?</h3>
+
+<p>It is time for you to enter a world of adventure! First, you need to create
+yourself as a <code>Player</code> object in <code>data.py</code>. Take a look at the <code>Player</code> class in
+<code>classes.py</code> and create a <code>Player</code> object at the bottom of <code>data.py</code>.</p>
+
+<p>The <code>Player</code> constructor takes two arguments:</p>
+
+<ul>
+  <li><code>name</code> should be your preferred name (as a string)</li>
+  <li>the starting <code>place</code></li>
+</ul>
+
+<p>Your <code>Player</code> should start at <code>sather_gate</code>.</p>
+
+
+
+<pre><code># Player:
+# The Player should start at sather_gate.
+<div class="alt 0">me = None
+</div><div class="solution 0">&#x6d;&#x65;&#x20;&#x3d;&#x20;&#x50;&#x6c;&#x61;&#x79;&#x65;&#x72;&#x28;&#x27;&#x53;&#x61;&#x6c;&#x6c;&#x79;&#x27;&#x2c;&#x20;&#x73;&#x61;&#x74;&#x68;&#x65;&#x72;&#x5f;&#x67;&#x61;&#x74;&#x65;&#x29;</div></code></pre>
+
+
+    <button id='0' class='toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+<h3 class="question" id="q3">Question 3: Where do I go?</h3>
+
+<p>Once you've created your player, you can start the adventure game:</p>
+
+<pre><code>python3 adventure.py</code></pre>
+
+<p>You will see the following output:</p>
+
+<pre><code>Welcome to the adventure game!
+
+It&#x27;s a bright sunny day.
+You are a cute little squirrel named [your name],
+wandering around Berkeley campus looking for food.
+
+Let&#x27;s go to FSM (Free Speech Movement Cafe)
+and see what we can find there!
+
+There are 6 possible commands:
+    talk to [character]
+    help
+    take [thing]
+    go to [direction]
+    look
+    check backpack
+
+adventure&gt;</code></pre>
+
+<p>First, we need to be able to go to places. If you try the <code>go</code> command, you'll
+notice it doesn't do anything.</p>
+
+<p>In <code>classes.py</code>, implement the <code>go_to</code> method in the <code>Player</code> class. <code>go_to</code> takes in
+a <code>direction</code> that you want to go to.</p>
+
+<blockquote><p><em>Hint</em>: The <code>exit_to</code> method in <code>Place</code> will return the corresponding <code>Place</code>
+object if <code>direction</code> is among your available exits.  Otherwise, <code>exit_to</code>
+will return the current <code>Place</code>. Take a look at the doctest for more details.</p></blockquote>
+
+
+
+<pre><code>def go_to(self, direction):
+    &quot;&quot;&quot;Go to direction if it&#x27;s among the exits of player&#x27;s current place.
+    &gt;&gt;&gt; sather_gate = Place(&#x27;Sather Gate&#x27;, &#x27;You are at Sather Gate&#x27;, [], [])
+    &gt;&gt;&gt; gbc = Place(&#x27;GBC&#x27;, &#x27;You are at Golden Bear Cafe&#x27;, [], [])
+    &gt;&gt;&gt; sather_gate.add_exits([gbc])
+    &gt;&gt;&gt; gbc.add_exits([sather_gate])
+    &gt;&gt;&gt; me = Player(&#x27;player&#x27;, sather_gate)
+    &gt;&gt;&gt; me.go_to(&#x27;GBC&#x27;)
+    You are at Golden Bear Cafe
+    &gt;&gt;&gt; me.place.name
+    &#x27;GBC&#x27;
+    &gt;&gt;&gt; me.go_to(&#x27;GBC&#x27;)
+    Can&#x27;t go to GBC from GBC.
+    Try looking around to see where to go.
+    &gt;&gt;&gt; me.go_to(&#x27;Sather Gate&#x27;)
+    You are at Sather Gate
+    &quot;&quot;&quot;
+<div class="alt 1">    "*** YOUR CODE HERE ***"
+</div><div class="solution 1">&#x20;&#x20;&#x20;&#x20;&#x73;&#x65;&#x6c;&#x66;&#x2e;&#x70;&#x6c;&#x61;&#x63;&#x65;&#x20;&#x3d;&#x20;&#x73;&#x65;&#x6c;&#x66;&#x2e;&#x70;&#x6c;&#x61;&#x63;&#x65;&#x2e;&#x65;&#x78;&#x69;&#x74;&#x5f;&#x74;&#x6f;&#x28;&#x64;&#x69;&#x72;&#x65;&#x63;&#x74;&#x69;&#x6f;&#x6e;&#x29;</div></code></pre>
+
+
+    <button id='1' class='toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+<p>Use OK to test your code:</p><pre><code>python3 ok -q go_to</code></pre>
+
+<h3 class="question" id="q4">Question 4: How do I talk?</h3>
+
+<p>Now you can go wherever you want! Try going to Wheeler Hall. There, you'll find
+Derrick. Try talking to him with the <code>talk to</code> command. This also doesn't work
+:(</p>
+
+<p>Next, implement the <code>talk_to</code> method in <code>Player</code>. <code>talk_to</code> takes in the name of
+a <code>Character</code> object, and prints out the <code>Character</code>'s response. Take a look at
+the doctest for more details.</p>
+
+<blockquote><p><em>Hint</em>: <code>talk_to</code> takes in an argument <code>person</code>, which is a string. The <code>characters</code>
+instance attribute in <code>self.place</code> is a dictionary mapping <code>Character</code> names
+(strings) to <code>Character</code> objects.</p>
+
+<p>Once you've got the <code>Character</code> object, what method in the <code>Character</code> class
+will make them talk?</p></blockquote>
+
+
+
+<pre><code>def go_to(self, direction):
+    &quot;&quot;&quot;Go to direction if it&#x27;s among the exits of player&#x27;s current place.
+    &gt;&gt;&gt; sather_gate = Place(&#x27;Sather Gate&#x27;, &#x27;You are at Sather Gate&#x27;, [], [])
+    &gt;&gt;&gt; gbc = Place(&#x27;GBC&#x27;, &#x27;You are at Golden Bear Cafe&#x27;, [], [])
+    &gt;&gt;&gt; sather_gate.add_exits([gbc])
+    &gt;&gt;&gt; gbc.add_exits([sather_gate])
+    &gt;&gt;&gt; me = Player(&#x27;player&#x27;, sather_gate)
+    &gt;&gt;&gt; me.go_to(&#x27;GBC&#x27;)
+    You are at Golden Bear Cafe
+    &gt;&gt;&gt; me.place.name
+    &#x27;GBC&#x27;
+    &gt;&gt;&gt; me.go_to(&#x27;GBC&#x27;)
+    Can&#x27;t go to GBC from GBC.
+    Try looking around to see where to go.
+    &gt;&gt;&gt; me.go_to(&#x27;Sather Gate&#x27;)
+    You are at Sather Gate
+    &quot;&quot;&quot;
+<div class="alt 2">    "*** YOUR CODE HERE ***"
+</div><div class="solution 2">&#x20;&#x20;&#x20;&#x20;&#x73;&#x65;&#x6c;&#x66;&#x2e;&#x70;&#x6c;&#x61;&#x63;&#x65;&#x20;&#x3d;&#x20;&#x73;&#x65;&#x6c;&#x66;&#x2e;&#x70;&#x6c;&#x61;&#x63;&#x65;&#x2e;&#x65;&#x78;&#x69;&#x74;&#x5f;&#x74;&#x6f;&#x28;&#x64;&#x69;&#x72;&#x65;&#x63;&#x74;&#x69;&#x6f;&#x6e;&#x29;</div></code></pre>
+
+
+    <button id='2' class='toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+<p>Use OK to test your code:</p><pre><code>python3 ok -q talk_to</code></pre>
+
+<h3 class="question" id="q5">Question 5: How do I take items?</h3>
+
+<p>Now you can talk to people in adventure world! To make it even better, let's
+implement the <code>take</code> method in the <code>Player</code> class. <code>take</code> takes in a <code>Thing</code>
+object and puts it into your <code>backpack</code>.  Currently, you don't have a backpack,
+so let's create an instance variable <code>backpack</code> and initialize it to an empty
+list.</p>
+
+<p>After you've done initialized your empty <code>backpack</code>, take a look at the doctests
+for <code>take</code> and implement the method.</p>
+
+<blockquote><p><em>Hint</em>: the <code>things</code> instance attribute in the <code>Place</code> class is a dictionary
+that maps <code>Thing</code> names (strings) to <code>Thing</code> objects.</p>
+
+<p>The <code>take</code> method in the <code>Place</code> class will also come in handy.</p></blockquote>
+
+
+
+<pre><code>def take(self, thing):
+    &quot;&quot;&quot;Take a thing if thing is at player&#x27;s current place
+    &gt;&gt;&gt; hotdog = Thing(&#x27;Hotdog&#x27;, &#x27;A hot looking hotdog&#x27;)
+    &gt;&gt;&gt; gbc = Place(&#x27;GBC&#x27;, &#x27;You are at Golden Bear Cafe&#x27;, [], [hotdog])
+    &gt;&gt;&gt; me = Player(&#x27;Player&#x27;, gbc)
+    &gt;&gt;&gt; me.backpack
+    []
+    &gt;&gt;&gt; me.take(hotdog)
+    Thing should be a string.
+    &gt;&gt;&gt; me.take(&#x27;dog&#x27;)
+    dog is not here.
+    &gt;&gt;&gt; me.take(&#x27;Hotdog&#x27;)
+    Player takes the Hotdog
+    &gt;&gt;&gt; me.take(&#x27;Hotdog&#x27;)
+    Hotdog is not here.
+    &gt;&gt;&gt; type(me.backpack[0])
+    &lt;class &#x27;__main__.Thing&#x27;&gt;
+    &quot;&quot;&quot;
+    if type(thing) != str:
+        print(&#x27;Thing should be a string.&#x27;)
+<div class="alt 3">    return None   # Replace this line
+</div><div class="solution 3">&#x20;&#x20;&#x20;&#x20;&#x65;&#x6c;&#x69;&#x66;&#x20;&#x74;&#x68;&#x69;&#x6e;&#x67;&#x20;&#x6e;&#x6f;&#x74;&#x20;&#x69;&#x6e;&#x20;&#x73;&#x65;&#x6c;&#x66;&#x2e;&#x70;&#x6c;&#x61;&#x63;&#x65;&#x2e;&#x74;&#x68;&#x69;&#x6e;&#x67;&#x73;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x70;&#x72;&#x69;&#x6e;&#x74;&#x28;&#x74;&#x68;&#x69;&#x6e;&#x67;&#x2c;&#x20;&#x27;&#x69;&#x73;&#x20;&#x6e;&#x6f;&#x74;&#x20;&#x68;&#x65;&#x72;&#x65;&#x2e;&#x27;&#x29;&#xa;&#x20;&#x20;&#x20;&#x20;&#x65;&#x6c;&#x73;&#x65;&#x3a;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x74;&#x61;&#x6b;&#x65;&#x6e;&#x20;&#x3d;&#x20;&#x73;&#x65;&#x6c;&#x66;&#x2e;&#x70;&#x6c;&#x61;&#x63;&#x65;&#x2e;&#x74;&#x61;&#x6b;&#x65;&#x28;&#x74;&#x68;&#x69;&#x6e;&#x67;&#x29;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x70;&#x72;&#x69;&#x6e;&#x74;&#x28;&#x73;&#x65;&#x6c;&#x66;&#x2e;&#x6e;&#x61;&#x6d;&#x65;&#x2c;&#x20;&#x27;&#x74;&#x61;&#x6b;&#x65;&#x73;&#x20;&#x74;&#x68;&#x65;&#x27;&#x2c;&#x20;&#x74;&#x61;&#x6b;&#x65;&#x6e;&#x2e;&#x6e;&#x61;&#x6d;&#x65;&#x29;&#xa;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x73;&#x65;&#x6c;&#x66;&#x2e;&#x62;&#x61;&#x63;&#x6b;&#x70;&#x61;&#x63;&#x6b;&#x2e;&#x61;&#x70;&#x70;&#x65;&#x6e;&#x64;&#x28;&#x74;&#x61;&#x6b;&#x65;&#x6e;&#x29;</div></code></pre>
+
+
+    <button id='3' class='toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+<p>Use OK to test your code:</p><pre><code>python3 ok -q take</code></pre>
+
+<h3 class="question" id="q6">Question 6: Win the game!</h3>
+
+<p>Good job! Now you can explore around campus and try to win the game. Talk to the
+people at different places in order to get hints. Can you save the day and make
+it to the 61A potluck in time?</p>
+
+<p>Enjoy!</p>
+
+
+  </div>
+
+  <div class='col-md-3'>
+    <nav class='hidden-print hidden-sm hidden-xs sidebar'>
+      <ul>
+  <li><a href="#prologue">Prologue</a></li>
+  <ul>
+  <li><a href="#q1">Question 1: What would Python print?</a></li>
+</ul>
+
+  <li><a href="#variables">Variables</a></li>
+  <li><a href="#adventure-game">Adventure Game!</a></li>
+  <ul>
+  <li><a href="#q2">Question 2: Who am I?</a></li>
+  <li><a href="#q3">Question 3: Where do I go?</a></li>
+  <li><a href="#q4">Question 4: How do I talk?</a></li>
+  <li><a href="#q5">Question 5: How do I take items?</a></li>
+  <li><a href="#q6">Question 6: Win the game!</a></li>
+</ul>
+
+</ul>
+
+    </nav>
+  </div>
+
+</div>
+    </div>
+  </body>
+  <script>
+  $('.sidebar ul').addClass('nav nav-stacked');
+  $('body').scrollspy({
+    target: '.sidebar',
+    offset: 40
+  });
+</script>
+<script src="//code.jquery.com/jquery-latest.js"></script>
+<script>
+  $(function() {
+    if (false) {
+      $('.toggleButton').css('display', 'inline-block');
+      $('.toggleButton').click(function() {
+        var solution_id = $(this).attr('id');
+        $('div.' + solution_id).slideToggle(600);
+      });
+    }
+    // Always display these toggle buttons
+    $('.toggleButtonShow').click(function() {
+      var solution_id = $(this).attr('id');
+      $('div.' + solution_id).slideToggle(600);
+    });
+  });
+</script>
+</html>

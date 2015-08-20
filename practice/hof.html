@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="description" content ="CS61A: Structure and Interpretation of Computer Programs" />
+    <meta name="keywords" content ="CS61A, Computer Science, CS, 61A, Programming, John DeNero, Berkeley, EECS" />
+    <meta name="author" content ="Albert Wu, Robert Huang, Alfonso Martinez, Cale Horeff, Chris Le, Colin Schoen, Derrick Lin, Jeffrey Lu, Jessica Gu, Rohit Lalchandani, Tammy Nguyen, Will Jiang, Yulin Zheng" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width">
+
+    <script src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
+    <link rel="icon" href="/assets/images/favicon.ico">
+
+    <link rel="stylesheet" href="/assets/css/mono-blue.css">
+    <script src="/assets/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    <link rel="stylesheet" type="text/css" href="/assets/css/resource.css" />
+<link rel="stylesheet" type="text/css" href="/assets/css/lab.css" />
+
+
+    <title>Practice problems: Higher Order Functions | CS 61A Summer 2015</title>
+
+  </head>
+
+  <body id="index" class="home">
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-section">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">CS 61A</a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="navbar-collapse-section">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/">Calendar</a></li>
+            <li><a href="/office-hours.html">Office Hours</a></li>
+            <li><a href="/tutoring.html">Tutoring</a></li>
+
+            <li><a href="/articles/using-ok.html">Using OK</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Course Info <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="/articles/about.html">Syllabus</a></li>
+                <li><a href="/staff.html">Staff</a></li>
+                <li><a href="/weekly.html">Weekly Schedule</a></li>
+              </ul>
+            </li>
+
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div id="content" class="container">
+      <div class='row'>
+  <div class='col-md-9'>
+    <div class='page-header'>
+      <h1><span class="content-title-brand">Practice problems</span>: Higher Order Functions</h1>
+    </div>
+
+    If you are studying for an exam, or you just want some extra practice with
+concepts in this class, you might find these practice problems helpful!
+
+    
+
+
+<h2 id="easy">Easy</h2>
+
+
+<h3 class="question" id="q1">Question 1</h3>
+
+<p>Draw an environment diagram for the following code:</p>
+
+
+    <pre><code>&gt;&gt;&gt; def adder_maker(x):
+...     def adder(y):
+...         return x + y
+...     return adder
+&gt;&gt;&gt; add3 = adder_maker(3)
+&gt;&gt;&gt; add3(4)
+<div class="alt 1">______</div><div class="solution 1">&#x37;</div>
+&gt;&gt;&gt; sub5 = adder_maker(&#x2d;5)
+&gt;&gt;&gt; sub5(6)
+<div class="alt 1">______</div><div class="solution 1">&#x31;</div>
+&gt;&gt;&gt; sub5(10) == add3(2)
+<div class="alt 1">______</div><div class="solution 1">&#x54;&#x72;&#x75;&#x65;</div></code></pre>
+
+    <button id='1' class='btn btn-default toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+<h3 class="question" id="q2">Question 2</h3>
+
+<p>Draw the environment diagram for the following piece of code</p>
+
+<pre><code>def yak(zebra):
+    return 20 // zebra
+def llama(alpaca):
+    zebra = 0
+    def yak(zebra):
+        return alpaca(zebra)
+    return yak
+
+llama(yak)(4)</code></pre>
+
+
+<h2 id="medium">Medium</h2>
+
+
+<h3 class="question" id="q3">Question 3</h3>
+
+
+    <pre><code>&gt;&gt;&gt; def troy():
+...     abed = 0
+...     while abed &lt; 10:
+...         def britta():
+...             return abed
+...         abed += 1
+...     abed = 20
+...     return britta
+&gt;&gt;&gt; annie = troy()
+&gt;&gt;&gt; def shirley():
+...     return annie
+&gt;&gt;&gt; pierce = shirley()
+&gt;&gt;&gt; pierce()
+<div class="alt 2">______</div><div class="solution 2">&#x32;&#x30;</div></code></pre>
+
+    <button id='2' class='btn btn-default toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+<h3 class="question" id="q4">Question 4</h3>
+
+<p>Consider the following implementations of <code>count_factors</code> and <code>count_primes</code>:</p>
+
+<pre><code>def count_factors(n):
+    &quot;&quot;&quot;Return the number of positive factors that n has.&quot;&quot;&quot;
+    i, count = 1, 0
+    while i &lt;= n:
+        if n % i == 0:
+            count += 1
+        i += 1
+    return count
+
+def count_primes(n):
+    &quot;&quot;&quot;Return the number of prime numbers up to and including n.&quot;&quot;&quot;
+    i, count = 1, 0
+    while i &lt;= n:
+        if is_prime(i):
+            count += 1
+        i += 1
+    return count
+
+def is_prime(n):
+    if n &lt; 2:
+        return False
+    i = 2
+    while i &lt; n:
+        if n % i == 0:
+            return False
+        i += 1
+    return True</code></pre>
+
+<p>Generalize this logic by writing a function <code>count_cond</code>, which takes in a
+two-argument predicate function <code>cond(n, i)</code>. <code>count_cond</code> returns a
+one-argument function that counts all the numbers from 1 to <code>n</code> that satisfy
+<code>cond</code>.</p>
+
+<div class="solution 0">
+
+<pre><code>def count_cond(condition):
+    &quot;&quot;&quot;
+    &gt;&gt;&gt; count_factors = count_cond(lambda n, i: n % i)
+    &gt;&gt;&gt; count_factors(2)
+    2
+    &gt;&gt;&gt; count_factors(4)
+    3
+    &gt;&gt;&gt; count_factors(12)
+    6
+
+    &gt;&gt;&gt; count_primes = count_cond(lambda n, i: is_prime(i))
+    &gt;&gt;&gt; count_primes(2)
+    1
+    &gt;&gt;&gt; count_primes(3)
+    2
+    &gt;&gt;&gt; count_primes(4)
+    2
+    &gt;&gt;&gt; count_primes(5)
+    3
+    &gt;&gt;&gt; count_primes(30)
+    10
+    &quot;&quot;&quot;
+    # BEGIN SOLUTION
+    def counter(n):
+        i, count = 1, 0
+        while i &lt;= n:
+            if condition(n, i):
+                count += 1
+            i += 1
+        return count
+    return counter
+    # BEGIN SOLUTION
+
+def is_prime(n):
+    if n &lt; 2:
+        return False
+    i = 2
+    while i &lt; n:
+        if n % i == 0:
+            return False
+        i += 1
+    return True</code></pre>
+
+</div>
+    <button id='0' class='toggleButton'>
+    Toggle Solution<noscript> (enable JavaScript)</noscript>
+    </button>
+    
+
+<h3 class="question" id="q5">Question 5: Doge</h3>
+
+<p>Draw the following environment diagram:</p>
+
+<pre><code>wow = 6
+def much(wow):
+    if much == wow:
+        such = lambda wow: 5
+        def wow():
+            return such
+        return wow
+    such = lambda wow: 4
+    return wow()
+wow = much(much(much))(wow)</code></pre>
+
+  </div>
+
+  <div class='col-md-3'>
+    <nav class='hidden-print hidden-sm hidden-xs sidebar'>
+      <ul>
+  <li><a href="#easy">Easy</a></li>
+  <ul>
+  <li><a href="#q1">Question 1</a></li>
+  <li><a href="#q2">Question 2</a></li>
+</ul>
+
+  <li><a href="#medium">Medium</a></li>
+  <ul>
+  <li><a href="#q3">Question 3</a></li>
+  <li><a href="#q4">Question 4</a></li>
+  <li><a href="#q5">Question 5: Doge</a></li>
+</ul>
+
+</ul>
+
+    </nav>
+  </div>
+
+</div>
+    </div>
+  </body>
+  <script>
+  $('.sidebar ul').addClass('nav nav-stacked');
+  $('body').scrollspy({
+    target: '.sidebar',
+    offset: 40
+  });
+</script>
+<script src="//code.jquery.com/jquery-latest.js"></script>
+<script>
+  $(function() {
+    $('.toggleButton').css('display', 'inline-block');
+    $('.toggleButton').click(function() {
+      var solution_id = $(this).attr('id');
+      $('div.' + solution_id).slideToggle(600);
+    });
+  });
+</script>
+</html>
